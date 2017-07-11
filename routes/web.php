@@ -12,5 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('admin.pages.dashboard');
+});
+
+
+Route::group(['namespace' => 'Admin', 'as' => 'admin.' ,'prefix' => 'admin'], function($route) {
+    $route->get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@index']);
+    $route->resource('article', 'ArtickleController');
 });
