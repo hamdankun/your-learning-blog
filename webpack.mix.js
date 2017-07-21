@@ -12,4 +12,10 @@ const { mix } = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+   // .sass('resources/assets/sass/app.scss', 'public/css')
+   .styles('resources/assets/css/custom.css', 'public/css/custom.css')
+   .js('resources/assets/js/admin/category.js', 'public/js/category.js')
+   .js('resources/assets/js/admin/artickle.js', 'public/js/artickle.js')
+   .js('resources/assets/js/main.js', 'public/js/main.js')
+   .js('resources/assets/js/utils.js', 'public/js/utils.js')
+   .js('resources/assets/js/datatable-builder.js', 'public/js/datatable-builder.js');

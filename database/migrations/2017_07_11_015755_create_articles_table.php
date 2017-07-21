@@ -15,13 +15,14 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title', 150);
+            $table->string('title', 150)->index();
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->integer('category_id')->unsigned()->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('CASCADE');
             $table->text('content')->nullable();
             $table->text('label')->nullable();
+            $table->string('slug')->index();
             $table->timestamps();
         });
     }

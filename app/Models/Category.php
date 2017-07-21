@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 /**
  * App\Models\Category
@@ -16,8 +17,31 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereUpdatedAt($value)
+ * @property string $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereSlug($value)
  */
 class Category extends Model
 {
-    //
+
+    use Sluggable;
+
+    /**
+     * The fillable columns model
+     * @var array
+     */
+    protected $fillable = ['name', 'slug'];
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
 }

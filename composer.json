@@ -9,9 +9,11 @@
         "artesaos/seotools": "^0.10.0",
         "barryvdh/laravel-debugbar": "^2.4",
         "barryvdh/laravel-ide-helper": "^2.4",
+        "cviebrock/eloquent-sluggable": "^4.2",
         "doctrine/dbal": "^2.5",
         "laravel/framework": "5.4.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "yajra/laravel-datatables-oracle": "^7.9"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

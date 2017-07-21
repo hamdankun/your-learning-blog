@@ -1,316 +1,41 @@
- @extends('admin.layouts.main')
+@extends('admin.layouts.main')
 
- @section('content')
-    <div class="container-fluid">
-        @include('admin.layouts.breadcrumbs')
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-lg-6">
-                <h2>Bordered Table</h2>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Page</th>
-                                <th>Visits</th>
-                                <th>% New Visits</th>
-                                <th>Revenue</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>/index.html</td>
-                                <td>1265</td>
-                                <td>32.3%</td>
-                                <td>$321.33</td>
-                            </tr>
-                            <tr>
-                                <td>/about.html</td>
-                                <td>261</td>
-                                <td>33.3%</td>
-                                <td>$234.12</td>
-                            </tr>
-                            <tr>
-                                <td>/sales.html</td>
-                                <td>665</td>
-                                <td>21.3%</td>
-                                <td>$16.34</td>
-                            </tr>
-                            <tr>
-                                <td>/blog.html</td>
-                                <td>9516</td>
-                                <td>89.3%</td>
-                                <td>$1644.43</td>
-                            </tr>
-                            <tr>
-                                <td>/404.html</td>
-                                <td>23</td>
-                                <td>34.3%</td>
-                                <td>$23.52</td>
-                            </tr>
-                            <tr>
-                                <td>/services.html</td>
-                                <td>421</td>
-                                <td>60.3%</td>
-                                <td>$724.32</td>
-                            </tr>
-                            <tr>
-                                <td>/blog/post.html</td>
-                                <td>1233</td>
-                                <td>93.2%</td>
-                                <td>$126.34</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <h2>Bordered with Striped Rows</h2>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th>Page</th>
-                                <th>Visits</th>
-                                <th>% New Visits</th>
-                                <th>Revenue</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>/index.html</td>
-                                <td>1265</td>
-                                <td>32.3%</td>
-                                <td>$321.33</td>
-                            </tr>
-                            <tr>
-                                <td>/about.html</td>
-                                <td>261</td>
-                                <td>33.3%</td>
-                                <td>$234.12</td>
-                            </tr>
-                            <tr>
-                                <td>/sales.html</td>
-                                <td>665</td>
-                                <td>21.3%</td>
-                                <td>$16.34</td>
-                            </tr>
-                            <tr>
-                                <td>/blog.html</td>
-                                <td>9516</td>
-                                <td>89.3%</td>
-                                <td>$1644.43</td>
-                            </tr>
-                            <tr>
-                                <td>/404.html</td>
-                                <td>23</td>
-                                <td>34.3%</td>
-                                <td>$23.52</td>
-                            </tr>
-                            <tr>
-                                <td>/services.html</td>
-                                <td>421</td>
-                                <td>60.3%</td>
-                                <td>$724.32</td>
-                            </tr>
-                            <tr>
-                                <td>/blog/post.html</td>
-                                <td>1233</td>
-                                <td>93.2%</td>
-                                <td>$126.34</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+@section('content')
+    <div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Article List</h1>
         </div>
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-lg-6">
-                <h2>Basic Table</h2>
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Page</th>
-                                <th>Visits</th>
-                                <th>% New Visits</th>
-                                <th>Revenue</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>/index.html</td>
-                                <td>1265</td>
-                                <td>32.3%</td>
-                                <td>$321.33</td>
-                            </tr>
-                            <tr>
-                                <td>/about.html</td>
-                                <td>261</td>
-                                <td>33.3%</td>
-                                <td>$234.12</td>
-                            </tr>
-                            <tr>
-                                <td>/sales.html</td>
-                                <td>665</td>
-                                <td>21.3%</td>
-                                <td>$16.34</td>
-                            </tr>
-                            <tr>
-                                <td>/blog.html</td>
-                                <td>9516</td>
-                                <td>89.3%</td>
-                                <td>$1644.43</td>
-                            </tr>
-                            <tr>
-                                <td>/404.html</td>
-                                <td>23</td>
-                                <td>34.3%</td>
-                                <td>$23.52</td>
-                            </tr>
-                            <tr>
-                                <td>/services.html</td>
-                                <td>421</td>
-                                <td>60.3%</td>
-                                <td>$724.32</td>
-                            </tr>
-                            <tr>
-                                <td>/blog/post.html</td>
-                                <td>1233</td>
-                                <td>93.2%</td>
-                                <td>$126.34</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <h2>Striped Rows</h2>
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th>Page</th>
-                                <th>Visits</th>
-                                <th>% New Visits</th>
-                                <th>Revenue</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>/index.html</td>
-                                <td>1265</td>
-                                <td>32.3%</td>
-                                <td>$321.33</td>
-                            </tr>
-                            <tr>
-                                <td>/about.html</td>
-                                <td>261</td>
-                                <td>33.3%</td>
-                                <td>$234.12</td>
-                            </tr>
-                            <tr>
-                                <td>/sales.html</td>
-                                <td>665</td>
-                                <td>21.3%</td>
-                                <td>$16.34</td>
-                            </tr>
-                            <tr>
-                                <td>/blog.html</td>
-                                <td>9516</td>
-                                <td>89.3%</td>
-                                <td>$1644.43</td>
-                            </tr>
-                            <tr>
-                                <td>/404.html</td>
-                                <td>23</td>
-                                <td>34.3%</td>
-                                <td>$23.52</td>
-                            </tr>
-                            <tr>
-                                <td>/services.html</td>
-                                <td>421</td>
-                                <td>60.3%</td>
-                                <td>$724.32</td>
-                            </tr>
-                            <tr>
-                                <td>/blog/post.html</td>
-                                <td>1233</td>
-                                <td>93.2%</td>
-                                <td>$126.34</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-lg-6">
-                <h2>Contextual Classes</h2>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th>Page</th>
-                                <th>Visits</th>
-                                <th>% New Visits</th>
-                                <th>Revenue</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="active">
-                                <td>/index.html</td>
-                                <td>1265</td>
-                                <td>32.3%</td>
-                                <td>$321.33</td>
-                            </tr>
-                            <tr class="success">
-                                <td>/about.html</td>
-                                <td>261</td>
-                                <td>33.3%</td>
-                                <td>$234.12</td>
-                            </tr>
-                            <tr class="warning">
-                                <td>/sales.html</td>
-                                <td>665</td>
-                                <td>21.3%</td>
-                                <td>$16.34</td>
-                            </tr>
-                            <tr class="danger">
-                                <td>/blog.html</td>
-                                <td>9516</td>
-                                <td>89.3%</td>
-                                <td>$1644.43</td>
-                            </tr>
-                            <tr>
-                                <td>/404.html</td>
-                                <td>23</td>
-                                <td>34.3%</td>
-                                <td>$23.52</td>
-                            </tr>
-                            <tr>
-                                <td>/services.html</td>
-                                <td>421</td>
-                                <td>60.3%</td>
-                                <td>$724.32</td>
-                            </tr>
-                            <tr>
-                                <td>/blog/post.html</td>
-                                <td>1233</td>
-                                <td>93.2%</td>
-                                <td>$126.34</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <h2>Bootstrap Docs</h2>
-                <p>For complete documentation, please visit <a target="_blank" href="http://getbootstrap.com/css/#tables">Bootstrap's Tables Documentation</a>.</p>
-            </div>
-        </div>
-        <!-- /.row -->
     </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table width="100%" class="table table-striped table-bordered table-hover" id="article">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Title</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('js-var')
+    var _urlAjaxDatatable = '{!! route('admin.datatable.article') !!}';
+    var _baseUrl = '{{ url('/') }}';
+    var _prefixUrl = _baseUrl+'/admin/article';
+@endsection
+
+@section('scripts')
+    <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="/dist/js/sb-admin-2.js"></script>
+    <script src="{{ mix('/js/artickle.js') }}"></script>
 @endsection

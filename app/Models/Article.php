@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 /**
  * App\Models\Article
@@ -24,8 +25,53 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUserId($value)
+ * @property string $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereSlug($value)
  */
 class Article extends Model
 {
-    //
+    use Sluggable;
+
+    /**
+     * The fillable columns model
+     * @var array
+     */
+    protected $fillable = ['title', 'user_id', 'content', 'label', 'slug', 'category_id'];
+
+
+    /**
+     * Set the label array to json
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setLabelAttribute($value)
+    {
+        $this->attributes['label'] = json_encode($value);
+    }
+
+    /**
+     * Set the label json to array
+     *
+     * @param  string  $value
+     * @return array
+     */
+    public function getLabelAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 }
