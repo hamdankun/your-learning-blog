@@ -116,7 +116,7 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $categories = $this->article->pluck('name', 'id');
+        $categories = Category::pluck('name', 'id');
         return $this->findAndSendToView($id, 'update')
                     ->with('categories', $categories)
                     ->with('labels', \App\Models\Label::pluck('name'));

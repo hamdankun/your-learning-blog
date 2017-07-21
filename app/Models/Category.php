@@ -19,6 +19,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereUpdatedAt($value)
  * @property string $slug
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category findSimilarSlugs(\Illuminate\Database\Eloquent\Model $model, $attribute, $config, $slug)
  */
 class Category extends Model
 {

@@ -1,7 +1,7 @@
 @extends('admin.layouts.main')
 
 @section('content')
-    <div id="page-wrapper">
+<div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Article List</h1>
@@ -30,6 +30,7 @@
     var _urlAjaxDatatable = '{!! route('admin.datatable.article') !!}';
     var _baseUrl = '{{ url('/') }}';
     var _prefixUrl = _baseUrl+'/admin/article';
+    var mode = 'index';
 @endsection
 
 @section('scripts')

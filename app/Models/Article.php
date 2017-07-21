@@ -27,6 +27,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUserId($value)
  * @property string $slug
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article findSimilarSlugs(\Illuminate\Database\Eloquent\Model $model, $attribute, $config, $slug)
  */
 class Article extends Model
 {

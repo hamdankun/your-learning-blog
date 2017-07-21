@@ -20,6 +20,7 @@ class CreateArticlesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->integer('category_id')->unsigned()->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('CASCADE');
+            $table->string('image')->nullable()->default('article-default-image.jpg');
             $table->text('content')->nullable();
             $table->text('label')->nullable();
             $table->string('slug')->index();
