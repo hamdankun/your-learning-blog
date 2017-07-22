@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('admin.pages.dashboard');
-// });
+Route::get('/', function () {
+    return redirect()->route('admin.login.index');
+});
 
 
 Route::group(['namespace' => 'Admin', 'as' => 'admin.' ,'prefix' => 'admin'], function($router) {
@@ -26,11 +26,11 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.' ,'prefix' => 'admin'], fu
             $router->get('category', 'CategoryController@getData')->name('datatable.category');
             $router->get('article', 'ArticleController@getData')->name('datatable.article');
         });
+        $router->post('logout', ['as' => 'login.logout', 'uses' => 'AuthController@logout']);
     });
 
     $router->group(['middleware' => 'guest'], function($router) {
         $router->get('login', ['as' => 'login.index', 'uses' => 'AuthController@index']);
         $router->post('login', ['as' => 'login.attemp', 'uses' => 'AuthController@attempt']);
-        $router->post('logout', ['as' => 'login.logout', 'uses' => 'AuthController@logout']);
     });
 });

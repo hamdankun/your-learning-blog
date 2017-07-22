@@ -37,7 +37,7 @@ $factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
         'title' => $faker->sentence(3),
         'content' => $faker->sentence(30),
         'category_id' => App\Models\Category::orderByRaw('RAND()')->first()->id,
-        'label' => '{}',
+        'label' => array(),
         'slug' => $faker->uuid
     ];
 });

@@ -12,7 +12,6 @@
         <select name="category_id" class="form-control" id="category">
                 <option value="">Choose Category</option>
             @foreach($categories as $key => $value)
-
                 <option value="{{ $key }}" {{ selected_category($key, !empty($article) ? $article->category_id : '') }}>{{ $value }}</option>
             @endforeach
         </select>
@@ -23,10 +22,10 @@
     <label for="label" class="control-label col-sm-2">Label/Keyword</label>
     <div class="col-sm-10">
         <select name="label[]" multiple="multiple" class="form-control" id="label">
-            <option value="">Choose Labels</option>
+             <option value="">Choose Labels</option>
             @foreach($labels as $key => $value)
                 <option value="{{ $value }}" {{ selected_label($value, $article->label) }}>{{ $value }}</option>
-            @endforeach
+            @endforeach 
         </select>
         {!! $errors->has('label') ? $errors->first('label', '<span class="help-block">:message</span>') : '' !!}
     </div>

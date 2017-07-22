@@ -26,7 +26,8 @@ class ArticleRequest extends FormRequest
         return [
             'title' => 'required',
             'content' => 'required',
-            'label' => 'required'
+            'label' => 'required',
+            'image' => 'required_if:mode,==,create'
         ];
     }
 }

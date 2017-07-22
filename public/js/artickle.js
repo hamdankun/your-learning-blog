@@ -95,7 +95,7 @@ var AppModule = {
             }
         });
     },
-    update: function update() {
+    updateOrCreate: function updateOrCreate() {
         $(document).ready(function () {
             tinymce.init({
                 selector: '#content-article',
@@ -114,12 +114,17 @@ var AppModule = {
             });
         });
 
-        $("#upload-image").fileinput({ showUpload: false, allowedFileTypes: ['image'] });
+        $("#upload-image").fileinput({
+            showUpload: false,
+            allowedFileTypes: ['image'],
+            initialPreview: typeof images !== 'undefined' ? images : [],
+            initialPreviewAsData: true
+        });
     }
 };
 
-if (mode === 'update') {
-    AppModule.update();
+if (mode === 'update' || mode === 'create') {
+    AppModule.updateOrCreate();
 } else if (mode === 'index') {
     AppModule.index();
 }

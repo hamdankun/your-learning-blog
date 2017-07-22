@@ -45,6 +45,7 @@
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script>
     <![endif]-->
     <script>
 
@@ -66,6 +67,10 @@
         <!-- Content Here -->
         @yield('content')
 
+    </div>
+
+    <div id="loader-wrapper">
+        <div id="loader"></div>
     </div>
 
     <!-- jQuery -->
@@ -93,8 +98,8 @@
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/vendor/metisMenu/metisMenu.min.js"></script>
-    <script src="{{ mix('/js/main.js') }}"></script>
     <script src="{{ mix('/js/utils.js') }}"></script>
+    <script src="{{ mix('/js/main.js') }}"></script>
     <script src="{{ mix('/js/datatable-builder.js') }}"></script>
     @yield('scripts')
 </body>

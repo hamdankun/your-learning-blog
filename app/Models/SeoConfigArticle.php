@@ -20,8 +20,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seo whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Seo whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Article|null $article
+ * @property int|null $seo_property_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoConfigArticle whereSeoPropertyId($value)
  */
-class Seo extends Model
+class SeoConfigArticle extends Model
 {
     /**
      * The fillable colums

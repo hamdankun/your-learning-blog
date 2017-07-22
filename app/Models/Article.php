@@ -28,6 +28,8 @@ use Cviebrock\EloquentSluggable\Sluggable;
  * @property string $slug
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article findSimilarSlugs(\Illuminate\Database\Eloquent\Model $model, $attribute, $config, $slug)
+ * @property string|null $image
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereImage($value)
  */
 class Article extends Model
 {
@@ -47,12 +49,12 @@ class Article extends Model
      * @return void
      */
     public function setLabelAttribute($value)
-    {
+    {        
         $this->attributes['label'] = json_encode($value);
     }
 
     /**
-     * Set the label json to array
+     * Get the label json to array
      *
      * @param  string  $value
      * @return array

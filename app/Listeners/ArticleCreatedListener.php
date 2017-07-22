@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use Carbon\Carbon;
 use App\Models\Label;
-use App\Events\ArticleCreated;
+use App\Events\ArticleCreatedOrUpdated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -23,10 +23,10 @@ class ArticleCreatedListener
     /**
      * Handle the event.
      *
-     * @param  ArticleCreated  $event
+     * @param  ArticleCreatedOrUpdated  $event
      * @return void
      */
-    public function handle(ArticleCreated $event)
+    public function handle(ArticleCreatedOrUpdated $event)
     {
         $labels = collect($event->labels);
         $currentLabels = Label::select('name')->whereIn('name', $labels)->pluck('name')->toArray();

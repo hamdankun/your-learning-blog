@@ -9,3 +9,7 @@ $(document).on('submit', '.disabled-when-submit', function() {
 $(document).on('click', '.disabled-when-click', function(e) {
     $(this).html(_spinerIcon);
 });
+
+$(window).on('load', function() {
+    _Loader.hide();
+});

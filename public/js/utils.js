@@ -84,6 +84,31 @@ _BtnDatatable = function ($, prefixUrl) {
     };
 }(jQuery, typeof _prefixUrl !== 'undefined' ? _prefixUrl : '');
 
+_Loader = function () {
+    var _loaderWraper = $('#loader-wrapper');
+    show = function show() {
+        load(true);
+    };
+
+    hide = function hide() {
+        load(false);
+    };
+
+    load = function load(show) {
+        if (show) {
+            _loaderWraper.fadeIn();
+        } else {
+            _loaderWraper.fadeOut();
+        }
+    };
+
+    return {
+        show: show,
+        hide: hide,
+        load: load
+    };
+}(jQuery);
+
 /***/ }),
 
 /***/ 48:

@@ -20,8 +20,9 @@
           </ul>
 
           <!-- Tab panes -->
-            <form action="{{ route('admin.article.update', $article->id) }}" method="POST" class="form-horizontal disabled-when-submit">
+            <form action="{{ route('admin.article.update', $article->id) }}" method="POST" class="form-horizontal disabled-when-submit" enctype="multipart/form-data">
               {{ method_field('PUT') }}
+              <input type="hidden" name="mode" value="update">
               <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active padding-small" id="content">
                         <div class="row">
@@ -66,6 +67,12 @@
 
 @section('js-var')
     var mode = 'update';
+    var images = [];
+    @if ($article->image)
+      var basePathImage = '{{ env('BASE_IMG_UPLOAD_PATH') }}';
+      var image = basePathImage+'/'+'{{ $article->image }}';
+      images.push(image);
+    @endif 
 @endsection
 
 @section('scripts')

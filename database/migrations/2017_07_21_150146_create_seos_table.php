@@ -13,11 +13,12 @@ class CreateSeosTable extends Migration
      */
     public function up()
     {
-        Schema::create('seos', function (Blueprint $table) {
+        Schema::create('seo_config_articles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('article_id')->unsigned()->nullable();
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('CASCADE');
-            $table->string('type')->nullable();
+            $table->integer('seo_property_id')->unsigned()->nullable();
+            $table->foreign('seo_property_id')->references('id')->on('seo_properties')->onDelete('CASCADE');
             $table->text('description');
             $table->timestamps();
         });
@@ -30,6 +31,6 @@ class CreateSeosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seos');
+        Schema::dropIfExists('seo_config_articles');
     }
 }

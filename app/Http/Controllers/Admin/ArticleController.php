@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Storage;
+use Image;
 use Datatables;
 use App\Models\Label;
 use App\Models\Article;
@@ -31,7 +33,7 @@ class ArticleController extends Controller
     /**
      * Ref replacing name for transable language
      */
-    CONST REPLACING_NAME = ':module';
+    CONST REPLACING_NAME = 'module';
 
     /**
      * Article Instance
@@ -85,9 +87,10 @@ class ArticleController extends Controller
     public function store(ArticleRequest $request)
     {
         try {
-            $this->article->create($request->only('title', 'content', 'label'));
+            $article = $this->article->create($request->only('title', 'content', 'label'));
+            $this->uploadImageIfExist($article, $request);
             $this->setNotification('success', trans('general.create.success', [static::REPLACING_NAME => 'Article']));
-            $callback = $this->toRoute(static::PREFIX_ROUTE_NAME.'.index');
+            $callback = $this->toRoute(static::PREFIX_ROUTE_NAME.'index');
             $this->callEvent($request);
         } catch (Exception $e) {
             $this->setNotification('error', $this->errorException($e));
@@ -96,6 +99,7 @@ class ArticleController extends Controller
 
         return $callback;
     }
+    
 
     /**
      * Display the specified resource.
@@ -146,8 +150,9 @@ class ArticleController extends Controller
         try {
             $article = $this->article->find($id);
             $article->update($request->except('id'));
+            $this->uploadImageIfExist($article, $request);            
             $this->setNotification('success', trans('general.created.success', [static::REPLACING_NAME => static::MODULE_NAME]));
-            $callback = $this->toRoute(static::PREFIX_ROUTE_NAME.'.index');
+            $callback = $this->toRoute(static::PREFIX_ROUTE_NAME.'index');
             $this->callEvent($request);
         } catch (Exception $e) {
             $this->setNotification('error', $this->errorException($e));
@@ -186,5 +191,41 @@ class ArticleController extends Controller
 
         $this->setNotification($type, $message);
         return redirect()->back();
+    }
+
+    /**
+     * Upload Imag article if exist
+     *
+     * @param [type] $article
+     * @param Request $request
+     * @return void
+     */
+    private function uploadImageIfExist($article, Request $request)
+    {        
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $extension = $request->image->extension();
+            $uploadedAt = \Carbon\Carbon::now()->toDateString();
+            $name = $article->slug.'-'.$uploadedAt.'.'.$extension;
+            $path = 'public/article-images';
+            $current = $path.'/'.$article->image;
+            $currentModify = $path.'/modify/'.$article->image;
+
+            if ($article->image) {
+                if (Storage::exists($current)) {
+                    Storage::delete($current);
+                }
+
+                if (Storage::exists($currentModify)) {
+                    Storage::delete($currentModify);
+                }
+            }
+
+            $request->image->storeAs('public/article-images', $name);
+            Image::make($request->file('image'))
+                ->fit(640, 480)
+                ->save(storage_path('app/public/article-images/modify').'/'.$name);
+            $article->image = $name;
+            $article->save();
+        }
     }
 }
