@@ -11,8 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('admin.login.index');
+
+Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function($router) {
+    $router->get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
+    $router->get('/b/{slug}', function($slug) {
+        return $slug;
+    })->name('article.show');
 });
 
 

@@ -95,3 +95,48 @@
         transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
     }
 }
+
+.container {
+    width: 90% !important;
+}
+
+.custom-nav {
+    background-color: #f35627 !important;
+}
+
+.custom-orange-color {
+    background-color: #f35627 !important;
+}
+
+.custom-orange-text {
+    color: #f35627 !important;
+}
+
+.custom-cart-title {
+    padding: 5px !important;
+    font-size: 12px !important;
+}
+
+.custom-footer {
+    background-color: rgb(134, 133, 133) !important;
+}
+
+.custom-card-content {
+    padding: 10px !important;
+    height: 200px;
+}
+
+.custom-card-content h6 {
+    font-weight: bold;
+}
+
+@media only screen and (min-width: 601px) {
+
+    .row .col.m3 {
+        width: 20%;
+        margin-left: auto;
+        left: auto;
+        right: auto;
+    }
+
+}

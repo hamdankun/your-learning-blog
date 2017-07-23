@@ -63,50 +63,59 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 47);
+/******/ 	return __webpack_require__(__webpack_require__.s = 48);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 11:
+/***/ 12:
 /***/ (function(module, exports) {
 
-_DatatableFactory = function ($, selector, url, columns) {
-    var table;
-
-    build = function build(selector, url, columns) {
-        table = selector.DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: url,
-            columns: columns,
-            initComplete: function initComplete() {
-                dataTablesIndex();
-            }
-        });
+_Loader = function () {
+    var _loaderWraper = $('#loader-wrapper');
+    show = function show() {
+        load(true);
     };
 
-    dataTablesIndex = function dataTablesIndex(noIndex) {
-        table.on('order.dt search.dt', function () {
-            var pageIndex = table.page() * table.page.len();
-            table.column(noIndex, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-                cell.innerHTML = pageIndex + i + 1;
-            });
-        }).draw();
+    hide = function hide() {
+        load(false);
+    };
+
+    load = function load(show) {
+        if (show) {
+            _loaderWraper.fadeIn();
+        } else {
+            _loaderWraper.fadeOut();
+        }
     };
 
     return {
-        build: build,
-        dataTablesIndex: dataTablesIndex
+        show: show,
+        hide: hide,
+        load: load
     };
 }(jQuery);
 
+_elm = $(document);
+
+_elm.ready(function () {
+    $('.button-collapse').sideNav();
+
+    $(".dropdown-button").dropdown();
+
+    _Loader.hide();
+
+    $('.button-collapse').click(function () {
+        $('#sidenav-overlay').css({ 'z-index': 0 });
+    });
+});
+
 /***/ }),
 
-/***/ 47:
+/***/ 48:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(11);
+module.exports = __webpack_require__(12);
 
 
 /***/ })

@@ -68,3 +68,30 @@ if (!function_exists('selected_label')) {
         return in_array($value, $labels) ? 'selected' : '';
     }
 }
+
+if (!function_exists('build_label')) {
+
+    /**
+     * Build array label to html 
+     *
+     * @param array $labels
+     * @return string
+     */
+    function build_label($labels) {
+        $tags = '';
+        
+        if (count($labels) > 0) {
+            foreach($labels as $key => $label) {
+                $tags .= '#'. $label .' ';
+                
+                if ($key > 2) {
+                    break;
+                }
+            }
+        } else {
+            $tags = '#NoTag';
+        }
+
+        return $tags;
+    }
+}

@@ -18,4 +18,5 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .js('resources/assets/js/admin/artickle.js', 'public/js/artickle.js')
    .js('resources/assets/js/main.js', 'public/js/main.js')
    .js('resources/assets/js/utils.js', 'public/js/utils.js')
-   .js('resources/assets/js/datatable-builder.js', 'public/js/datatable-builder.js');
+   .js('resources/assets/js/datatable-builder.js', 'public/js/datatable-builder.js')
+   .js('resources/assets/js/frontend/main-frontend.js', 'public/js/main-frontend.js');
