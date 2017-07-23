@@ -14,9 +14,9 @@
 
 Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function($router) {
     $router->get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
-    $router->get('/b/{slug}', function($slug) {
-        return $slug;
-    })->name('article.show');
+    $router->get('articles', ['as' => 'article.index', 'uses' => 'ArticleController@index']);
+    $router->get('articles/{slug}', ['as' => 'article.show', 'uses' => 'ArticleController@show']);
+    $router->get('article/category/{slug}', ['as' => 'article.show', 'uses' => 'ArticleController@showByCategory']);
 });
 
 

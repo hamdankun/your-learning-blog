@@ -35,7 +35,7 @@ $factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
     return [
         'user_id' => App\Models\User::orderByRaw('RAND()')->first()->id,
         'title' => $faker->sentence(3),
-        'content' => $faker->sentence(30),
+        'content' => $faker->sentence(1000),
         'category_id' => App\Models\Category::orderByRaw('RAND()')->first()->id,
         'label' => array(),
         'slug' => $faker->uuid

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
-{   
+{
     /**
      * The path view layout
      */
@@ -19,15 +19,23 @@ class HomeController extends Controller
     CONST MODULE_NAME = 'Article';
 
     /**
+     * Get current route name
+     */
+    public function __construct()
+    {
+        $this->getAndShareToViewCurrentRoute();
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $articles = \Cache::remember(request()->fullUrl(), 5, function () {
-            return Article::orderBy('id', 'asc')->limit(20)->get(); 
-        });
+        $articles = $this->toCache(function () {
+            return Article::orderBy('id', 'asc')->limit(20)->get();
+        }, 5);
         return view(static::PATH_VIEW.'index', compact('articles'));
     }
 }

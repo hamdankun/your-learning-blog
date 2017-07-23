@@ -22,7 +22,7 @@
         <!--   Icon Section   -->
         
             @foreach($articles->chunk(5) as $key => $article)
-                <div class="row">
+                <div class="row custom-row">
                     @foreach($article as $key => $article)
                         <div class="col s6 m3">
                             <div class="card">

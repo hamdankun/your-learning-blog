@@ -41,6 +41,8 @@ class Article extends Model
      */
     protected $fillable = ['title', 'user_id', 'content', 'label', 'slug', 'category_id'];
 
+    CONST T_CATEGORY = 'categories';
+
 
     /**
      * Set the label array to json
@@ -49,7 +51,7 @@ class Article extends Model
      * @return void
      */
     public function setLabelAttribute($value)
-    {        
+    {
         $this->attributes['label'] = json_encode($value);
     }
 
@@ -76,5 +78,37 @@ class Article extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    /**
+     * Relation with category
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    /**
+     * Scope for get article by category
+     * @param  \Illuminate\Database\Query\Builder $query
+     * @param  string $slug
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeGetByCategory($query, $slug)
+    {
+        return $query->withCategory()
+                ->where(static::T_CATEGORY.'.slug', $slug);
+    }
+
+    /**
+     * Scope for query join with category
+     * @param  \Illuminate\Database\Query\Builder $query
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeWithCategory($query)
+    {
+        return $query
+            ->join(static::T_CATEGORY, static::T_CATEGORY.'.id', '=', $this->getTable().'.category_id');
     }
 }

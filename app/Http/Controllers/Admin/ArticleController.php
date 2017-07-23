@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Storage;
 use Image;
+use Storage;
 use Datatables;
 use App\Models\Label;
 use App\Models\Article;
@@ -99,7 +99,7 @@ class ArticleController extends Controller
 
         return $callback;
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -150,7 +150,7 @@ class ArticleController extends Controller
         try {
             $article = $this->article->find($id);
             $article->update($request->except('id'));
-            $this->uploadImageIfExist($article, $request);            
+            $this->uploadImageIfExist($article, $request);
             $this->setNotification('success', trans('general.created.success', [static::REPLACING_NAME => static::MODULE_NAME]));
             $callback = $this->toRoute(static::PREFIX_ROUTE_NAME.'index');
             $this->callEvent($request);
@@ -201,29 +201,36 @@ class ArticleController extends Controller
      * @return void
      */
     private function uploadImageIfExist($article, Request $request)
-    {        
+    {
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $extension = $request->image->extension();
-            $uploadedAt = \Carbon\Carbon::now()->toDateString();
-            $name = $article->slug.'-'.$uploadedAt.'.'.$extension;
+            $name = $article->slug.'.'.$extension;
             $path = 'public/article-images';
-            $current = $path.'/'.$article->image;
-            $currentModify = $path.'/modify/'.$article->image;
+            $currentOrigin = $path.'/origin/'.$article->image;
+            $current640x480 = $path.'/640x480/'.$article->image;
+            $current300x300 = $path.'/300x300/'.$article->image;
 
             if ($article->image) {
-                if (Storage::exists($current)) {
-                    Storage::delete($current);
+                if (Storage::exists($currentOrigin)) {
+                    Storage::delete($currentOrigin);
                 }
 
-                if (Storage::exists($currentModify)) {
-                    Storage::delete($currentModify);
+                if (Storage::exists($current640x480)) {
+                    Storage::delete($current640x480);
+                }
+
+                if (Storage::exists($current300x300)) {
+                    Storage::delete($current300x300);
                 }
             }
 
-            $request->image->storeAs('public/article-images', $name);
+            $request->image->storeAs('public/article-images/origin', $name);
             Image::make($request->file('image'))
                 ->fit(640, 480)
-                ->save(storage_path('app/public/article-images/modify').'/'.$name);
+                ->save(storage_path('app/public/article-images/640x480').'/'.$name);
+            Image::make($request->file('image'))
+                ->fit(300, 300)
+                ->save(storage_path('app/public/article-images/300x300').'/'.$name);
             $article->image = $name;
             $article->save();
         }

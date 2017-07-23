@@ -88,4 +88,24 @@ class Controller extends BaseController
 
         return $errorMessage;
     }
+
+    /**
+     * @param  Closure $callback
+     * @param  integer $minutes
+     * @param  string $key
+     * @return \Illuminate\Support\Cache
+     */
+    public function toCache($callback, $minutes, $key = '')
+    {
+        return \Cache::remember($key ? $key : request()->fullUrl(), $minutes, $callback);
+    }
+
+    /**
+     * Get current name route and share to view
+     * @return void
+     */
+    public function getAndShareToViewCurrentRoute()
+    {
+        view()->share('current_route', request()->route()->getName());
+    }
 }
