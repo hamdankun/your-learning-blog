@@ -106,6 +106,49 @@ class Controller extends BaseController
      */
     public function getAndShareToViewCurrentRoute()
     {
-        view()->share('current_route', request()->route()->getName());
+        if (request()->route()) {
+            view()->share('current_route', request()->route()->getName());
+        }
+    }
+
+    /**
+     * Generate response json
+     * @param  array  $data
+     * @param  integer $status
+     * @return \Illuminate\Http\Response
+     */
+    public function jsonResponse($data, $status = 200)
+    {
+        return response()->json($data, 200);
+    }
+
+    public function buildSEO($article = [])
+    {
+
+        \SEOMeta::setTitle($article->title);
+        \SEOMeta::setDescription(strip_tags($article->content));
+        \SEOMeta::addMeta('article:published_time', $article->created_at->toW3CString(), 'property');
+        \SEOMeta::addMeta('article:section', $article->category->name, 'property');
+        \SEOMeta::addKeyword($article->label);
+
+        \OpenGraph::setDescription(strip_tags($article->content));
+        \OpenGraph::setTitle($article->title);
+        \OpenGraph::setUrl(request()->fullUrl());
+        \OpenGraph::addProperty('type', 'article');
+        \OpenGraph::addProperty('locale', 'en-id');
+        \OpenGraph::addProperty('locale:alternate', ['en-us']);
+
+        \OpenGraph::addImage(url('/') . '/storage/article-images/640x480/' .  $article->image);
+
+        \OpenGraph::setTitle('Article')
+            ->setDescription(strip_tags($article->content))
+            ->setType('article')
+            ->setArticle([
+                'published_time' => $article->created_at->toW3CString(),
+                'modified_time' => $article->updated_at->toW3CString(),
+                'author' => $article->user->name,
+                'section' => $article->category->name,
+                'tag' => $article->label
+            ]);
     }
 }

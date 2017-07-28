@@ -24,11 +24,23 @@ var AppModule = {
                 selector: '#content-article',
                 height: 800,
                 plugins: [
-                    'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen',
+                    'advlist autolink lists link image charmap print preview anchor emoticons codesample',
+                    'searchreplace visualblocks code',
                     'insertdatetime media table contextmenu paste code'
                 ],
-                toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright',
+                codesample_languages: [
+                    {text: 'HTML/XML', value: 'markup'},
+                    {text: 'JavaScript', value: 'javascript'},
+                    {text: 'CSS', value: 'css'},
+                    {text: 'PHP', value: 'php'},
+                    {text: 'Ruby', value: 'ruby'},
+                    {text: 'Python', value: 'python'},
+                    {text: 'Java', value: 'java'},
+                    {text: 'C', value: 'c'},
+                    {text: 'C#', value: 'csharp'},
+                    {text: 'C++', value: 'cpp'}
+                ],
+                toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright | emoticons | codesample',
             });
             $('#category').selectize();
             $('#label').selectize({
@@ -42,7 +54,7 @@ var AppModule = {
         });
 
         $("#upload-image").fileinput({
-            showUpload: false, 
+            showUpload: false,
             allowedFileTypes: ['image'],
             initialPreview: typeof images !== 'undefined' ? images : [],
             initialPreviewAsData: true

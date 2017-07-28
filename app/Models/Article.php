@@ -80,6 +80,14 @@ class Article extends Model
         ];
     }
 
+
+    protected static function boot() {
+        parent::boot();
+        static::creating(function($model) {
+            $model->user_id = \Auth::user()->id;
+        });
+    }
+
     /**
      * Relation with category
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -87,6 +95,15 @@ class Article extends Model
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    /**
+     * Relation with user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**

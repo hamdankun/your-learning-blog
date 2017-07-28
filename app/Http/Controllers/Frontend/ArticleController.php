@@ -37,6 +37,7 @@ class ArticleController extends Controller
     public function show($slug)
     {
         $article = $this->article->whereSlug($slug)->firstOrFail();
+        $this->buildSEO($article);
         return view(static::PATH_VIEW.'show', compact('article'));
     }
 
@@ -44,5 +45,27 @@ class ArticleController extends Controller
     {
         $article = $this->article->getByCategory($slug)->get();
         return view(static::PATH_VIEW.'index', compact('article'));
+    }
+
+    public function ajaxRequest()
+    {
+        if (request()->ajax() || request()->wantsJson()) {
+
+            $articles = $this->getAndStoreToCache();
+
+            return $this->jsonResponse([
+                'status' => 'success',
+                'data' => $articles
+            ]);
+        }
+
+        throw new \Symfony\Component\HttpKernel\Exception\HttpException(400, 'Invalid Request Exception', null, array(), 400);
+    }
+
+    public function getAndStoreToCache()
+    {
+        return $this->toCache(function () {
+            return $this->article->orderBy('id', 'desc')->simplePaginate(20);
+        }, 5);
     }
 }

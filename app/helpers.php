@@ -72,24 +72,34 @@ if (!function_exists('selected_label')) {
 if (!function_exists('build_label')) {
 
     /**
-     * Build array label to html 
+     * Build array label to html
      *
      * @param array $labels
      * @return string
      */
-    function build_label($labels) {
+    function build_label($labels, $noLimit = false, $customTemplate = '') {
         $tags = '';
-        
+
         if (count($labels) > 0) {
             foreach($labels as $key => $label) {
-                $tags .= '#'. $label .' ';
-                
-                if ($key > 2) {
-                    break;
+                if (!$customTemplate) {
+                    $tags .= '#'. $label .' ';
+
+                    if ($key > 1 && !$noLimit) {
+                        break;
+                    }
+                } else {
+                    $tags .= str_replace(':name', $label, $customTemplate);
                 }
             }
         } else {
-            $tags = '#NoTag';
+
+            if ($customTemplate) {
+                $tags = str_replace(':name', 'NoTag', $customTemplate);
+            } else {
+                $tags = '#NoTag';
+            }
+
         }
 
         return $tags;

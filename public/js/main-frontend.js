@@ -63,15 +63,15 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 48);
+/******/ 	return __webpack_require__(__webpack_require__.s = 50);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 12:
+/***/ 13:
 /***/ (function(module, exports) {
 
-_Loader = function () {
+_Loader = function ($) {
     var _loaderWraper = $('#loader-wrapper');
     show = function show() {
         load(true);
@@ -96,6 +96,22 @@ _Loader = function () {
     };
 }(jQuery);
 
+_Image = function ($) {
+    onError = function onError() {};
+
+    lazy = function lazy() {
+        $("img.lazy").lazyload({
+            threshold: 200,
+            placeholder: _baseUrlImgPath + '/article-images/default.png'
+        });
+    };
+
+    return {
+        onError: onError,
+        lazy: lazy
+    };
+}(jQuery);
+
 _elm = $(document);
 
 _elm.ready(function () {
@@ -110,12 +126,78 @@ _elm.ready(function () {
     });
 });
 
+// service ajax
+_Http = function () {
+    resolve = function resolve(url, method, data, onSuccess, onError, dataType) {
+
+        _method = method;
+
+        if ($.inArray(method, ['PUT', 'DELETE']) >= 0) {
+            method = 'POST';
+        }
+
+        if (method === 'POST') {
+            data['_token'] = $('meta[name="csrf-token"]').attr('content');
+            data['_method'] = _method;
+        }
+
+        $.ajax({
+            type: method,
+            url: url,
+            dataType: dataType === undefined ? 'json' : dataType,
+            data: data,
+            success: onSuccess,
+            error: onError
+        });
+    };
+
+    _get = function _get(url, parameters, onSuccess, onError, dataType) {
+        return resolve(url, 'GET', parameters, onSuccess, onError, dataType);
+    };
+
+    _post = function _post(url, data, onSuccess, onError, dataType) {
+        return resolve(url, 'POST', data, onSuccess, onError, dataType);
+    };
+
+    _put = function _put(url, data, onSuccess, onError, dataType) {
+        return resolve(url, 'PUT', data, onSuccess, onError, dataType);
+    };
+
+    _delete = function _delete(url, parameters, onSuccess, onError, dataType) {
+        return resolve(url, 'DELETE', parameters, onSuccess, onError, dataType);
+    };
+
+    return {
+        resolve: resolve,
+        _get: _get,
+        _post: _post,
+        _put: _put,
+        _delete: _delete
+    };
+}();
+
+Object.defineProperty(Array.prototype, 'chunk', {
+    value: function value(chunkSize) {
+        return this.reduce(function (previous, current) {
+            var chunk;
+            if (previous.length === 0 || previous[previous.length - 1].length === chunkSize) {
+                chunk = [];
+                previous.push(chunk);
+            } else {
+                chunk = previous[previous.length - 1];
+            }
+            chunk.push(current);
+            return previous;
+        }, []);
+    }
+});
+
 /***/ }),
 
-/***/ 48:
+/***/ 50:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(12);
+module.exports = __webpack_require__(13);
 
 
 /***/ })

@@ -128,6 +128,7 @@
 .custom-card-content {
     padding: 10px !important;
     height: 200px;
+    overflow-x: auto;
 }
 
 .custom-card-content h6 {
@@ -140,6 +141,14 @@
 
 .margin-top-medium {
     margin-top: 50px;
+}
+
+.margin-small {
+    margin: 10px;
+}
+
+.sharer-label {
+    height: 40px;
 }
 
 

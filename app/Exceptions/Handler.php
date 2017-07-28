@@ -49,6 +49,10 @@ class Handler extends ExceptionHandler
             return response()->view('errors.404', [], 404);
         }
 
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json(['errors' => $exception->getMessage()], $exception->getCode());
+        }
+
         return parent::render($request, $exception);
     }
 

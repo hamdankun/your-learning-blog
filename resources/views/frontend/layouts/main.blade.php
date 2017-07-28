@@ -2,10 +2,14 @@
   <html>
     <head>
       <meta charset="utf-8">
-        
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">  
+
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="csrf-token" content="{{ csrf_token() }}">
       <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+      {!! SEO::generate() !!}
+
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
@@ -14,16 +18,18 @@
 
       @yield('styles')
     </head>
-    
+
     <script>
         @yield('js-var')
+        var _baseUrlImgPath = '{{ env('BASE_PATH_STORAGE') }}';
+        var _baseUrl = '{{ url('/') }}';
     </script>
 
     <body>
       @include('frontend.layouts.navigation')
 
       @yield('content')
-      
+
       <footer class="page-footer orange custom-footer">
         <div class="container">
           <div class="row">
@@ -66,7 +72,7 @@
           Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
           </div>
         </div>
-      </footer>  
+      </footer>
       <div id="loader-wrapper">
         <div id="loader"></div>
       </div>

@@ -15,8 +15,11 @@
 Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function($router) {
     $router->get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
     $router->get('articles', ['as' => 'article.index', 'uses' => 'ArticleController@index']);
-    $router->get('articles/{slug}', ['as' => 'article.show', 'uses' => 'ArticleController@show']);
-    $router->get('article/category/{slug}', ['as' => 'article.show', 'uses' => 'ArticleController@showByCategory']);
+    $router->get('articles/{slug?}', ['as' => 'article.show', 'uses' => 'ArticleController@show']);
+    $router->get('article/category/{slug}', ['as' => 'article.category.show', 'uses' => 'ArticleController@showByCategory']);
+    $router->group(['prefix' => 'ajax/frontend'], function($router) {
+        $router->get('article', ['as' => 'ajax.article', 'uses' => 'ArticleController@ajaxRequest']);
+    });
 });
 
 

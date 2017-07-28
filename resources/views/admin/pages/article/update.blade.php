@@ -3,6 +3,7 @@
 @section('styles')
     <link href="/js/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
     <link href="/js/kartik-v-bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/plugins/prism.css">
 @endsection
 
 @section('content')
@@ -72,7 +73,7 @@
       var basePathImage = '{{ env('BASE_IMG_UPLOAD_PATH') }}';
       var image = basePathImage+'/'+'{{ $article->image }}';
       images.push(image);
-    @endif 
+    @endif
 @endsection
 
 @section('scripts')
@@ -84,6 +85,7 @@
     <script src="/js/kartik-v-bootstrap-fileinput/js/fileinput.min.js"></script>
     <script src="/js/kartik-v-bootstrap-fileinput/themes/fa/theme.js"></script>
     <script src="/js/kartik-v-bootstrap-fileinput/js/locales/LANG.js"></script>
+    <script src="/js/prism.js"></script>
     <script src="/dist/js/sb-admin-2.js"></script>
     <script src="{{ mix('/js/artickle.js') }}"></script>
 @endsection

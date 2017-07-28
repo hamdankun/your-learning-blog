@@ -80,14 +80,14 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view(static::PATH_VIEW.'create');
+        return $this->findAndSendToView(0, 'create');
     }
 
 
     public function store(ArticleRequest $request)
     {
         try {
-            $article = $this->article->create($request->only('title', 'content', 'label'));
+            $article = $this->article->create($request->input());
             $this->uploadImageIfExist($article, $request);
             $this->setNotification('success', trans('general.create.success', [static::REPLACING_NAME => 'Article']));
             $callback = $this->toRoute(static::PREFIX_ROUTE_NAME.'index');
@@ -120,10 +120,7 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::pluck('name', 'id');
-        return $this->findAndSendToView($id, 'update')
-                    ->with('categories', $categories)
-                    ->with('labels', \App\Models\Label::pluck('name'));
+        return $this->findAndSendToView($id, 'update');
     }
 
     /**
@@ -134,8 +131,15 @@ class ArticleController extends Controller
      */
     public function findAndSendToView($id, $layout)
     {
-       $article = $this->article->find($id);
-       return view(static::PATH_VIEW.$layout, compact('article'));
+       $article = [];
+
+       if ($layout === 'update') {
+        $article = $this->article->find($id);
+       }
+
+       $categories = Category::pluck('name', 'id');
+       $labels = \App\Models\Label::pluck('name');
+       return view(static::PATH_VIEW.$layout, compact('article', 'categories', 'labels'));
     }
 
     /**
@@ -226,7 +230,7 @@ class ArticleController extends Controller
 
             $request->image->storeAs('public/article-images/origin', $name);
             Image::make($request->file('image'))
-                ->fit(640, 480)
+                ->resize(640, 480)
                 ->save(storage_path('app/public/article-images/640x480').'/'.$name);
             Image::make($request->file('image'))
                 ->fit(300, 300)

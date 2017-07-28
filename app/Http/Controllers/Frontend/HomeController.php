@@ -19,11 +19,18 @@ class HomeController extends Controller
     CONST MODULE_NAME = 'Article';
 
     /**
+     * The article instance
+     * @var \App\Http\Controllers\Frontend\ArticleController
+     */
+    private $articleController;
+
+    /**
      * Get current route name
      */
-    public function __construct()
+    public function __construct(ArticleController $articleController)
     {
         $this->getAndShareToViewCurrentRoute();
+        $this->articleController = $articleController;
     }
 
     /**
@@ -33,9 +40,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $articles = $this->toCache(function () {
-            return Article::orderBy('id', 'asc')->limit(20)->get();
-        }, 5);
+        $articles = $this->articleController->getAndStoreToCache();
         return view(static::PATH_VIEW.'index', compact('articles'));
     }
 }

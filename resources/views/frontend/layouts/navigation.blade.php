@@ -1,5 +1,5 @@
 <div class="navbar-fixed">
-    <nav class="light-red lighten-1 custom-nav {{ $current_route !== 'frontend.root' ? 'nav-extended' : '' }}" role="navigation">
+    <nav class="light-red lighten-1 custom-nav {{ isset($current_route) && $current_route !== 'frontend.root' ? 'nav-extended' : '' }}" role="navigation">
         <div class="nav-wrapper container">
         <a id="logo-container" href="{{ route('frontend.root') }}" class="brand-logo">Your Learning</a>
 
@@ -22,7 +22,7 @@
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>
-        @if($current_route !== 'frontend.root')
+        @if(isset($current_route) && $current_route !== 'frontend.root')
             <div class="nav-content">
               <ul class="tabs tabs-transparent">
                 <li class="tab"><a href="#">All</a></li>

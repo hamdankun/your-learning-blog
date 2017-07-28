@@ -8,5 +8,6 @@
   "/js/datatable-builder.js": "/js/datatable-builder.js",
   "/css/custom.css": "/css/custom.css",
   "/js/artickle.js": "/js/artickle.js",
-  "/js/main-frontend.js": "/js/main-frontend.js"
+  "/js/main-frontend.js": "/js/main-frontend.js",
+  "/js/home-frontend.js": "/js/home-frontend.js"
 }

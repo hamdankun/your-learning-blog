@@ -9,6 +9,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
+        <a href="{{ route('admin.article.create') }}" class="btn btn-primary add-btn disabled-when-click" title="Create Category"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
             <table width="100%" class="table table-striped table-bordered table-hover" id="article">
                 <thead>
                     <tr>

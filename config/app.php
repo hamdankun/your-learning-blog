@@ -179,7 +179,8 @@ return [
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        Spatie\LaravelImageOptimizer\ImageOptimizerServiceProvider::class
 
     ],
 
@@ -234,7 +235,8 @@ return [
         'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'ImageOptimizer' => Spatie\LaravelImageOptimizer\ImageOptimizerFacade::class
     ],
 
 ];
