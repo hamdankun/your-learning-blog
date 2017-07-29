@@ -36,7 +36,7 @@
                                         </p>
                                     </div>
                                     <div class="card-action">
-                                        <a href="{{ route('frontend.article.show', [$article->slug]) }}" class="custom-orange-text">Learn More..</a>
+                                        <a href="{{ route('frontend.article.show', [$article->category->slug, $article->slug]) }}" class="custom-orange-text">Learn More..</a>
                                     </div>
                                 </div>
                             </div>
@@ -69,11 +69,12 @@
 
 @section('js-var')
     var nextPage = {{ $articles->currentPage() }} + 1;
-    var urlDetailArticle = '{{ route('frontend.article.show') }}';
+    var urlDetailArticle = '{{ route('frontend.article.show', [':category', ':article']) }}';
 @endsection
 
 @section('scripts')
     <script src="/js/jquery-lazyload/jquery.lazyload.min.js"></script>
     <script src="/js/jquery-lazyload/jquery.scrollstop.min.js"></script>
-    <script src="/js/home-frontend.js"></script>
+    <script src="{{ mix('/js/article-factory.js') }}"></script>
+    <script src="{{ mix('/js/home-frontend.js') }}"></script>
 @endsection

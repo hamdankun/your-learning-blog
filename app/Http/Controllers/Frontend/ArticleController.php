@@ -26,6 +26,21 @@ class ArticleController extends Controller
     {
         $this->article = $article;
         $this->getAndShareToViewCurrentRoute();
+        $this->getAndShareToViewCategory();
+    }
+
+    public function index($slug)
+    {
+
+        if ($slug == 'all') {
+            $articles = $this->getAndStoreToCache();
+        } else {
+            $articles = $this->getByCategory($slug);
+        }
+
+        $this->activeCategory($slug);
+
+        return view(static::PATH_VIEW.'index', compact('articles'));
     }
 
     /**
@@ -34,24 +49,60 @@ class ArticleController extends Controller
      * @param string $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($slugCategory, $slugArticle)
     {
-        $article = $this->article->whereSlug($slug)->firstOrFail();
+        $article = $this->article->whereSlug($slugArticle)->firstOrFail();
         $this->buildSEO($article);
+        $this->activeCategory($slugCategory);
         return view(static::PATH_VIEW.'show', compact('article'));
     }
 
-    public function showByCategory($slug)
+    /**
+     * Get product by category
+     * @param  string $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function getByCategory($slug)
     {
-        $article = $this->article->getByCategory($slug)->get();
-        return view(static::PATH_VIEW.'index', compact('article'));
+        return $this->toCache(function() use ($slug) {
+           return $this->article->getByCategory($slug)->paginate(20);
+        });
     }
 
-    public function ajaxRequest()
+    /**
+     * Handle ajax request
+     * @param  string $slugCategory
+     * @param  string $slugArticle
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     * @return mixed
+     */
+    public function ajaxRequest($slugCategory = '', $slugArticle = '')
     {
         if (request()->ajax() || request()->wantsJson()) {
 
-            $articles = $this->getAndStoreToCache();
+            if (($slugCategory === '' && $slugArticle === '') || $slugCategory === 'all') {
+                $tableName = $this->article->getTable();
+                $articles = $this->article
+                            ->withCategory()
+                            ->jsonPublicColumn()
+                            ->takeSlugArticleAndCategory();
+            } else {
+
+                if ($slugCategory) {
+                    $articles = $this->article->getByCategory($slugCategory);
+                }
+
+                if ($slugArticle) {
+                    $articles = $article->whereSlug($this->article->getTable().'.slug', $slugArticle);
+                }
+
+                $articles = $articles->jsonPublicColumn()->takeSlugArticleAndCategory();
+
+            }
+
+            $articles = $this->toCache(function() use($articles) {
+                return $articles->paginate(20);
+            });
 
             return $this->jsonResponse([
                 'status' => 'success',
@@ -62,10 +113,33 @@ class ArticleController extends Controller
         throw new \Symfony\Component\HttpKernel\Exception\HttpException(400, 'Invalid Request Exception', null, array(), 400);
     }
 
+    public function ajaxSearch()
+    {
+        $articles = $this->toCache(function() {
+            return $this->article
+                    ->select('title')
+                    ->findSimiliar(request()->get('query'))
+                    ->limit(10)
+                    ->pluck('title')
+                    ->toArray();
+        });
+
+        return $this->jsonResponse([
+                'suggestions' => $articles
+            ]);
+    }
+
+    /**
+     * Get articles and store to cache
+     * @return \Illuminate\Support\Cache
+     */
     public function getAndStoreToCache()
     {
         return $this->toCache(function () {
-            return $this->article->orderBy('id', 'desc')->simplePaginate(20);
+            return $this->article
+                    ->publicColumn()
+                    ->orderBy('articles.id', 'desc')
+                    ->paginate(20);
         }, 5);
     }
 }

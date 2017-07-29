@@ -16,7 +16,7 @@
                         <div class="nav-wrapper">
                             <div class="col s12 custom-breadcrumb">
                                 <a href="{{ route('frontend.root') }}" class="breadcrumb">Home</a>
-                                <a href="#!" class="breadcrumb">Article</a>
+                                <a href="#!" class="breadcrumb">{{ $article->category->name }}</a>
                                 <a href="#!" class="breadcrumb">{{ $article->title }}</a>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                             </p>
                         </div>
                         <div class="card-action">
-                            <a href="{{ route('frontend.article.show', [$article->slug]) }}" class="custom-orange-text">Learn More..</a>
+                            <a href="{{ route('frontend.article.show', [$active_category, $article->slug]) }}" class="custom-orange-text">Learn More..</a>
                         </div>
                     </div>
                 </div>

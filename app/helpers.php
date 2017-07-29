@@ -105,3 +105,15 @@ if (!function_exists('build_label')) {
         return $tags;
     }
 }
+
+if (!function_exists('valid_number')) {
+
+    /**
+     * Check number
+     * @param  mixed $number
+     * @return integer
+     */
+    function valid_number($number) {
+        return is_numeric($number) ? $number : 0;
+    }
+}

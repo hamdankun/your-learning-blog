@@ -12,7 +12,6 @@ const { mix } = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   // .sass('resources/assets/sass/app.scss', 'public/css')
    .styles('resources/assets/css/custom.css', 'public/css/custom.css')
    .js('resources/assets/js/admin/category.js', 'public/js/category.js')
    .js('resources/assets/js/admin/artickle.js', 'public/js/artickle.js')
@@ -20,4 +19,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .js('resources/assets/js/utils.js', 'public/js/utils.js')
    .js('resources/assets/js/datatable-builder.js', 'public/js/datatable-builder.js')
    .js('resources/assets/js/frontend/main-frontend.js', 'public/js/main-frontend.js')
-   .js('resources/assets/js/frontend/home.js', 'public/js/home-frontend.js');
+   .js('resources/assets/js/frontend/home.js', 'public/js/home-frontend.js')
+   .js('resources/assets/js/frontend/article.js', 'public/js/article-frontend.js')
+   .js('resources/assets/js/frontend/article-factory.js', 'public/js/article-factory.js');

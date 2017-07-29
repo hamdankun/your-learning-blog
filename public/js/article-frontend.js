@@ -63,50 +63,64 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 50);
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 11:
+/***/ 13:
 /***/ (function(module, exports) {
 
-_DatatableFactory = function ($, selector, url, columns) {
-    var table;
+_elm.ready(function () {
 
-    build = function build(selector, url, columns) {
-        table = selector.DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: url,
-            columns: columns,
-            initComplete: function initComplete() {
-                dataTablesIndex();
-            }
-        });
-    };
+    _Image.lazy();
 
-    dataTablesIndex = function dataTablesIndex(noIndex) {
-        table.on('order.dt search.dt', function () {
-            var pageIndex = table.page() * table.page.len();
-            table.column(noIndex, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-                cell.innerHTML = pageIndex + i + 1;
+    $('#pagination').materializePagination({
+        align: 'center',
+        lastPage: _paginator.lastPage,
+        firstPage: 1,
+        urlParameter: 'page',
+        useUrlParameter: true,
+        onClickCallback: function onClickCallback(requestedPage) {
+            _Loader.show();
+            _Http._get(_baseUrl + '/ajax/frontend/article/' + _slugCategory, { page: requestedPage }, function (response) {
+
+                if (response.status === 'success') {
+                    _ArticleFactory.renderToHtml(response.data.data, true);
+
+                    if (!_firstLoad) {
+                        _Scroll.to($('.list-article'));
+                    } else {
+                        _firstLoad = false;
+                    }
+                }
+
+                _Loader.hide();
+            }, function (error) {
+                _Loader.hide();
             });
-        }).draw();
-    };
+        }
+    });
 
-    return {
-        build: build,
-        dataTablesIndex: dataTablesIndex
-    };
-}(jQuery);
+    $('select').material_select();
+
+    $(".autocomplete").devbridgeAutocomplete({
+        serviceUrl: _urlAutoComplete,
+        type: 'GET',
+        onSelect: function onSelect(suggestion) {
+            console.log(suggestion);
+        },
+        showNoSuggestionNotice: true,
+        noSuggestionNotice: 'Sorry, no matching results'
+    });
+});
 
 /***/ }),
 
-/***/ 50:
+/***/ 52:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(11);
+module.exports = __webpack_require__(13);
 
 
 /***/ })

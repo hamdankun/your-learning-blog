@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 52);
+/******/ 	return __webpack_require__(__webpack_require__.s = 56);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 15:
+/***/ 17:
 /***/ (function(module, exports) {
 
 _BtnDatatable = function ($, prefixUrl) {
@@ -84,7 +84,7 @@ _BtnDatatable = function ($, prefixUrl) {
     };
 }(jQuery, typeof _prefixUrl !== 'undefined' ? _prefixUrl : '');
 
-_Loader = function () {
+_Loader = function ($) {
     var _loaderWraper = $('#loader-wrapper');
     show = function show() {
         load(true);
@@ -111,10 +111,10 @@ _Loader = function () {
 
 /***/ }),
 
-/***/ 52:
+/***/ 56:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(15);
+module.exports = __webpack_require__(17);
 
 
 /***/ })

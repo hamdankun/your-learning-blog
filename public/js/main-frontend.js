@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 50);
+/******/ 	return __webpack_require__(__webpack_require__.s = 54);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 13:
+/***/ 15:
 /***/ (function(module, exports) {
 
 _Loader = function ($) {
@@ -124,6 +124,14 @@ _elm.ready(function () {
     $('.button-collapse').click(function () {
         $('#sidenav-overlay').css({ 'z-index': 0 });
     });
+
+    $('.category-link a').click(function () {
+        vm = $(this);
+        _Loader.show();
+        setTimeout(function () {
+            window.location.href = vm.attr('href');
+        }, 500);
+    });
 });
 
 // service ajax
@@ -176,6 +184,24 @@ _Http = function () {
     };
 }();
 
+_Scroll = function ($) {
+
+    to = function to(selector, duration) {
+
+        if (!duration) {
+            duration = 1000;
+        }
+
+        $('html, body').animate({
+            scrollTop: selector.offset().top
+        }, duration);
+    };
+
+    return {
+        to: to
+    };
+}(jQuery);
+
 Object.defineProperty(Array.prototype, 'chunk', {
     value: function value(chunkSize) {
         return this.reduce(function (previous, current) {
@@ -194,10 +220,10 @@ Object.defineProperty(Array.prototype, 'chunk', {
 
 /***/ }),
 
-/***/ 50:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(13);
+module.exports = __webpack_require__(15);
 
 
 /***/ })

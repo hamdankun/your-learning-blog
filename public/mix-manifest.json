@@ -9,5 +9,7 @@
   "/css/custom.css": "/css/custom.css",
   "/js/artickle.js": "/js/artickle.js",
   "/js/main-frontend.js": "/js/main-frontend.js",
-  "/js/home-frontend.js": "/js/home-frontend.js"
+  "/js/home-frontend.js": "/js/home-frontend.js",
+  "/js/article-frontend.js": "/js/article-frontend.js",
+  "/js/article-factory.js": "/js/article-factory.js"
 }

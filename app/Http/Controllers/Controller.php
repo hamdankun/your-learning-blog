@@ -95,7 +95,7 @@ class Controller extends BaseController
      * @param  string $key
      * @return \Illuminate\Support\Cache
      */
-    public function toCache($callback, $minutes, $key = '')
+    public function toCache($callback, $minutes = 5, $key = '')
     {
         return \Cache::remember($key ? $key : request()->fullUrl(), $minutes, $callback);
     }
@@ -112,6 +112,21 @@ class Controller extends BaseController
     }
 
     /**
+     * Get list category
+     * @return void
+     */
+    public function getAndShareToViewCategory()
+    {
+        $categories = $this->toCache(function() {
+            return \App\Models\Category::select('name', 'slug')->orderBy('id', 'desc')
+                                       ->limit(7)
+                                       ->get();
+        }, 5, 'categories');
+
+        view()->share('categories', $categories);
+    }
+
+    /**
      * Generate response json
      * @param  array  $data
      * @param  integer $status
@@ -122,6 +137,11 @@ class Controller extends BaseController
         return response()->json($data, 200);
     }
 
+    /**
+     * Set Seo for page
+     * @param  array  $article
+     * @return void
+     */
     public function buildSEO($article = [])
     {
 
@@ -150,5 +170,15 @@ class Controller extends BaseController
                 'section' => $article->category->name,
                 'tag' => $article->label
             ]);
+    }
+
+    /**
+     * Store artice category
+     * @param  string $slug
+     * @return void
+     */
+    public function activeCategory($slug)
+    {
+        view()->share('active_category', $slug);
     }
 }

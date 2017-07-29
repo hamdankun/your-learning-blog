@@ -84,7 +84,9 @@ class Article extends Model
     protected static function boot() {
         parent::boot();
         static::creating(function($model) {
-            $model->user_id = \Auth::user()->id;
+            if (\Auth::user()) {
+                $model->user_id = \Auth::user()->id;
+            }
         });
     }
 
@@ -127,5 +129,61 @@ class Article extends Model
     {
         return $query
             ->join(static::T_CATEGORY, static::T_CATEGORY.'.id', '=', $this->getTable().'.category_id');
+    }
+
+    /**
+     * Scope for get public column visible
+     * @param  \Illuminate\Database\Query\Builder $query
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopePublicColumn($query)
+    {
+        return $query
+            ->select(
+                $this->getTable() . '.id',
+                $this->getTable() . '.title',
+                $this->getTable() . '.content',
+                $this->getTable() . '.label',
+                $this->getTable() . '.slug',
+                $this->getTable() . '.category_id'
+            );
+    }
+
+    /**
+     * Scope for get public column visible for json request
+     * @param  \Illuminate\Database\Query\Builder $query
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeJsonPublicColumn($query)
+    {
+        return $query
+            ->select(
+                $this->getTable() . '.title',
+                $this->getTable() . '.content',
+                $this->getTable() . '.label'
+            );
+    }
+
+    /**
+     * Scope for get slug article and slug category
+     * @param  \Illuminate\Database\Query\Builder $query
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeTakeSlugArticleAndCategory($query)
+    {
+        return $query
+            ->addSelect($this->getTable() . '.slug as article_slug',
+                static::T_CATEGORY . '.slug as category_slug');
+    }
+
+    /**
+     * Scope for get get similiar article base on query string
+     * @param  \Illuminate\Database\Query\Builder $query
+     * @param  string $queryString
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeFindSimiliar($query, $queryString)
+    {
+        return $query->where($this->getTable() . '.title', 'like', '%' . $queryString . '%');
     }
 }

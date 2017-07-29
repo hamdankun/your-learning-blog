@@ -54,6 +54,14 @@ _elm.ready(function() {
     $('.button-collapse').click(function() {
         $('#sidenav-overlay').css({'z-index': 0});
     });
+
+    $('.category-link a').click(function() {
+        vm = $(this);
+        _Loader.show();
+        setTimeout(function() {
+            window.location.href = vm.attr('href');
+        }, 500);
+    });
 });
 
 // service ajax
@@ -107,6 +115,25 @@ _Http = (function() {
   }
 })();
 
+
+_Scroll = (function($) {
+
+    to = function(selector, duration) {
+
+        if (!duration) {
+            duration = 1000;
+        }
+
+        $('html, body').animate({
+            scrollTop: selector.offset().top
+        }, duration);
+    }
+
+    return {
+        to: to
+    }
+
+})(jQuery);
 
 
 Object.defineProperty(Array.prototype, 'chunk', {

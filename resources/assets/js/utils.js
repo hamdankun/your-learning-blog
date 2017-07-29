@@ -11,7 +11,7 @@ _BtnDatatable = (function($, prefixUrl) {
     }
 })(jQuery, typeof _prefixUrl !== 'undefined' ? _prefixUrl : '');
 
-_Loader = (function() {
+_Loader = (function($) {
     var _loaderWraper = $('#loader-wrapper');
     show = function() {
         load(true);
@@ -32,6 +32,6 @@ _Loader = (function() {
     return {
         show: show,
         hide: hide,
-        load: load   
+        load: load
     }
 })(jQuery);
