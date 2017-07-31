@@ -29,6 +29,11 @@ class ArticleController extends Controller
         $this->getAndShareToViewCategory();
     }
 
+    /**
+     * Show Article base on category
+     * @param  string $slug
+     * @return \Illuminate\Http\Response
+     */
     public function index($slug)
     {
 
@@ -39,8 +44,9 @@ class ArticleController extends Controller
         }
 
         $this->activeCategory($slug);
+        $q = request()->get('q');
 
-        return view(static::PATH_VIEW.'index', compact('articles'));
+        return view(static::PATH_VIEW.'index', compact('articles', 'q'));
     }
 
     /**
@@ -65,7 +71,9 @@ class ArticleController extends Controller
     public function getByCategory($slug)
     {
         return $this->toCache(function() use ($slug) {
-           return $this->article->getByCategory($slug)->paginate(20);
+           return $this->article->getByCategory($slug)
+                    ->findSimiliar(request()->get('q'))
+                    ->paginate(20);
         });
     }
 
@@ -100,6 +108,8 @@ class ArticleController extends Controller
 
             }
 
+            $articles = $articles->findSimiliar(request()->get('query'));
+
             $articles = $this->toCache(function() use($articles) {
                 return $articles->paginate(20);
             });
@@ -113,11 +123,16 @@ class ArticleController extends Controller
         throw new \Symfony\Component\HttpKernel\Exception\HttpException(400, 'Invalid Request Exception', null, array(), 400);
     }
 
+    /**
+     * Autocomplete search article
+     * @return \Illuminate\Http\Response
+     */
     public function ajaxSearch()
     {
         $articles = $this->toCache(function() {
             return $this->article
                     ->select('title')
+                    ->getByCategory(request()->get('category'))
                     ->findSimiliar(request()->get('query'))
                     ->limit(10)
                     ->pluck('title')
@@ -138,6 +153,9 @@ class ArticleController extends Controller
         return $this->toCache(function () {
             return $this->article
                     ->publicColumn()
+                    ->takeSlugArticleAndCategory()
+                    ->withCategory()
+                    ->findSimiliar(request()->get('q'))
                     ->orderBy('articles.id', 'desc')
                     ->paginate(20);
         }, 5);

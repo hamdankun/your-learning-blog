@@ -28,10 +28,10 @@
     <div class="container">
         <div class="section">
             <div class="row">
-                <div class="col s8 m8">
+                <div class="col s12 m8">
                     <div class="card">
                         <div class="card-image">
-                            <img data-origin="{{ env('BASE_PATH_STORAGE') }}/article-images/640x480/{{ $article->image }}" class="lazy">
+                            <img data-original="{{ env('BASE_PATH_STORAGE') }}/article-images/640x480/{{ $article->image }}" class="lazy">
                             <span class="card-title custom-orange-color custom-cart-title">
                                 <h5>{{ $article->title }}</h5>
                             </span>
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col s4 m4">
+                <div class="col s12 m4">
                     <div class="card">
                         <div class="card-image">
                             <img src="/storage/article-images/sample-image-thumbnail.png">

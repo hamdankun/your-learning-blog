@@ -6,13 +6,13 @@
             <br><br>
             <div class="section">
                 <div class="row">
-                    <form class="col s4 right">
+                    <form class="col s12 m5 right article-filter">
                       <div class="row">
-                        <div class="input-field col s8">
+                        <div class="input-field col s8 m8">
                           <input id="first_name" maxlength="100" type="text" class="validate autocomplete">
-                          <label for="first_name">Search Article</label>
+                          <label for="search">Search Article On This Category</label>
                         </div>
-                        <div class="input-field col s4">
+                        <div class="input-field col s4 m4">
                             <select>
                                 <option value="">Sort By</option>
                                 <option value="1">Popular Article</option>
@@ -49,7 +49,8 @@
     }
     var _firstLoad = true;
     var _slugCategory = '{{ $active_category }}';
-    var _urlAutoComplete = '{{ route('frontend.ajax.article.search') }}';
+    var _urlAutoComplete = '{{ route('frontend.ajax.article.search') }}' + '?category=' + _slugCategory;
+    var _q = '{{ $q }}';
 @endsection
 
 @section('scripts')

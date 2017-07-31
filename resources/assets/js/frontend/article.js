@@ -10,22 +10,7 @@ _elm.ready(function() {
         useUrlParameter: true,
         onClickCallback: function(requestedPage){
             _Loader.show();
-            _Http._get(_baseUrl+'/ajax/frontend/article/' + _slugCategory, {page: requestedPage}, function(response) {
-
-                if (response.status === 'success') {
-                    _ArticleFactory.renderToHtml(response.data.data, true);
-
-                    if (!_firstLoad) {
-                        _Scroll.to($('.list-article'));
-                    } else {
-                        _firstLoad = false;
-                    }
-                }
-
-                _Loader.hide();
-            }, function(error) {
-                _Loader.hide();
-            });
+            getArticle(requestedPage, _q);
         }
     });
 
@@ -35,10 +20,40 @@ _elm.ready(function() {
         serviceUrl: _urlAutoComplete,
         type: 'GET',
         onSelect: function (suggestion) {
-            console.log(suggestion);
+            search(1, suggestion.value);
         },
         showNoSuggestionNotice: true,
         noSuggestionNotice: 'Sorry, no matching results',
     });
+
+    $('.autocomplete').on('keyup', function (e) {
+        if (e.keyCode == 13) {
+            search(1, $(this).val());
+        }
+    });
 });
+
+function search(page, value) {
+    _Loader.show();
+    window.location.href = _baseUrl + window.location.pathname + '?q=' + value;
+}
+
+function getArticle(requestedPage, query) {
+    _Http._get(_baseUrl+'/ajax/frontend/article/' + _slugCategory, {page: requestedPage, query: query}, function(response) {
+
+        if (response.status === 'success') {
+            _ArticleFactory.renderToHtml(response.data.data, true);
+
+            if (!_firstLoad) {
+                _Scroll.to($('.list-article'));
+            } else {
+                _firstLoad = false;
+            }
+        }
+
+        _Loader.hide();
+    }, function(error) {
+        _Loader.hide();
+    });
+}
 

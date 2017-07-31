@@ -117,3 +117,16 @@ if (!function_exists('valid_number')) {
         return is_numeric($number) ? $number : 0;
     }
 }
+
+if (!function_exists('is_active')) {
+
+    /**
+     * Set active menu
+     * @param  string  $currentRoute
+     * @param  string  $linkRoute
+     * @return boolean
+     */
+    function is_active($currentRoute, $linkRoute) {
+        return $currentRoute == $linkRoute ? 'active' : 'not-active';
+    }
+}

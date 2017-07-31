@@ -11,9 +11,9 @@
 |
 */
 
-
 Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function($router) {
-    $router->get('/', ['as' => 'root', 'uses' => 'HomeController@index']);
+    $router->get('/', ['as' => 'root', 'uses' => 'YourController@index']);
+    $router->get('/about-us', ['as' => 'your.about-us', 'uses' => 'YourController@aboutUs']);
     $router->group(['prefix' => 'ajax/frontend'], function($router) {
         $router->get('article/{category?}/{slug?}', ['as' => 'ajax.article', 'uses' => 'ArticleController@ajaxRequest']);
         $router->get('search-article', ['as' => 'ajax.article.search', 'uses' => 'ArticleController@ajaxSearch']);

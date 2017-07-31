@@ -15,9 +15,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        $this->app->bind('path.public', function() {
+          return base_path().'/public_html';
+        });
+
         if ($this->app->environment() !== 'production') {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
-            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+            // $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
     }
 

@@ -116,8 +116,10 @@ class Article extends Model
      */
     public function scopeGetByCategory($query, $slug)
     {
-        return $query->withCategory()
-                ->where(static::T_CATEGORY.'.slug', $slug);
+        if ($slug !== 'all') {
+            return $query->withCategory()
+                    ->where(static::T_CATEGORY.'.slug', $slug);
+        }
     }
 
     /**
@@ -144,7 +146,7 @@ class Article extends Model
                 $this->getTable() . '.title',
                 $this->getTable() . '.content',
                 $this->getTable() . '.label',
-                $this->getTable() . '.slug',
+                $this->getTable() . '.image',
                 $this->getTable() . '.category_id'
             );
     }
@@ -160,7 +162,8 @@ class Article extends Model
             ->select(
                 $this->getTable() . '.title',
                 $this->getTable() . '.content',
-                $this->getTable() . '.label'
+                $this->getTable() . '.label',
+                $this->getTable() . '.image'
             );
     }
 
@@ -182,8 +185,12 @@ class Article extends Model
      * @param  string $queryString
      * @return \Illuminate\Database\Query\Builder
      */
-    public function scopeFindSimiliar($query, $queryString)
+    public function scopeFindSimiliar($query, $queryString = '')
     {
-        return $query->where($this->getTable() . '.title', 'like', '%' . $queryString . '%');
+        if ($queryString) {
+            return $query->where($this->getTable() . '.title', 'like', '%' . $queryString . '%');
+        }
+
+        return $query;
     }
 }
