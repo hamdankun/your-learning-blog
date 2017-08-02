@@ -17,8 +17,10 @@ class CreateSeosTable extends Migration
             $table->increments('id');
             $table->integer('article_id')->unsigned()->nullable();
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('CASCADE');
-            $table->integer('seo_property_id')->unsigned()->nullable();
-            $table->foreign('seo_property_id')->references('id')->on('seo_properties')->onDelete('CASCADE');
+            $table->string('category')->nullable();
+            $table->string('type')->nullable();
+            // $table->integer('seo_property_id')->unsigned()->nullable();
+            // $table->foreign('seo_property_id')->references('id')->on('seo_properties')->onDelete('CASCADE');
             $table->text('description');
             $table->timestamps();
         });

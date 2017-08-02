@@ -35,3 +35,20 @@ _Loader = (function($) {
         load: load
     }
 })(jQuery);
+
+_Dom = (function($) {
+    _baseElm = $(document);
+
+    onClick = function(selector, callback, dynamic) {
+
+        if(dynamic) {
+            _baseElm.on('click', selector,callback);
+        } else {
+            $(selector).on('click', callback);
+        }
+    }
+
+    return {
+        onClick: onClick
+    }
+})(jQuery);

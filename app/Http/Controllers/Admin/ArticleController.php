@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
 use Image;
 use Storage;
 use Datatables;
+use App\Classes\Seo;
 use App\Models\Label;
 use App\Models\Article;
 use App\Models\Category;
@@ -14,6 +16,7 @@ use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
 {
+    use Seo;
 
     /**
      * The path view layout
@@ -87,12 +90,18 @@ class ArticleController extends Controller
     public function store(ArticleRequest $request)
     {
         try {
+            DB::beginTransaction();
+
             $article = $this->article->create($request->input());
             $this->uploadImageIfExist($article, $request);
             $this->setNotification('success', trans('general.create.success', [static::REPLACING_NAME => 'Article']));
             $callback = $this->toRoute(static::PREFIX_ROUTE_NAME.'index');
+            $this->setUpSEO($request->input('seo'), $article->id);
             $this->callEvent($request);
+
+            DB::commit();
         } catch (Exception $e) {
+            DB::rollBack();
             $this->setNotification('error', $this->errorException($e));
             $callback = redirect()->back();
         }

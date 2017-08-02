@@ -30,7 +30,7 @@ class SeoConfigArticle extends Model
      * The fillable colums
      * @var array
      */
-    protected $fillable = ['article_id', 'type', 'description'];
+    protected $fillable = ['article_id', 'category', 'type', 'description'];
 
     /**
      * Relation With Article

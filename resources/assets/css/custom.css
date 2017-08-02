@@ -217,6 +217,14 @@ nav form {
   height: 300px;
 }
 
+.mt-10 {
+  margin-top: 10px;
+}
+
+.text-right {
+  text-align: right;
+}
+
 @media only screen and (max-width: 992px) {
   .pagination {
     width: 100%;

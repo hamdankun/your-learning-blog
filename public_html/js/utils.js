@@ -109,6 +109,23 @@ _Loader = function ($) {
     };
 }(jQuery);
 
+_Dom = function ($) {
+    _baseElm = $(document);
+
+    onClick = function onClick(selector, callback, dynamic) {
+
+        if (dynamic) {
+            _baseElm.on('click', selector, callback);
+        } else {
+            $(selector).on('click', callback);
+        }
+    };
+
+    return {
+        onClick: onClick
+    };
+}(jQuery);
+
 /***/ }),
 
 /***/ 56:

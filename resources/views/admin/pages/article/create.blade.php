@@ -31,29 +31,9 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade padding-small" id="seo-config">
-                      <div class="form-group">
-                        <label for="type" class="control-label col-sm-1">Type</label>
-                        <div class="col-sm-10">
-                          <select name="[]type" class="form-control">
-                            <option value="meta">Meta</option>
-                            <option value="property">Property</option>
-                            <option value="image">Image</option>
-                            <option value="title">Title</option>
-                            <option value="type">Type</option>
-                          </select>
+                        <div class="row">
+                            @include('admin.pages.article.form-seo')
                         </div>
-                        <div class="col-sm-1">
-                          <button type="button" class="btn btn-primary add-seo-config">
-                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="type" class="control-label col-sm-1">Description</label>
-                        <div class="col-sm-11">
-                          <textarea name="[]description" class="form-control"></textarea>
-                        </div>
-                      </div>
                     </div>
               </div>
             </form>

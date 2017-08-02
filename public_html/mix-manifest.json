@@ -1,5 +1,4 @@
 {
-  "/css/custom.css": "/css/custom.css",
   "/js/app.js": "/js/app.js",
   "/js/utils.js": "/js/utils.js",
   "/js/main.js": "/js/main.js",
@@ -9,5 +8,6 @@
   "/js/article-factory.js": "/js/article-factory.js",
   "/js/datatable-builder.js": "/js/datatable-builder.js",
   "/js/category.js": "/js/category.js",
-  "/js/artickle.js": "/js/artickle.js"
+  "/js/artickle.js": "/js/artickle.js",
+  "/css/custom.css": "/css/custom.css"
 }
