@@ -8,11 +8,11 @@
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+      {!! SEO::generate() !!}
+
       <meta name="geo.position" content="-6.9034443; 107.5729458">
       <meta name="geo.placename" content="bandung">
       <meta name="geo.region" content="west java">
-
-      {!! SEO::generate() !!}
 
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Seo;
+use OpenGraph;
+use Twitter;
+use SEOMeta;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -40,9 +44,9 @@ class Controller extends BaseController
 
     /**
      * set object path link
-     * @param string  $name
-     * @param string  $link
-     * @param string  $icon
+     * @param string $name
+     * @param string $link
+     * @param string $icon
      * @param boolean $active
      */
     public function setObjectPath($name, $link, $icon, $active = false)
@@ -80,7 +84,7 @@ class Controller extends BaseController
     public function errorException(\Exception $e)
     {
         if (env('APP_DEBUG')) {
-            $errorMessage = $e->getMessage().' - '.$e->getLine().' - '.$e->getFile();
+            $errorMessage = $e->getMessage() . ' - ' . $e->getLine() . ' - ' . $e->getFile();
             \Log::error($errorMessage);
         } else {
             $errorMessage = trans('error.500');
@@ -117,10 +121,10 @@ class Controller extends BaseController
      */
     public function getAndShareToViewCategory()
     {
-        $categories = $this->toCache(function() {
+        $categories = $this->toCache(function () {
             return \App\Models\Category::select('name', 'slug')->orderBy('id', 'desc')
-                                       ->limit(7)
-                                       ->get();
+                ->limit(7)
+                ->get();
         }, 5, 'categories');
 
         view()->share('categories', $categories);
@@ -128,7 +132,7 @@ class Controller extends BaseController
 
     /**
      * Generate response json
-     * @param  array  $data
+     * @param  array $data
      * @param  integer $status
      * @return \Illuminate\Http\Response
      */
@@ -139,29 +143,64 @@ class Controller extends BaseController
 
     /**
      * Set Seo for page
-     * @param  array  $article
+     * @param  \App\Models\Article $article
      * @return void
      */
     public function buildSEO($article = [])
     {
+        $seoProperties = $this->toCache(function () use ($article) {
+            return $article->SEO;
+        }, 5, 'seo-' . request()->fullUrl());
+        $googlePlusAttributes = $seoProperties->where('attribute_key', 'itemprop');
+        $openGraphAttributes = $seoProperties->where('prefix', 'og');
+        $twitterAttributes = $seoProperties->where('prefix', 'twitter');
+        $articleAttributes = $seoProperties->where('prefix', 'article');
+        $generalAttributes = $seoProperties->where('prefix', null)->where('attribute_key', '!=', 'itemprop');
+        SEOMeta::setTitle($article->title);
 
-        \SEOMeta::setTitle($article->title);
-        \SEOMeta::setDescription(strip_tags($article->content));
-        \SEOMeta::addMeta('article:published_time', $article->created_at->toW3CString(), 'property');
-        \SEOMeta::addMeta('article:section', $article->category->name, 'property');
-        \SEOMeta::addKeyword($article->label);
+        if (!count($seoProperties)) {
+            $this->SEOByDefault($article);
+        } else {
+            $concat = [
+                0 => $generalAttributes,
+                1 => $googlePlusAttributes,
+                2 => $openGraphAttributes,
+                3 => $twitterAttributes,
+                4 => $articleAttributes
+            ];
+            $this->SEOByProperty($article, $concat);
 
-        \OpenGraph::setDescription(strip_tags($article->content));
-        \OpenGraph::setTitle($article->title);
-        \OpenGraph::setUrl(request()->fullUrl());
-        \OpenGraph::addProperty('type', 'article');
-        \OpenGraph::addProperty('locale', 'en-id');
-        \OpenGraph::addProperty('locale:alternate', ['en-us']);
+        }
+    }
 
-        \OpenGraph::addImage(url('/') . '/storage/article-images/640x480/' .  $article->image);
+    /**
+     * Build Seo by current properties
+     * @param \App\Models\Article $article
+     */
+    public function SEOByDefault($article)
+    {
+        $description = strip_tags(str_limit($article->content, 200));
+        SEOMeta::setDescription($description);
+        SEOMeta::addMeta('article:published_time', $article->created_at->toW3CString(), 'property');
+        SEOMeta::addMeta('article:section', $article->category->name, 'property');
+        SEOMeta::addKeyword($article->label);
+        OpenGraph::setDescription($description);
+        OpenGraph::setTitle($article->title);
+        OpenGraph::setUrl(request()->fullUrl());
+        OpenGraph::addProperty('type', 'article');
+        OpenGraph::addProperty('locale', 'en-id');
+        OpenGraph::addProperty('locale:alternate', ['en-us']);
 
-        \OpenGraph::setTitle('Article')
-            ->setDescription(strip_tags($article->content))
+        $relatedUrl = url('/') . '/storage/article-images/640x480/' . $article->image;
+
+        if (!\Storage::exists('public/article-images/640x480/' . $article->image)) {
+            $relatedUrl = url('/') . '/storage/article-images/300x300/article-default-image.jpg';
+        }
+
+
+        OpenGraph::addImage($relatedUrl);
+        OpenGraph::setTitle($article->title)
+            ->setDescription($description)
             ->setType('article')
             ->setArticle([
                 'published_time' => $article->created_at->toW3CString(),
@@ -170,6 +209,51 @@ class Controller extends BaseController
                 'section' => $article->category->name,
                 'tag' => $article->label
             ]);
+    }
+
+    /**
+     * Build SEO By properties which already set up
+     * @param \App\Models\Article $article
+     * @param array $concat
+     */
+    public function SEOByProperty($article, $concat)
+    {
+
+
+        foreach ($concat as $key => $concatValue) {
+            foreach ($concatValue as $key => $property) {
+
+                if ($property->attribute_value === 'description' && $property->attribute_key !== 'itemprop') {
+
+                    if (!$property->prefix) {
+                        SEOMeta::setDescription($property->content);
+                    } else if ($property->prefix === 'og') {
+                        OpenGraph::setDescription($property->content);
+                    } else if ($property->prefix === 'twitter') {
+                        Twitter::setDescription($property->content);
+                    }
+
+                } else {
+                    SEOMeta::addMeta(($property->prefix ? $property->prefix . ':' : '') . $property->attribute_value, $property->content, $property->attribute_key);
+                }
+
+            }
+        }
+
+        $relatedUrl = url('/') . '/storage/article-images/640x480/' . $article->image;
+
+        if (!\Storage::exists('public/article-images/640x480/' . $article->image)) {
+            $relatedUrl = url('/') . '/storage/article-images/300x300/article-default-image.jpg';
+        }
+
+        SEOMeta::addMeta('image', $relatedUrl, 'itemprop');
+        Twitter::setSite(env('DEFAULT_SITE_TWITTER'));
+        SEOMeta::addMeta('twitter:creator', env('DEFAULT_SITE_TWITTER'), 'name');
+        Twitter::setImage($relatedUrl);
+        OpenGraph::addProperty('locale', 'en-us');
+        OpenGraph::addProperty('locale:alternate', ['en-us']);
+        OpenGraph::setUrl(request()->fullUrl());
+        OpenGraph::addImage($relatedUrl);
     }
 
     /**

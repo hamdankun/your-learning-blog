@@ -62,9 +62,9 @@ class ArticleController extends Controller
     public function index()
     {
         $this->breadcrumb(
-            [$this->setObjectPath('article', static::PREFIX_ROUTE_NAME.'index', 'fa-table', true)]
+            [$this->setObjectPath('article', static::PREFIX_ROUTE_NAME . 'index', 'fa-table', true)]
         );
-        return view(static::PATH_VIEW.'index');
+        return view(static::PATH_VIEW . 'index');
     }
 
     /**
@@ -95,7 +95,7 @@ class ArticleController extends Controller
             $article = $this->article->create($request->input());
             $this->uploadImageIfExist($article, $request);
             $this->setNotification('success', trans('general.create.success', [static::REPLACING_NAME => 'Article']));
-            $callback = $this->toRoute(static::PREFIX_ROUTE_NAME.'index');
+            $callback = $this->toRoute(static::PREFIX_ROUTE_NAME . 'index');
             $this->setUpSEO($request->input('seo'), $article->id);
             $this->callEvent($request);
 
@@ -113,7 +113,7 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -124,7 +124,7 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -140,22 +140,22 @@ class ArticleController extends Controller
      */
     public function findAndSendToView($id, $layout)
     {
-       $article = [];
+        $article = [];
 
-       if ($layout === 'update') {
-        $article = $this->article->find($id);
-       }
+        if ($layout === 'update') {
+            $article = $this->article->find($id);
+        }
 
-       $categories = Category::pluck('name', 'id');
-       $labels = \App\Models\Label::pluck('name');
-       return view(static::PATH_VIEW.$layout, compact('article', 'categories', 'labels'));
+        $categories = Category::pluck('name', 'id');
+        $labels = \App\Models\Label::pluck('name');
+        return view(static::PATH_VIEW . $layout, compact('article', 'categories', 'labels'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(ArticleRequest $request, $id)
@@ -165,7 +165,7 @@ class ArticleController extends Controller
             $article->update($request->except('id'));
             $this->uploadImageIfExist($article, $request);
             $this->setNotification('success', trans('general.created.success', [static::REPLACING_NAME => static::MODULE_NAME]));
-            $callback = $this->toRoute(static::PREFIX_ROUTE_NAME.'index');
+            $callback = $this->toRoute(static::PREFIX_ROUTE_NAME . 'index');
             $this->callEvent($request);
         } catch (Exception $e) {
             $this->setNotification('error', $this->errorException($e));
@@ -188,7 +188,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -217,11 +217,11 @@ class ArticleController extends Controller
     {
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $extension = $request->image->extension();
-            $name = $article->slug.'.'.$extension;
+            $name = $article->slug . '.' . $extension;
             $path = 'public/article-images';
-            $currentOrigin = $path.'/origin/'.$article->image;
-            $current640x480 = $path.'/640x480/'.$article->image;
-            $current300x300 = $path.'/300x300/'.$article->image;
+            $currentOrigin = $path . '/origin/' . $article->image;
+            $current640x480 = $path . '/640x480/' . $article->image;
+            $current300x300 = $path . '/300x300/' . $article->image;
 
             if ($article->image) {
                 if (Storage::exists($currentOrigin)) {
@@ -240,10 +240,13 @@ class ArticleController extends Controller
             $request->image->storeAs('public/article-images/origin', $name);
             Image::make($request->file('image'))
                 ->resize(640, 480)
-                ->save(storage_path('app/public/article-images/640x480').'/'.$name);
+                ->save(storage_path('app/public/article-images/640x480') . '/' . $name);
             Image::make($request->file('image'))
                 ->fit(300, 300)
-                ->save(storage_path('app/public/article-images/300x300').'/'.$name);
+                ->save(storage_path('app/public/article-images/300x300') . '/' . $name);
+            Image::make($request->file('image'))
+                ->fit(100, 100)
+                ->save(storage_path('app/public/article-images/100x100') . '/' . $name);
             $article->image = $name;
             $article->save();
         }

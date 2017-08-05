@@ -6,8 +6,9 @@ if (!function_exists('active_link')) {
      * @param  boolean $active
      * @return string
      */
-    function active_link($active) {
-        return $active ? 'active': '';
+    function active_link($active)
+    {
+        return $active ? 'active' : '';
     }
 }
 
@@ -18,11 +19,12 @@ if (!function_exists('define_link')) {
      * @param  array $path
      * @return string
      */
-    function define_link($path) {
+    function define_link($path)
+    {
         $link = '';
 
         if (!$path['active']) {
-            $link .= '<a href="'.define_route($path['link']).'">'.$path['name'].'</a>';
+            $link .= '<a href="' . define_route($path['link']) . '">' . $path['name'] . '</a>';
         } else {
             $link = $path['name'];
         }
@@ -38,7 +40,8 @@ if (!function_exists('define_route')) {
      * @param  boolean $active
      * @return string
      */
-    function define_route($route) {
+    function define_route($route)
+    {
         return $route !== '#' ? route($route) : '#';
     }
 }
@@ -51,7 +54,8 @@ if (!function_exists('selected_category')) {
      * @param  integer $defaultValue
      * @return string
      */
-    function selected_category($value, $defaultValue) {
+    function selected_category($value, $defaultValue)
+    {
         return $value === $defaultValue ? 'selected' : '';
     }
 }
@@ -64,7 +68,8 @@ if (!function_exists('selected_label')) {
      * @param  integer $value
      * @return string
      */
-    function selected_label($value, $labels) {
+    function selected_label($value, $labels)
+    {
         return in_array($value, $labels) ? 'selected' : '';
     }
 }
@@ -77,13 +82,14 @@ if (!function_exists('build_label')) {
      * @param array $labels
      * @return string
      */
-    function build_label($labels, $noLimit = false, $customTemplate = '') {
+    function build_label($labels, $noLimit = false, $customTemplate = '')
+    {
         $tags = '';
 
         if (count($labels) > 0) {
-            foreach($labels as $key => $label) {
+            foreach ($labels as $key => $label) {
                 if (!$customTemplate) {
-                    $tags .= '#'. $label .' ';
+                    $tags .= '#' . $label . ' ';
 
                     if ($key > 1 && !$noLimit) {
                         break;
@@ -113,7 +119,8 @@ if (!function_exists('valid_number')) {
      * @param  mixed $number
      * @return integer
      */
-    function valid_number($number) {
+    function valid_number($number)
+    {
         return is_numeric($number) ? $number : 0;
     }
 }
@@ -122,11 +129,22 @@ if (!function_exists('is_active')) {
 
     /**
      * Set active menu
-     * @param  string  $currentRoute
-     * @param  string  $linkRoute
+     * @param  string $currentRoute
+     * @param  string $linkRoute
      * @return boolean
      */
-    function is_active($currentRoute, $linkRoute) {
+    function is_active($currentRoute, $linkRoute)
+    {
         return $currentRoute == $linkRoute ? 'active' : 'not-active';
+    }
+}
+
+if (!function_exists('create_input_hidden_meta')) {
+
+    function create_input_hidden_meta($attributeKey, $attributeValue, $prefix = '')
+    {
+        return '<input type="hidden" name="seo[attribute_key][]" class="attribute_key" value="' . $attributeKey . '">
+        <input type="hidden" name="seo[attribute_value][]" class="attribute_value" value="' . $attributeValue . '">
+        <input type="hidden" name="seo[prefix][]" class="prefix" value="' . $prefix . '">';
     }
 }

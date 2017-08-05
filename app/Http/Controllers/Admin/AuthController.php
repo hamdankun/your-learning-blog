@@ -28,7 +28,8 @@ class AuthController extends Controller
      * Authenticate user
      * @return \Illuminate\Http\Response
      */
-    public function attempt(AuthRequest $request) {
+    public function attempt(AuthRequest $request)
+    {
         $credentials = [
             'email' => $request->input('email'),
             'password' => $request->input('password')
@@ -47,7 +48,8 @@ class AuthController extends Controller
      * Logout User
      * @return \Illuminate\Http\Response
      */
-    public function logout() {
+    public function logout()
+    {
         Auth::logout();
         return $this->toRoute(static::ROUTE_LOGIN);
     }

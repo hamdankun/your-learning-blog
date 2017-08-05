@@ -206,6 +206,22 @@ nav form {
   margin: 0 auto;
 }
 
+.p-15 {
+  padding: 15px !important;
+}
+
+.mt-20 {
+  margin-top: 20px !important;
+}
+
+.custom-card-horizontal {
+  height: 100px;
+}
+
+.black-color {
+  color: #000 !important;
+}
+
 .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
 .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
 .autocomplete-selected { background: #F0F0F0; }
@@ -223,6 +239,14 @@ nav form {
 
 .text-right {
   text-align: right;
+}
+
+.f-left {
+  float: left !important;
+}
+
+.invisible-area {
+  display: none;
 }
 
 @media only screen and (max-width: 992px) {

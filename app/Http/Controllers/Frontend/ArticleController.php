@@ -46,7 +46,7 @@ class ArticleController extends Controller
         $this->activeCategory($slug);
         $q = request()->get('q');
 
-        return view(static::PATH_VIEW.'index', compact('articles', 'q'));
+        return view(static::PATH_VIEW . 'index', compact('articles', 'q'));
     }
 
     /**
@@ -60,7 +60,7 @@ class ArticleController extends Controller
         $article = $this->article->whereSlug($slugArticle)->firstOrFail();
         $this->buildSEO($article);
         $this->activeCategory($slugCategory);
-        return view(static::PATH_VIEW.'show', compact('article'));
+        return view(static::PATH_VIEW . 'show', compact('article'));
     }
 
     /**
@@ -70,10 +70,10 @@ class ArticleController extends Controller
      */
     public function getByCategory($slug)
     {
-        return $this->toCache(function() use ($slug) {
-           return $this->article->getByCategory($slug)
-                    ->findSimiliar(request()->get('q'))
-                    ->paginate(20);
+        return $this->toCache(function () use ($slug) {
+            return $this->article->getByCategory($slug)
+                ->findSimiliar(request()->get('q'))
+                ->paginate(20);
         });
     }
 
@@ -91,9 +91,9 @@ class ArticleController extends Controller
             if (($slugCategory === '' && $slugArticle === '') || $slugCategory === 'all') {
                 $tableName = $this->article->getTable();
                 $articles = $this->article
-                            ->withCategory()
-                            ->jsonPublicColumn()
-                            ->takeSlugArticleAndCategory();
+                    ->withCategory()
+                    ->jsonPublicColumn()
+                    ->takeSlugArticleAndCategory();
             } else {
 
                 if ($slugCategory) {
@@ -101,7 +101,7 @@ class ArticleController extends Controller
                 }
 
                 if ($slugArticle) {
-                    $articles = $article->whereSlug($this->article->getTable().'.slug', $slugArticle);
+                    $articles = $article->whereSlug($this->article->getTable() . '.slug', $slugArticle);
                 }
 
                 $articles = $articles->jsonPublicColumn()->takeSlugArticleAndCategory();
@@ -110,7 +110,7 @@ class ArticleController extends Controller
 
             $articles = $articles->findSimiliar(request()->get('query'));
 
-            $articles = $this->toCache(function() use($articles) {
+            $articles = $this->toCache(function () use ($articles) {
                 return $articles->paginate(20);
             });
 
@@ -129,19 +129,19 @@ class ArticleController extends Controller
      */
     public function ajaxSearch()
     {
-        $articles = $this->toCache(function() {
+        $articles = $this->toCache(function () {
             return $this->article
-                    ->select('title')
-                    ->getByCategory(request()->get('category'))
-                    ->findSimiliar(request()->get('query'))
-                    ->limit(10)
-                    ->pluck('title')
-                    ->toArray();
+                ->select('title')
+                ->getByCategory(request()->get('category'))
+                ->findSimiliar(request()->get('query'))
+                ->limit(10)
+                ->pluck('title')
+                ->toArray();
         });
 
         return $this->jsonResponse([
-                'suggestions' => $articles
-            ]);
+            'suggestions' => $articles
+        ]);
     }
 
     /**
@@ -152,12 +152,12 @@ class ArticleController extends Controller
     {
         return $this->toCache(function () {
             return $this->article
-                    ->publicColumn()
-                    ->takeSlugArticleAndCategory()
-                    ->withCategory()
-                    ->findSimiliar(request()->get('q'))
-                    ->orderBy('articles.id', 'desc')
-                    ->paginate(20);
+                ->publicColumn()
+                ->takeSlugArticleAndCategory()
+                ->withCategory()
+                ->findSimiliar(request()->get('q'))
+                ->orderBy('articles.id', 'desc')
+                ->paginate(20);
         }, 5);
     }
 }

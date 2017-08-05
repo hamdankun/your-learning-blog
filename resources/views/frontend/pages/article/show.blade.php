@@ -78,21 +78,173 @@
                     </div>
                 </div>
                 <div class="col s12 m4">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="/storage/article-images/sample-image-thumbnail.png">
-                            <span class="card-title custom-orange-color custom-cart-title">{{ build_label($article->label) }}</span>
+                  <nav>
+                    <div class="nav-wrapper">
+                      <a href="#!" class="brand-logo">Side Menu</a>
+                    </div>
+                  </nav>
+                  <div class="row">
+                    <div class="col s12 m12">
+                      <ul class="tabs">
+                        <li class="tab col s6"><a href="#test1" class="active custom-orange-text">Recent Article</a></li>
+                        <li class="tab col s6"><a href="#test2" class="custom-orange-text">Popular Article</a></li>
+                      </ul>
+                    </div>
+                    <div id="test1" class="col s12">
+                        <div class="card horizontal custom-card-horizontal">
+                          <div class="card-image">
+                            <img src="/storage/article-images/100x100/giphy.gif">
+                          </div>
+                          <div class="card-stacked">
+                            <div class="card-content p-15">
+                              <p>{!! str_limit('I am a very simple card. I am good at containing small bits of information.', 50, ' <a href="#" class="custom-orange-text">read more....</a>') !!}</p>
+                            </div>
+                          </div>
                         </div>
-                        <div class="card-content custom-card-content">
-                            <h6>{{ $article->title }}</h6>
-                            <p>
-                                {{ str_limit(strip_tags($article->content), 120) }}
-                            </p>
+                        <div class="card horizontal custom-card-horizontal">
+                          <div class="card-image">
+                            <img src="/storage/article-images/100x100/giphy.gif">
+                          </div>
+                          <div class="card-stacked">
+                            <div class="card-content p-15">
+                              <p>{!! str_limit('I am a very simple card. I am good at containing small bits of information.', 50, ' <a href="#" class="custom-orange-text">read more....</a>') !!}</p>
+                            </div>
+                          </div>
                         </div>
-                        <div class="card-action">
-                            <a href="{{ route('frontend.article.show', [$active_category, $article->slug]) }}" class="custom-orange-text">Learn More..</a>
+                        <div class="card horizontal custom-card-horizontal">
+                          <div class="card-image">
+                            <img src="/storage/article-images/100x100/giphy.gif">
+                          </div>
+                          <div class="card-stacked">
+                            <div class="card-content p-15">
+                              <p>{!! str_limit('I am a very simple card. I am good at containing small bits of information.', 50, ' <a href="#" class="custom-orange-text">read more....</a>') !!}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card horizontal custom-card-horizontal">
+                          <div class="card-image">
+                            <img src="/storage/article-images/100x100/giphy.gif">
+                          </div>
+                          <div class="card-stacked">
+                            <div class="card-content p-15">
+                              <p>{!! str_limit('I am a very simple card. I am good at containing small bits of information.', 50, ' <a href="#" class="custom-orange-text">read more....</a>') !!}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card horizontal custom-card-horizontal">
+                          <div class="card-image">
+                            <img src="/storage/article-images/100x100/giphy.gif">
+                          </div>
+                          <div class="card-stacked">
+                            <div class="card-content p-15">
+                              <p>{!! str_limit('I am a very simple card. I am good at containing small bits of information.', 50, ' <a href="#" class="custom-orange-text">read more....</a>') !!}</p>
+                            </div>
+                          </div>
                         </div>
                     </div>
+                    <div id="test2" class="col s12">
+                        <div class="card horizontal custom-card-horizontal">
+                          <div class="card-image">
+                            <img src="/storage/article-images/100x100/giphy.gif">
+                          </div>
+                          <div class="card-stacked">
+                            <div class="card-content p-15">
+                              <p>{!! str_limit('I am a very simple card. I am good at containing small bits of information.', 50, ' <a href="#" class="custom-orange-text">read more....</a>') !!}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card horizontal custom-card-horizontal">
+                          <div class="card-image">
+                            <img src="/storage/article-images/100x100/giphy.gif">
+                          </div>
+                          <div class="card-stacked">
+                            <div class="card-content p-15">
+                              <p>{!! str_limit('I am a very simple card. I am good at containing small bits of information.', 50, ' <a href="#" class="custom-orange-text">read more....</a>') !!}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card horizontal custom-card-horizontal">
+                          <div class="card-image">
+                            <img src="/storage/article-images/100x100/giphy.gif">
+                          </div>
+                          <div class="card-stacked">
+                            <div class="card-content p-15">
+                              <p>{!! str_limit('I am a very simple card. I am good at containing small bits of information.', 50, ' <a href="#" class="custom-orange-text">read more....</a>') !!}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card horizontal custom-card-horizontal">
+                          <div class="card-image">
+                            <img src="/storage/article-images/100x100/giphy.gif">
+                          </div>
+                          <div class="card-stacked">
+                            <div class="card-content p-15">
+                              <p>{!! str_limit('I am a very simple card. I am good at containing small bits of information.', 50, ' <a href="#" class="custom-orange-text">read more....</a>') !!}</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card horizontal custom-card-horizontal">
+                          <div class="card-image">
+                            <img src="/storage/article-images/100x100/giphy.gif">
+                          </div>
+                          <div class="card-stacked">
+                            <div class="card-content p-15">
+                              <p>{!! str_limit('I am a very simple card. I am good at containing small bits of information.', 50, ' <a href="#" class="custom-orange-text">read more....</a>') !!}</p>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s12 m12">
+                      <ul class="tabs">
+                        <li class="tab col s6"><a href="#test1" class="active custom-orange-text">Label</a></li>
+                      </ul>
+                    </div>
+                    <div id="test1" class="col s12">
+                        <div class="collection">
+                            <a href="#!" class="collection-item">Alvin</a>
+                            <a href="#!" class="collection-item active">Alvin</a>
+                            <a href="#!" class="collection-item">Alvin</a>
+                            <a href="#!" class="collection-item">Alvin</a>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s12 m12">
+                      <ul class="tabs">
+                        <li class="tab col s6"><a href="#test1" class="active custom-orange-text">Next/previous</a></li>
+                      </ul>
+                    </div>
+                    <div id="test1" class="col s12">
+                        <div class="card horizontal custom-card-horizontal">
+                          <div class="card-image">
+                            <img src="/storage/article-images/100x100/giphy.gif">
+                          </div>
+                          <div class="card-stacked">
+                            <div class="card-content p-15">
+                              <p>{!! str_limit('I am a very simple card. I am good at containing small bits of information.', 50, ' <a href="#" class="custom-orange-text">read more....</a>') !!}</p>
+                            </div>
+                          </div>
+                          <div class="card-image mt-20">
+                            <a href="#" class="black-color pt-15"><i class="material-icons medium">chevron_right</i></a>
+                          </div>
+                        </div>
+                        <div class="card horizontal custom-card-horizontal">
+                          <div class="card-image mt-20">
+                            <a href="#" class="black-color pt-15"><i class="material-icons medium">chevron_left</i></a>
+                          </div>
+                          <div class="card-stacked">
+                            <div class="card-content p-15">
+                              <p>{!! str_limit('I am a very simple card. I am good at containing small bits of information.', 50, ' <a href="#" class="custom-orange-text">read more....</a>') !!}</p>
+                            </div>
+                          </div>
+                          <div class="card-image">
+                            <img src="/storage/article-images/100x100/giphy.gif">
+                          </div>
+                        </div>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>

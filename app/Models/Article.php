@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use OwenIt\Auditing\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 /**
  * App\Models\Article
@@ -31,15 +33,15 @@ use Cviebrock\EloquentSluggable\Sluggable;
  * @property string|null $image
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereImage($value)
  */
-class Article extends Model
+class Article extends Model implements AuditableContract
 {
-    use Sluggable;
+    use Sluggable, Auditable;
 
     /**
      * The fillable columns model
      * @var array
      */
-    protected $fillable = ['title', 'user_id', 'content', 'label', 'slug', 'category_id'];
+    protected $fillable = ['title', 'user_id', 'content', 'label', 'slug', 'category_id', 'description'];
 
     CONST T_CATEGORY = 'categories';
 
@@ -47,7 +49,7 @@ class Article extends Model
     /**
      * Set the label array to json
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setLabelAttribute($value)
@@ -58,7 +60,7 @@ class Article extends Model
     /**
      * Get the label json to array
      *
-     * @param  string  $value
+     * @param  string $value
      * @return array
      */
     public function getLabelAttribute($value)
@@ -81,9 +83,14 @@ class Article extends Model
     }
 
 
-    protected static function boot() {
+    /**
+     * Life cycle eloquent models
+     * @return void
+     */
+    protected static function boot()
+    {
         parent::boot();
-        static::creating(function($model) {
+        static::creating(function ($model) {
             if (\Auth::user()) {
                 $model->user_id = \Auth::user()->id;
             }
@@ -109,6 +116,15 @@ class Article extends Model
     }
 
     /**
+     * Relation with seo config article
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function SEO()
+    {
+        return $this->hasMany(SeoArticle::class, 'article_id');
+    }
+
+    /**
      * Scope for get article by category
      * @param  \Illuminate\Database\Query\Builder $query
      * @param  string $slug
@@ -118,7 +134,7 @@ class Article extends Model
     {
         if ($slug !== 'all') {
             return $query->withCategory()
-                    ->where(static::T_CATEGORY.'.slug', $slug);
+                ->where(static::T_CATEGORY . '.slug', $slug);
         }
     }
 
@@ -130,7 +146,7 @@ class Article extends Model
     public function scopeWithCategory($query)
     {
         return $query
-            ->join(static::T_CATEGORY, static::T_CATEGORY.'.id', '=', $this->getTable().'.category_id');
+            ->join(static::T_CATEGORY, static::T_CATEGORY . '.id', '=', $this->getTable() . '.category_id');
     }
 
     /**
@@ -192,5 +208,40 @@ class Article extends Model
         }
 
         return $query;
+    }
+
+    /**
+     * Get previous data
+     * @param  \Illuminate\Database\Query\Builder $query
+     * @param  integer $id
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeFindPrevData($query, $id)
+    {
+        return $query->comparisonClause($id);
+    }
+
+    /**
+     * Get next data
+     * @param  \Illuminate\Database\Query\Builder $query
+     * @param  integer $id
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeFindNextData($query, $id)
+    {
+        return $query->comparisonClause($id, 'asc', '>');
+    }
+
+    /**
+     * Scope for get data prev/next base on condition
+     * @param  \Illuminate\Database\Query\Builder $query
+     * @param  integer $id
+     * @param  string $direction
+     * @param  string $operator
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeComparisonClause($query, $id, $direction = 'desc', $operator = '<', $limit = 1)
+    {
+        return $query->where('id', $operator, $id)->orderBy('id', $direction)->limit($limit);
     }
 }

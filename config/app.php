@@ -180,7 +180,8 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Spatie\LaravelImageOptimizer\ImageOptimizerServiceProvider::class
+        Spatie\LaravelImageOptimizer\ImageOptimizerServiceProvider::class,
+        OwenIt\Auditing\AuditingServiceProvider::class
 
     ],
 

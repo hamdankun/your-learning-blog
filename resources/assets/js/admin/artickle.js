@@ -68,81 +68,34 @@ if (mode === 'update' || mode === 'create') {
     AppModule.index();
 }
 
-_Dom.onClick('.add-keyword', function() {
-   _formKeyword = $('.base-form-keyword').first().clone();
-   _formKeyword.removeClass('base-form-keyword')
-            .addClass('form-keyword')
-            .attr('data-type', 'form-keyword')
-            .hide()
-            .find('.control-label')
-            .html('keyword ' + ($('.form-keyword').length + 2));
-    _formKeyword.find('.btn-area')
-            .children('button')
-            .removeClass('btn-primary')
-            .addClass('btn-danger')
-            .addClass('remove keyword')
-            .removeClass('add-keyword')
-            .children('i')
-            .removeClass('fa-plus-circle')
-            .addClass('fa-trash')
-   $('.keyword-content').append(_formKeyword);
-   _formKeyword.show('slow');
+_Dom.onClick('.append', function() {
+   _dataType = $(this).attr('data-type');
+   _nameFormClass = _dataType +'-base-form-meta';
+   _baseForm = $('.' + _nameFormClass).clone();
+   _baseForm.removeClass(_nameFormClass);
+   _baseForm.children('.invisible-area').find('input.attribute_value').remove();
+   _baseForm.children('.control-label').html(buildTextField());
+   _baseForm.children('.input-group')
+        .children('textarea')
+        .attr('placeholder', 'Enter Content')
+   _btn = _baseForm.children('.btn-area').children('button');
+   _btn.removeClass('append btn-primary')
+     .addClass('btn-danger remove')
+     .removeClass('data-type');
+   _btn.children('i')
+     .removeClass('fa-plus-circle')
+     .addClass('fa-trash');
+   _baseForm.hide();
+   $('.' + _dataType + '-meta-content').append(_baseForm);
+   _baseForm.slideDown();
 });
 
-_Dom.onClick('.remove', function() {
-    _formType = $(this).parent().parent().attr('data-type');
-    $(this).parent().parent().hide('slow', function() {
+_Dom.onClick('.article', function() {
+    $(this).parent().parent().slideUp(function() {
         $(this).remove();
-
-        if (_formType === 'form-keyword') {
-            reloadIndex('.form-keyword', 'keyword');
-        }
     });
-}, true);
+}, true)
 
-_Dom.onClick('.add-meta', function() {
-    _formMeta = $('.base-form-meta').first().clone();
-    _formMeta.removeClass('base-form-meta').addClass('form-meta')
-        .attr('data-type', 'form-keyword');
-    _formMeta.find('input[type=hidden].meta').remove();
-    _formMeta.find('label')
-        .removeClass('control-label')
-        .html('<select class="form-control" name="seo[type][]"><option>Awesome</option></select>');
-    _formMeta = changeBtnAddToRemove(_formMeta.find('.btn-area'), { remove: 'add-meta', add: 'meta remove' });
-    _formMeta.hide();
-    $('.meta-content').append(_formMeta);
-    _formMeta.show('slow');
-});
-
-_Dom.onClick('.add-property', function() {
-    _formProperty = $('.base-form-property').first().clone();
-    _formProperty.removeClass('base-form-property').addClass('form-property')
-        .attr('data-type', 'form-property');
-    _formProperty.find('input[type=hidden].property').remove();
-    _formProperty.find('label')
-        .removeClass('control-label')
-        .html('<select class="form-control" name="seo[type][]"><option>Property</option></select>');
-    _formProperty = changeBtnAddToRemove(_formProperty.find('.btn-area'), { remove: 'add-property', add: 'property remove' });
-    _formProperty.hide();
-    // console.log(_formProperty);
-    $('.property-content').append(_formProperty);
-    _formProperty.show('slow');
-});
-
-function reloadIndex(selector, key) {
-   $(selector).each(function(i) {
-        $(this).find('.control-label').html(key+' '+ (i + 2));
-   });
-}
-
-function changeBtnAddToRemove(elm, modify) {
-    elm.children('button')
-      .removeClass('btn-primary')
-      .addClass('btn-danger')
-      .removeClass(modify['remove'])
-      .addClass(modify['add'])
-      .children('i')
-      .removeClass('fa-plus-circle')
-      .addClass('fa-trash');
-    return elm.parent();
+function buildTextField() {
+    return '<input type="text" name="seo[attribute_value][]" maxlength="50" placeholder="Enter Attribute" class="form-control">';
 }

@@ -24,13 +24,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $seo_property_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoConfigArticle whereSeoPropertyId($value)
  */
-class SeoConfigArticle extends Model
+class SeoArticle extends Model
 {
     /**
      * The fillable colums
      * @var array
      */
-    protected $fillable = ['article_id', 'category', 'type', 'description'];
+    protected $fillable = ['article_id', 'type', 'attribute_key', 'attribute_value', 'content', 'prefix'];
 
     /**
      * Relation With Article
