@@ -249,6 +249,27 @@ nav form {
   display: none;
 }
 
+.img-related {
+    width: 100px !important;
+}
+
+.text-black {
+    color: rgba(0,0,0,0.87);
+}
+
+.text-black:hover {
+    color: #f35627;
+}
+
+.absolute-modal {
+    z-index: 99999 !important;
+}
+
+#modalGallery .kv-file-zoom {
+    display: none;
+}
+
+
 @media only screen and (max-width: 992px) {
   .pagination {
     width: 100%;

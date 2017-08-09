@@ -13,3 +13,11 @@ $(document).on('click', '.disabled-when-click', function(e) {
 $(window).on('load', function() {
     _Loader.hide();
 });
+
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+

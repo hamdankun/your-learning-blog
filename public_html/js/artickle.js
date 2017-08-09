@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 47);
+/******/ 	return __webpack_require__(__webpack_require__.s = 48);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 47:
+/***/ 48:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(8);
@@ -102,7 +102,11 @@ var AppModule = {
                 height: 800,
                 plugins: ['advlist autolink lists link image charmap print preview anchor emoticons codesample', 'searchreplace visualblocks code', 'insertdatetime media table contextmenu paste code'],
                 codesample_languages: [{ text: 'HTML/XML', value: 'markup' }, { text: 'JavaScript', value: 'javascript' }, { text: 'CSS', value: 'css' }, { text: 'PHP', value: 'php' }, { text: 'Ruby', value: 'ruby' }, { text: 'Python', value: 'python' }, { text: 'Java', value: 'java' }, { text: 'C', value: 'c' }, { text: 'C#', value: 'csharp' }, { text: 'C++', value: 'cpp' }],
-                toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright | emoticons | codesample'
+                toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright | emoticons | codesample',
+                file_browser_callback: function file_browser_callback(field_name, url, type, win) {
+                    win.document.getElementById(field_name).value = 'my browser value';
+                    console.log(field_name);
+                }
             });
             $('#category').selectize();
             $('#label').selectize({
@@ -115,11 +119,36 @@ var AppModule = {
             });
         });
 
-        $("#upload-image").fileinput({
+        $('#upload-image, #upload-gallery').fileinput({
             showUpload: false,
             allowedFileTypes: ['image'],
             initialPreview: typeof images !== 'undefined' ? images : [],
             initialPreviewAsData: true
+        });
+
+        $('.upload-gallery').click(function () {
+            var formData = new FormData();
+            var images = [];
+
+            $.each($('#upload-gallery')[0].files, function (key, val) {
+                formData.append('gallery[images-' + key + ']', val);
+            });
+
+            $.ajax({
+                url: _baseUrl + '/admin/ajax/upload-image-gallery',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function success(response) {
+                    if (response.status === 'success') {
+                        renderImages(response.data);
+                    }
+                },
+                error: function error(errors) {
+                    console.log(errors);
+                }
+            });
         });
     }
 };
@@ -154,6 +183,16 @@ _Dom.onClick('.article', function () {
 
 function buildTextField() {
     return '<input type="text" name="seo[attribute_value][]" maxlength="50" placeholder="Enter Attribute" class="form-control">';
+}
+
+function renderImages(images) {
+    _imgGalleryElm = $('.image-gallery');
+    _imgGalleryContent = '';
+    $.each(images, function (key, val) {
+        _imgGalleryContent += '<div class="col-sm-2 col-xs-12">' + '<img src="/storage/your-images/gallery/' + val.filename + '" alt="Article Image" class="img-responsive">' + '</div>';
+    });
+    $('.fileinput-remove-button').trigger('click');
+    _imgGalleryElm.html(_imgGalleryContent);
 }
 
 /***/ })

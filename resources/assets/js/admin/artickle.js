@@ -41,6 +41,10 @@ var AppModule = {
                     {text: 'C++', value: 'cpp'}
                 ],
                 toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright | emoticons | codesample',
+                file_browser_callback: function(field_name, url, type, win) {
+                    win.document.getElementById(field_name).value = 'my browser value';
+                    console.log(field_name);
+                }
             });
             $('#category').selectize();
             $('#label').selectize({
@@ -53,11 +57,36 @@ var AppModule = {
             })
         });
 
-        $("#upload-image").fileinput({
+        $('#upload-image, #upload-gallery').fileinput({
             showUpload: false,
             allowedFileTypes: ['image'],
             initialPreview: typeof images !== 'undefined' ? images : [],
             initialPreviewAsData: true
+        });
+
+        $('.upload-gallery').click(function() {
+            var formData = new FormData();
+            var images = [];
+
+            $.each($('#upload-gallery')[0].files, function (key, val) {
+                formData.append('gallery[images-' + key + ']', val);
+            });
+
+            $.ajax({
+                url : _baseUrl+'/admin/ajax/upload-image-gallery',
+                type : 'POST',
+                data : formData,
+                processData: false,
+                contentType: false,
+                success : function(response) {
+                    if (response.status === 'success') {
+                        renderImages(response.data);
+                    }
+                },
+                error: function (errors) {
+                    console.log(errors);
+                }
+            });
         });
     }
 }
@@ -98,4 +127,16 @@ _Dom.onClick('.article', function() {
 
 function buildTextField() {
     return '<input type="text" name="seo[attribute_value][]" maxlength="50" placeholder="Enter Attribute" class="form-control">';
+}
+
+function renderImages(images) {
+    _imgGalleryElm = $('.image-gallery');
+    _imgGalleryContent = '';
+    $.each(images, function (key, val) {
+        _imgGalleryContent += '<div class="col-sm-2 col-xs-12">'
+                +'<img src="/storage/your-images/gallery/' + val.filename + '" alt="Article Image" class="img-responsive">'
+            +'</div>';
+    });
+    $('.fileinput-remove-button').trigger('click');
+    _imgGalleryElm.html(_imgGalleryContent);
 }

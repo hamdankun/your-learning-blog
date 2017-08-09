@@ -167,6 +167,7 @@ class ArticleController extends Controller
             $this->setNotification('success', trans('general.created.success', [static::REPLACING_NAME => static::MODULE_NAME]));
             $callback = $this->toRoute(static::PREFIX_ROUTE_NAME . 'index');
             $this->callEvent($request);
+            $this->setUpSEO($request->input('seo'), $article->id);
         } catch (Exception $e) {
             $this->setNotification('error', $this->errorException($e));
             $callback = redirect()->back();

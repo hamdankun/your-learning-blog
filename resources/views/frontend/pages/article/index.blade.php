@@ -9,15 +9,15 @@
                     <form class="col s12 m5 right article-filter">
                       <div class="row">
                         <div class="input-field col s8 m8">
-                          <input id="first_name" maxlength="100" type="text" class="validate autocomplete">
+                          <input id="first_name" maxlength="100" type="text" value="{{ $q ? $q . ' ' : '' }}" class="validate autocomplete" >
                           <label for="search">Search Article On This Category</label>
                         </div>
                         <div class="input-field col s4 m4">
-                            <select>
+                            <select name="sortby" class="sort-by">
                                 <option value="">Sort By</option>
-                                <option value="1">Popular Article</option>
-                                <option value="2">New Article</option>
-                                <option value="3">Old Article</option>
+                                <option {{ $sortBy === 'popular' ? 'selected': ''  }} value="popular">Popular</option>
+                                <option {{ $sortBy === 'recent' ? 'selected': ''  }} value="recent">Recent</option>
+                                <option {{ $sortBy === 'old' ? 'selected': ''  }} value="old">Old</option>
                             </select>
                         </div>
                       </div>
@@ -51,6 +51,7 @@
     var _slugCategory = '{{ $active_category }}';
     var _urlAutoComplete = '{{ route('frontend.ajax.article.search') }}' + '?category=' + _slugCategory;
     var _q = '{{ $q }}';
+    var _sortBy = '{{ $sortBy }}';
 @endsection
 
 @section('scripts')

@@ -39,6 +39,30 @@ $factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
         'category_id' => App\Models\Category::orderByRaw('RAND()')->first()->id,
         'description' => $faker->sentence(15),
         'label' => array(),
-        'slug' => $faker->uuid
+        'slug' => $faker->uuid,
+        'image' => $faker->image(storage_path('app/public/article-images/640x480'), 640, 480)
+    ];
+});
+
+$factory->define(App\Models\Visitor::class, function (Faker\Generator $faker) {
+    return [
+       'article_id' => App\Models\Article::whereNotIn('id', App\Models\Visitor::pluck('article_id')->toArray())->first()->id,
+       'total' => $faker->randomNumber
+   ];
+});
+
+$factory->define(App\Models\VisitorPerDay::class, function (Faker\Generator $faker) {
+    return [
+        'visitor_id' => App\Models\Visitor::orderByRaw('RAND()')->first()->id,
+        'total' => $faker->randomNumber
+    ];
+});
+
+$factory->define(App\Models\VisitorDetail::class, function (Faker\Generator $faker) {
+    return [
+        'visitor_per_day_id' => App\Models\VisitorPerDay::orderByRaw('RAND()')->first()->id,
+        'ip_address' => $faker->ipv4,
+        'page' => App\Models\Article::orderByRaw('RAND()')->first()->slug,
+        'browser' => 'chrome'
     ];
 });

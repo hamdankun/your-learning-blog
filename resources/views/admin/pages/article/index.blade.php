@@ -29,7 +29,6 @@
 
 @section('js-var')
     var _urlAjaxDatatable = '{!! route('admin.datatable.article') !!}';
-    var _baseUrl = '{{ url('/') }}';
     var _prefixUrl = _baseUrl+'/admin/article';
     var mode = 'index';
 @endsection

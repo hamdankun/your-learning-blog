@@ -63,12 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 52);
+/******/ 	return __webpack_require__(__webpack_require__.s = 54);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 13:
+/***/ 14:
 /***/ (function(module, exports) {
 
 _elm.ready(function () {
@@ -83,7 +83,7 @@ _elm.ready(function () {
         useUrlParameter: true,
         onClickCallback: function onClickCallback(requestedPage) {
             _Loader.show();
-            getArticle(requestedPage, _q);
+            getArticle(requestedPage, _q, _sortBy);
         }
     });
 
@@ -93,7 +93,7 @@ _elm.ready(function () {
         serviceUrl: _urlAutoComplete,
         type: 'GET',
         onSelect: function onSelect(suggestion) {
-            search(1, suggestion.value);
+            search(1, suggestion.value, 'default');
         },
         showNoSuggestionNotice: true,
         noSuggestionNotice: 'Sorry, no matching results'
@@ -101,18 +101,29 @@ _elm.ready(function () {
 
     $('.autocomplete').on('keyup', function (e) {
         if (e.keyCode == 13) {
-            search(1, $(this).val());
+            search(1, $(this).val(), 'default');
+        }
+    });
+
+    $(".sort-by").on('change', function () {
+        var vm = $(this);
+        if (vm.val() !== '') {
+            search(1, _q, vm.val());
         }
     });
 });
 
-function search(page, value) {
+function search(page, value, sortBy) {
     _Loader.show();
-    window.location.href = _baseUrl + window.location.pathname + '?q=' + value;
+    window.location.href = _baseUrl + window.location.pathname + '?q=' + value + '&sortby=' + sortBy;
 }
 
-function getArticle(requestedPage, query) {
-    _Http._get(_baseUrl + '/ajax/frontend/article/' + _slugCategory, { page: requestedPage, query: query }, function (response) {
+function getArticle(requestedPage, query, sortBy) {
+    _Http._get(_baseUrl + '/ajax/frontend/article/' + _slugCategory, {
+        page: requestedPage,
+        query: query,
+        sortby: sortBy
+    }, function (response) {
 
         if (response.status === 'success') {
             _ArticleFactory.renderToHtml(response.data.data, true);
@@ -132,10 +143,10 @@ function getArticle(requestedPage, query) {
 
 /***/ }),
 
-/***/ 52:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(13);
+module.exports = __webpack_require__(14);
 
 
 /***/ })

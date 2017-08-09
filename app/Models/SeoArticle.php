@@ -23,6 +23,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Article|null $article
  * @property int|null $seo_property_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoConfigArticle whereSeoPropertyId($value)
+ * @property string|null $attribute_key
+ * @property string|null $attribute_value
+ * @property string|null $content
+ * @property string|null $prefix
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoArticle whereAttributeKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoArticle whereAttributeValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoArticle whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoArticle wherePrefix($value)
  */
 class SeoArticle extends Model
 {

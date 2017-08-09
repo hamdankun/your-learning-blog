@@ -32,6 +32,22 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article findSimilarSlugs(\Illuminate\Database\Eloquent\Model $model, $attribute, $config, $slug)
  * @property string|null $image
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereImage($value)
+ * @property string|null $description
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\SeoArticle[] $SEO
+ * @property-read \Illuminate\Database\Eloquent\Collection|\OwenIt\Auditing\Models\Audit[] $audits
+ * @property-read \App\Models\Category|null $category
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article comparisonClause($id, $direction = 'desc', $operator = '<', $limit = 1)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article findNextData($id)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article findPrevData($id)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article findSimiliar($queryString = '')
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article getByCategory($slug)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article jsonPublicColumn()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article publicColumn()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article recent()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article takeSlugArticleAndCategory()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article withCategory()
  */
 class Article extends Model implements AuditableContract
 {
@@ -43,8 +59,15 @@ class Article extends Model implements AuditableContract
      */
     protected $fillable = ['title', 'user_id', 'content', 'label', 'slug', 'category_id', 'description'];
 
+    /**
+     * Category table name
+     */
     CONST T_CATEGORY = 'categories';
 
+    /**
+     * Visitor table name
+     */
+    CONST T_VISITOR = 'visitors';
 
     /**
      * Set the label array to json
@@ -66,6 +89,16 @@ class Article extends Model implements AuditableContract
     public function getLabelAttribute($value)
     {
         return json_decode($value, true);
+    }
+
+    /**
+     * Remove space on end character
+     * @param string $value
+     * @return string
+     */
+    public function setTitleAttribute($value)
+    {
+        return $this->attributes['title'] = trim($value);
     }
 
     /**
@@ -125,6 +158,15 @@ class Article extends Model implements AuditableContract
     }
 
     /**
+     * Relation with visitor
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function visitor()
+    {
+        return $this->hasOne(Visitor::class, 'article_id');
+    }
+
+    /**
      * Scope for get article by category
      * @param  \Illuminate\Database\Query\Builder $query
      * @param  string $slug
@@ -147,6 +189,33 @@ class Article extends Model implements AuditableContract
     {
         return $query
             ->join(static::T_CATEGORY, static::T_CATEGORY . '.id', '=', $this->getTable() . '.category_id');
+    }
+
+    /**
+     * Scope for get article with visitor
+     * @param \Illuminate\Database\Query\Builder $query
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeWithVisitor($query)
+    {
+        return $query
+            ->leftJoin(static::T_VISITOR, static::T_VISITOR . '.article_id', '=', $this->getTable() . '.id');
+    }
+
+    /**
+     * Scope for get column article and visitor
+     * @param \Illuminate\Database\Query\Builder $query
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeArticleVisitorColumn($query)
+    {
+        $query
+            ->select(
+                $this->getTable() . '.id',
+                $this->getTable() . '.title',
+                $this->getTable() . '.image',
+                static::T_VISITOR . '.total'
+            );
     }
 
     /**
@@ -242,6 +311,47 @@ class Article extends Model implements AuditableContract
      */
     public function scopeComparisonClause($query, $id, $direction = 'desc', $operator = '<', $limit = 1)
     {
-        return $query->where('id', $operator, $id)->orderBy('id', $direction)->limit($limit);
+        return $query->where('id', $operator, $id)->orderBy('id', $direction)->limit($limit)->with('category');
+    }
+
+    /**
+     * Scope for get recent article
+     * @param \Illuminate\Database\Query\Builder $query
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeRecent($query)
+    {
+        return $query->orderBy('created_at', 'asc')->with('category')->limit(5);
+    }
+
+    /**
+     * Scope for get popular article
+     * @param \Illuminate\Database\Query\Builder $query
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopePopular($query)
+    {
+        return $query->withVisitor()
+            ->withCategory()
+            ->articleVisitorColumn()
+            ->takeSlugArticleAndCategory()
+            ->orderBy(static::T_VISITOR . '.total', 'desc');
+    }
+
+    /**
+     * Sort by article
+     * @param \Illuminate\Database\Query\Builder $query
+     * @param \Illuminate\Database\Query\Builder $criteriaS
+     */
+    public function scopeSortBy($query, $direction)
+    {
+        if (in_array($direction, ['asc', 'desc'])) {
+            $query->orderBy($this->getTable() . '.created_at', $direction);
+        } else {
+            $query->withVisitor();
+//                ->orderBy(static::T_VISITOR . '.total', 'desc');
+        }
+
+        return $query;
     }
 }

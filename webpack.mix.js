@@ -21,4 +21,5 @@ mix.js('resources/assets/js/app.js', 'public_html/js')
    .js('resources/assets/js/frontend/main-frontend.js', 'public_html/js/main-frontend.js')
    .js('resources/assets/js/frontend/home.js', 'public_html/js/home-frontend.js')
    .js('resources/assets/js/frontend/article.js', 'public_html/js/article-frontend.js')
-   .js('resources/assets/js/frontend/article-factory.js', 'public_html/js/article-factory.js');
+   .js('resources/assets/js/frontend/article-factory.js', 'public_html/js/article-factory.js')
+    .js('resources/assets/js/frontend/article-detail.js', 'public_html/js/article-detail.js');

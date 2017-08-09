@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\Article;
+use function foo\func;
+use Illuminate\Foundation\Testing\HttpException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -36,7 +38,6 @@ class ArticleController extends Controller
      */
     public function index($slug)
     {
-
         if ($slug == 'all') {
             $articles = $this->getAndStoreToCache();
         } else {
@@ -45,8 +46,8 @@ class ArticleController extends Controller
 
         $this->activeCategory($slug);
         $q = request()->get('q');
-
-        return view(static::PATH_VIEW . 'index', compact('articles', 'q'));
+        $sortBy = request()->get('sortby');
+        return view(static::PATH_VIEW . 'index', compact('articles', 'q', 'sortBy'));
     }
 
     /**
@@ -60,7 +61,75 @@ class ArticleController extends Controller
         $article = $this->article->whereSlug($slugArticle)->firstOrFail();
         $this->buildSEO($article);
         $this->activeCategory($slugCategory);
-        return view(static::PATH_VIEW . 'show', compact('article'));
+        $relatedArticle = $this->relatedArticle($article);
+        $recentArticle = $this->recentArticle();
+        $popularArticle = $this->popularArticle();
+        $labels = $this->label();
+        return view(static::PATH_VIEW . 'show', compact('article', 'relatedArticle', 'recentArticle', 'labels', 'popularArticle'));
+    }
+
+    /**
+     * Get popular Article
+     * @return \Illuminate\Support\Cache
+     */
+    public function popularArticle()
+    {
+        return $this->toCache(function() {
+            return $this->article->popular()->limit(env('POPULAR_ARTICLE_LIMIT'))->get();
+        }, 5, 'popular-article');
+    }
+
+    /**
+     * Get popular article
+     * @return \Illuminate\Http\Response
+     */
+    public function ajaxPopularArticle()
+    {
+        if (request()->ajax() || \request()->wantsJson()) {
+            return $this->jsonResponse([
+                'status' => 'success',
+                'data' => $this->popularArticle()
+            ]) ;
+        }
+
+        throw new \Symfony\Component\HttpKernel\Exception\HttpException(400, 'Invalid Request Exception', null, array(), 400);
+    }
+
+    /**
+     * Get recent label
+     */
+    public function label()
+    {
+        return $this->toCache(function() {
+           return \App\Models\Label::select('name')
+               ->orderBy('id', 'desc')
+               ->limit(5)
+               ->pluck('name');
+        }, 5, 'label');
+    }
+
+    /**
+     * Get recent article
+     */
+    public function recentArticle()
+    {
+        return $this->toCache(function () {
+           return $this->article->recent()->get();
+        }, 5, 'recent-article');
+    }
+
+    /**
+     * Get related article next/prev
+     * @param \App\Models\Article $article
+     * @return \Illuminate\Support\Cache
+     */
+    public function relatedArticle($article)
+    {
+        return $this->toCache(function() use ($article) {
+            $relatedArticle['next'] = $this->article->findNextData($article->id)->first();
+            $relatedArticle['prev'] = $this->article->findPrevData($article->id)->first();
+            return $relatedArticle;
+        }, 5, 'related-article-' . request()->fullUrl());
     }
 
     /**
@@ -73,7 +142,7 @@ class ArticleController extends Controller
         return $this->toCache(function () use ($slug) {
             return $this->article->getByCategory($slug)
                 ->findSimiliar(request()->get('q'))
-                ->paginate(20);
+                ->paginate(env('FRONT_ARTICLE_PAGINATE'));
         });
     }
 
@@ -110,8 +179,10 @@ class ArticleController extends Controller
 
             $articles = $articles->findSimiliar(request()->get('query'));
 
+            $sortByColumn = $this->defineSortBy();
+            $articles = $articles->sortBy($sortByColumn);
             $articles = $this->toCache(function () use ($articles) {
-                return $articles->paginate(20);
+                return $articles->paginate(env('FRONT_ARTICLE_PAGINATE'));
             });
 
             return $this->jsonResponse([
@@ -121,6 +192,16 @@ class ArticleController extends Controller
         }
 
         throw new \Symfony\Component\HttpKernel\Exception\HttpException(400, 'Invalid Request Exception', null, array(), 400);
+    }
+
+    private function defineSortBy()
+    {
+        $querySort = request()->get('sortby');
+        $sortByList = [];
+        $sortByList['popular'] = 'popular';
+        $sortByList['recent'] = 'desc';
+        $sortByList['old'] = 'asc';
+        return !empty($sortByList[$querySort]) ? $sortByList[$querySort] : $sortByList['recent'];
     }
 
     /**
@@ -157,7 +238,7 @@ class ArticleController extends Controller
                 ->withCategory()
                 ->findSimiliar(request()->get('q'))
                 ->orderBy('articles.id', 'desc')
-                ->paginate(20);
+                ->paginate(env('FRONT_ARTICLE_PAGINATE'));
         }, 5);
     }
 }

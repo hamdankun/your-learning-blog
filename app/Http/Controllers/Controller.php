@@ -194,7 +194,7 @@ class Controller extends BaseController
         $relatedUrl = url('/') . '/storage/article-images/640x480/' . $article->image;
 
         if (!\Storage::exists('public/article-images/640x480/' . $article->image)) {
-            $relatedUrl = url('/') . '/storage/article-images/300x300/article-default-image.jpg';
+            $relatedUrl = url('/') . '/storage/article-images/default.png';
         }
 
 
@@ -243,7 +243,7 @@ class Controller extends BaseController
         $relatedUrl = url('/') . '/storage/article-images/640x480/' . $article->image;
 
         if (!\Storage::exists('public/article-images/640x480/' . $article->image)) {
-            $relatedUrl = url('/') . '/storage/article-images/300x300/article-default-image.jpg';
+            $relatedUrl = url('/') . '/storage/article-images/default.png';
         }
 
         SEOMeta::addMeta('image', $relatedUrl, 'itemprop');
@@ -254,6 +254,10 @@ class Controller extends BaseController
         OpenGraph::addProperty('locale:alternate', ['en-us']);
         OpenGraph::setUrl(request()->fullUrl());
         OpenGraph::addImage($relatedUrl);
+        SEOMeta::addMeta('article:published_time', $article->created_at->toW3CString(), 'property');
+        SEOMeta::addMeta('article:modified_time', $article->updated_at->toW3CString(), 'property');
+        SEOMeta::addMeta('article:author', $article->user->name, 'property');
+        SEOMeta::addMeta('article:tag', '' . implode(',', $article->label) . '', 'property');
     }
 
     /**

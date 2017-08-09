@@ -17,6 +17,7 @@ Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function($router)
     $router->group(['prefix' => 'ajax/frontend'], function($router) {
         $router->get('article/{category?}/{slug?}', ['as' => 'ajax.article', 'uses' => 'ArticleController@ajaxRequest']);
         $router->get('search-article', ['as' => 'ajax.article.search', 'uses' => 'ArticleController@ajaxSearch']);
+        $router->get('popular-article', ['as' => 'ajax.article.popular', 'uses' => 'ArticleController@ajaxPopularArticle']);
     });
     $router->get('p/category/{slugCategory}', ['as' => 'article.index', 'uses' => 'ArticleController@index']);
     $router->get('p/category/{slugCategory?}/article/{slugArticle?}', ['as' => 'article.show', 'uses' => 'ArticleController@show']);
@@ -35,7 +36,12 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.' ,'prefix' => 'admin'], fu
             $router->get('article', 'ArticleController@getData')->name('datatable.article');
         });
         $router->post('logout', ['as' => 'login.logout', 'uses' => 'AuthController@logout']);
+
+        $router->group(['prefix' => 'ajax'], function ($router) {
+            $router->post('upload-image-gallery', ['as' => 'gallery.store', 'uses' => 'GalleryController@store']);
+        });
     });
+
 
     $router->group(['middleware' => 'guest'], function($router) {
         $router->get('login', ['as' => 'login.index', 'uses' => 'AuthController@index']);

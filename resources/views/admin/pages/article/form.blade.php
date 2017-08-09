@@ -47,3 +47,38 @@
         <button type="reset" class="btn btn-danger">Reset</button>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade absolute-modal" id="modalGallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row image-gallery">
+                    <div class="col-sm-2 col-xs-12">
+                        <img src="/storage/article-images/100x100/75b6eecb-bcb7-33cc-99dc-6257e5132d0a.jpeg" alt="Article Image" class="img-responsive">
+                    </div>
+                </div>
+                <div class="row center">
+                    <div class="form-upload mt-20 col-sm-6 col-sm-offset-3 col-xs-10">
+                        <div class="form-group">
+                            <input type="file" name="upload_gallery[]" multiple class="form-group" id="upload-gallery">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-xs-12 col-sm-offset-3">
+                                <button type="button" class="btn btn-primary upload-gallery disabled-when-submit">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary choose-image">Choose</button>
+            </div>
+        </div>
+    </div>
+</div>
