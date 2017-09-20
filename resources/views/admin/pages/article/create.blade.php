@@ -15,8 +15,8 @@
           </div>
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class=""><a href="#content" aria-controls="content" role="tab" data-toggle="tab">Content</a></li>
-            <li role="presentation" class="active"><a href="#seo-config" aria-controls="seo-config" role="tab" data-toggle="tab">SEO</a></li>
+            <li role="presentation" class="active"><a href="#content" aria-controls="content" role="tab" data-toggle="tab">Content</a></li>
+            <li role="presentation"><a href="#seo-config" aria-controls="seo-config" role="tab" data-toggle="tab">SEO</a></li>
           </ul>
 
           <!-- Tab panes -->

@@ -66,3 +66,4 @@ $factory->define(App\Models\VisitorDetail::class, function (Faker\Generator $fak
         'browser' => 'chrome'
     ];
 });
+

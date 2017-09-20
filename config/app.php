@@ -181,7 +181,8 @@ return [
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Spatie\LaravelImageOptimizer\ImageOptimizerServiceProvider::class,
-        OwenIt\Auditing\AuditingServiceProvider::class
+        OwenIt\Auditing\AuditingServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
 
     ],
 

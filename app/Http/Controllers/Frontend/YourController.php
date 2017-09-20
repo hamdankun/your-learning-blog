@@ -41,6 +41,7 @@ class YourController extends Controller
     public function index()
     {
         $articles = $this->articleController->getAndStoreToCache();
+        $this->buildSeoStaticPage('home');
         return view(static::PATH_VIEW . 'index', compact('articles'));
     }
 
@@ -51,6 +52,35 @@ class YourController extends Controller
     public function aboutUs()
     {
         $this->activeCategory('about-us');
+        $this->buildSeoStaticPage('about-us');
         return view(static::PATH_VIEW . 'about-us');
+    }
+
+    /**
+     * Display site map page
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function siteMap()
+    {
+        $this->buildSeoStaticPage('site-map', 'Site Map');
+        return view(static::PATH_VIEW . 'site-map');
+    }
+
+    /**
+     * Display privacy policy page
+     *
+     * @return void
+     */
+    public function privacyPolicy()
+    {
+        $this->buildSeoStaticPage('privacy-police', 'Privacy Policy');        
+        return view(static::PATH_VIEW . 'privacy-policy');
+    }
+
+    public function contactUs()
+    {
+        $this->buildSeoStaticPage('contact-us', 'Contact Us');        
+        return view(static::PATH_VIEW . 'contact-us');
     }
 }

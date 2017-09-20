@@ -91,14 +91,12 @@ class ArticleController extends Controller
     {
         try {
             DB::beginTransaction();
-
             $article = $this->article->create($request->input());
             $this->uploadImageIfExist($article, $request);
             $this->setNotification('success', trans('general.create.success', [static::REPLACING_NAME => 'Article']));
             $callback = $this->toRoute(static::PREFIX_ROUTE_NAME . 'index');
             $this->setUpSEO($request->input('seo'), $article->id);
             $this->callEvent($request);
-
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -243,10 +241,10 @@ class ArticleController extends Controller
                 ->resize(640, 480)
                 ->save(storage_path('app/public/article-images/640x480') . '/' . $name);
             Image::make($request->file('image'))
-                ->fit(300, 300)
+                ->resize(300, 300)
                 ->save(storage_path('app/public/article-images/300x300') . '/' . $name);
             Image::make($request->file('image'))
-                ->fit(100, 100)
+                ->resize(100, 100)
                 ->save(storage_path('app/public/article-images/100x100') . '/' . $name);
             $article->image = $name;
             $article->save();

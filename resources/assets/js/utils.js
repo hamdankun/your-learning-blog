@@ -48,7 +48,25 @@ _Dom = (function($) {
         }
     }
 
+    onDblClick = function (selector, callback, dynamic) {
+        if(dynamic) {
+            _baseElm.on('dblclick', selector,callback);
+        } else {
+            $(selector).on('dblclick', callback);
+        }
+    }
+
+    onInput = function (selector, callback, dynamic) {
+        if(dynamic) {
+            _baseElm.on('input', selector,callback);
+        } else {
+            $(selector).on('input', callback);
+        }
+    }
+
     return {
-        onClick: onClick
+        onClick: onClick,
+        onDblClick: onDblClick,
+        onInput: onInput
     }
 })(jQuery);

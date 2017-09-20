@@ -17,7 +17,7 @@ class CreateVisitorPerDaysTable extends Migration
             $table->increments('id');
             $table->integer('visitor_id')->unsigned()->nullable();
             $table->foreign('visitor_id')->references('id')->on('visitors')->onDelete('CASCADE');
-            $table->dateTime('date')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->date('date')->nullable();
             $table->bigInteger('total')->nullable()->default(0)->index();
             $table->timestamps();
         });

@@ -48,6 +48,11 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article takeSlugArticleAndCategory()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article withCategory()
+ * @property-read \App\Models\Visitor $visitor
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article articleVisitorColumn()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article popular()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article sortBy($direction)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article withVisitor()
  */
 class Article extends Model implements AuditableContract
 {
@@ -348,8 +353,8 @@ class Article extends Model implements AuditableContract
         if (in_array($direction, ['asc', 'desc'])) {
             $query->orderBy($this->getTable() . '.created_at', $direction);
         } else {
-            $query->withVisitor();
-//                ->orderBy(static::T_VISITOR . '.total', 'desc');
+            $query->withVisitor()
+                ->orderBy(static::T_VISITOR . '.total', 'desc');
         }
 
         return $query;

@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, Seo;
 
     /**
      * Indicator success proses
@@ -179,7 +179,7 @@ class Controller extends BaseController
      */
     public function SEOByDefault($article)
     {
-        $description = strip_tags(str_limit($article->content, 200));
+        $description = strip_tags(str_limit($article->description, 200));
         SEOMeta::setDescription($description);
         SEOMeta::addMeta('article:published_time', $article->created_at->toW3CString(), 'property');
         SEOMeta::addMeta('article:section', $article->category->name, 'property');

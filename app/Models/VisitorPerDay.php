@@ -18,6 +18,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VisitorPerDay whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VisitorPerDay whereVisitorId($value)
  * @mixin \Eloquent
+ * @property string|null $date
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\VisitorDetail[] $detail
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VisitorPerDay whereDate($value)
  */
 class VisitorPerDay extends Model
 {

@@ -47,6 +47,7 @@ class ArticleController extends Controller
         $this->activeCategory($slug);
         $q = request()->get('q');
         $sortBy = request()->get('sortby');
+        $this->buildSEOArticleIndex();
         return view(static::PATH_VIEW . 'index', compact('articles', 'q', 'sortBy'));
     }
 
@@ -64,6 +65,7 @@ class ArticleController extends Controller
         $relatedArticle = $this->relatedArticle($article);
         $recentArticle = $this->recentArticle();
         $popularArticle = $this->popularArticle();
+        (new \App\Classes\AuditVisitor($article));
         $labels = $this->label();
         return view(static::PATH_VIEW . 'show', compact('article', 'relatedArticle', 'recentArticle', 'labels', 'popularArticle'));
     }
@@ -240,5 +242,21 @@ class ArticleController extends Controller
                 ->orderBy('articles.id', 'desc')
                 ->paginate(env('FRONT_ARTICLE_PAGINATE'));
         }, 5);
+    }
+
+    public function buildSEOArticleIndex()
+    {
+        \SEOMeta::setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
+        \SEOMeta::addKeyword(['lorem ipsum', 'all', 'in', 'one']);
+        \OpenGraph::setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
+        \OpenGraph::setTitle('All Article');
+        \OpenGraph::setUrl(request()->fullUrl());
+        \OpenGraph::addProperty('type', 'article');
+        \OpenGraph::addProperty('locale', 'en-id');
+        \OpenGraph::addProperty('locale:alternate', ['en-us']);
+        \OpenGraph::addImage(url('/') . '/images/logo.png');
+        \Twitter::setTitle('All Article');
+        \Twitter::setSite('@yourlearning');
+
     }
 }

@@ -135,7 +135,10 @@ if (!function_exists('is_active')) {
      */
     function is_active($currentRoute, $linkRoute)
     {
-        return $currentRoute == $linkRoute ? 'active' : 'not-active';
+        if (!is_array($linkRoute)) {
+            return $currentRoute == $linkRoute ? 'active' : 'not-active';            
+        }
+        return in_array($currentRoute, $linkRoute) ? 'active' : 'not-active';
     }
 }
 

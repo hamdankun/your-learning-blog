@@ -2,7 +2,7 @@
 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
     <label for="name" class="control-label col-sm-2">Title</label>
     <div class="col-sm-10">
-        <input type="text" name="title" value="{{ !empty($article) ? $article->title : old('title') }}" class="form-control" autocomplete="off">
+        <input type="text" name="title" value="{{ !empty($article) ? $article->title : old('title') }}" class="form-control title" autocomplete="off">
         {!! $errors->has('title') ? $errors->first('title', '<span class="help-block">:message</span>') : '' !!}
     </div>
 </div>
@@ -56,12 +56,16 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body container">
                 <div class="row image-gallery">
-                    <div class="col-sm-2 col-xs-12">
-                        <img src="/storage/article-images/100x100/75b6eecb-bcb7-33cc-99dc-6257e5132d0a.jpeg" alt="Article Image" class="img-responsive">
-                    </div>
+
                 </div>
+                <nav aria-label="pagination" class="center">
+                    <ul class="pager">
+                        <li><a href="#!" class="gallery-paginator" data-ref="prev">Prev</a></li>
+                        <li><a href="#!" class="gallery-paginator" data-ref="next">Next</a></li>
+                    </ul>
+                </nav>
                 <div class="row center">
                     <div class="form-upload mt-20 col-sm-6 col-sm-offset-3 col-xs-10">
                         <div class="form-group">

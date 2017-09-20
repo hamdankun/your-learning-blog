@@ -13,7 +13,10 @@
 
 Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function($router) {
     $router->get('/', ['as' => 'root', 'uses' => 'YourController@index']);
+    $router->get('/site-map', ['as' => 'your.site-map', 'uses' => 'YourController@siteMap']);
+    $router->get('/privacy-police', ['as' => 'your.privacy-policy', 'uses' => 'YourController@privacyPolicy']);    
     $router->get('/about-us', ['as' => 'your.about-us', 'uses' => 'YourController@aboutUs']);
+    $router->get('/contact-us', ['as' => 'your.contact-us', 'uses' => 'YourController@contactUs']);
     $router->group(['prefix' => 'ajax/frontend'], function($router) {
         $router->get('article/{category?}/{slug?}', ['as' => 'ajax.article', 'uses' => 'ArticleController@ajaxRequest']);
         $router->get('search-article', ['as' => 'ajax.article.search', 'uses' => 'ArticleController@ajaxSearch']);
@@ -39,6 +42,7 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.' ,'prefix' => 'admin'], fu
 
         $router->group(['prefix' => 'ajax'], function ($router) {
             $router->post('upload-image-gallery', ['as' => 'gallery.store', 'uses' => 'GalleryController@store']);
+            $router->get('image-gallery', ['as' => 'gallery.index', 'uses' => 'GalleryController@index']);
         });
     });
 

@@ -7,6 +7,22 @@ use App\Http\Controllers\Controller;
 
 class GalleryController extends Controller
 {
+    /**
+     * Get list all image for gallery
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return $this->jsonResponse([
+            'status' => 'success',
+            'data' => $this->getImage()
+        ]);
+    }
+
+    /**
+     * Store new image to storage
+     * @return \Illuminate\Http\Response
+     */
     public function store()
     {
         if (request()->hasFile('gallery') && request()->file('gallery')) {
@@ -20,22 +36,40 @@ class GalleryController extends Controller
                 }
             }
 
-            $allImagePath = [];
-
-            foreach (\File::allFiles(storage_path('app/public/your-images/gallery/')) as $key => $image) {
-                $pathInfo = pathinfo($image);
-                $allImagePath[] = [
-                    'filename' => $pathInfo['filename'] . '.' . $pathInfo['extension']
-                ];
-            }
-
             return $this->jsonResponse([
                 'status' => 'success',
-                'data' => $allImagePath
+                'data' => []
             ]);
         }
 
         throw new \Symfony\Component\HttpKernel\Exception\HttpException(400, 'Invalid Request Exception', null, array(), 400);
+    }
+
+    /**
+     * Get all image from storage
+     * @return array
+     */
+    public function getImage()
+    {
+        $allImagePath = [];
+
+        foreach (\File::allFiles(storage_path('app/public/your-images/gallery/')) as $key => $image) {
+            $pathInfo = pathinfo($image);
+            $allImagePath[] = [
+                'filename' => $pathInfo['filename'] . '.' . $pathInfo['extension']
+            ];
+        }
+
+        $chunkImagePath = array_chunk($allImagePath, 20);
+        $lengthPaginator = count($chunkImagePath);
+        $page = request()->get('page');
+        $allImagePath = !empty($chunkImagePath[($page - 1)]) ? $chunkImagePath[($page - 1)] : $chunkImagePath[0];
+
+        return [
+            'data' => $allImagePath,
+            'current_page' => (int)$page,
+            'last_page' => $lengthPaginator
+        ];
     }
 
 }

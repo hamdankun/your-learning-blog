@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/css/plugins/materialize-social.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/js/jquery-bar-rating/dist/themes/fontawesome-stars-o.css">
 @endsection
 
 @section('content')
@@ -58,6 +60,21 @@
                                 <div class="col s12 m11">
                                     : {{ $article->user ? $article->user->name : 'admin' }}
                                 </div>
+                                <!-- <div class="col s12 m12 margin-small">
+                                    <div class="divider"></div>
+                                </div> -->
+                                <!-- <div class="col s12 m1">
+                                    Ratting
+                                </div>
+                                <div class="col s12 m11">
+                                    <select id="ratting">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div> -->
                                 <div class="col s12 m12 margin-small">
                                     <div class="divider"></div>
                                 </div>
@@ -142,8 +159,9 @@
                     <div class="row">
                         <div class="col s12 m12">
                             <ul class="tabs">
-                                <li class="tab col s6"><a href="#test1"
-                                                          class="active custom-orange-text">Next/previous</a></li>
+                                <li class="tab col s6">
+                                    <a href="#test1" class="active custom-orange-text">Next/previous</a>
+                                </li>
                             </ul>
                         </div>
                         <div id="test1" class="col s12">
@@ -198,5 +216,6 @@
     <script src="/js/prism.js"></script>
     <script src="/js/jquery-lazyload/jquery.lazyload.min.js"></script>
     <script src="/js/jquery-lazyload/jquery.scrollstop.min.js"></script>
+    <script src="/js/jquery-bar-rating/dist/jquery.barrating.min.js"></script>
     <script src="/js/article-detail.js"></script>
 @endsection

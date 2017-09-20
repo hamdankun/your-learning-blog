@@ -98,6 +98,12 @@ _elm.ready(function () {
     $('.popular-article').click(function () {
         getPopularArticle();
     });
+
+    $('#ratting').barrating({
+        theme: 'fontawesome-stars-o',
+        initialRating: 4.5,
+        readonly: true
+    });
 });
 
 function getPopularArticle() {

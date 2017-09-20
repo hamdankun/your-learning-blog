@@ -18,7 +18,7 @@ class CreateVisitorDetailsTable extends Migration
             $table->integer('visitor_per_day_id')->unsigned()->nullable();
             $table->foreign('visitor_per_day_id')->references('id')->on('visitor_per_days')->onDelete('CASCADE');
             $table->ipAddress('ip_address');
-            $table->string('page', 100)->index();
+            $table->string('page')->index();
             $table->string('browser', 100)->nullable()->index();
             $table->timestamps();
         });

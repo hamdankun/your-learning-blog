@@ -8,7 +8,7 @@
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-      {!! SEO::generate() !!}
+      {!! SEO::generate() !!} <!-- true for minified -->
 
       <meta name="geo.position" content="-6.9034443; 107.5729458">
       <meta name="geo.placename" content="bandung">

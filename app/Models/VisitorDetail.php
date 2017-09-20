@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VisitorDetail whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VisitorDetail whereVisitorPerDayId($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\VisitorPerDay|null $perDay
  */
 class VisitorDetail extends Model
 {

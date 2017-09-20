@@ -2,7 +2,11 @@
 
 namespace App\Classes;
 
+use SEOMeta;
+use OpenGraph;
+use Twitter;
 use Carbon\Carbon;
+use App\Models\SeoStatic;
 use App\Models\SeoArticle as SEOArticle;
 use Intervention\Image\Response;
 
@@ -51,5 +55,25 @@ trait Seo
 
         }
         return $data;
+    }
+
+    /**
+     * Build seo for static page
+     *
+     * @param string $page
+     * @param string $titlePage
+     * @return void
+     */
+    public function buildSeoStaticPage($page, $titlePage = '')
+    {
+        $properties = \Cache::remember('seo-static-page-' . app('request')->fullUrl(), 5, function() use($page) {
+            return SeoStatic::getByType($page)->get(); 
+        });
+        if ($properties) {
+            SEOMeta::setTitle(ucwords($titlePage ? $titlePage : $page));
+            foreach($properties as $key => $property) {
+                SEOMeta::addMeta($property->attribute_name, $property->attribute_content, $property->attribute_key);
+            }
+        }
     }
 }
