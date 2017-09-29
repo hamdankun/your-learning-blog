@@ -22,8 +22,9 @@ class CreateSeosTable extends Migration
             $table->string('attribute_value')->nullable();
             $table->string('content')->nullable();
             $table->string('prefix')->nullable();
-            // $table->integer('seo_property_id')->unsigned()->nullable();
-            // $table->foreign('seo_property_id')->references('id')->on('seo_properties')->onDelete('CASCADE');
+            $table->string('category', 50)->nullable();
+            $table->string('input_type', 50)->nullable();
+            $table->string('placeholder', 50)->nullable()->default('');
             $table->timestamps();
         });
     }

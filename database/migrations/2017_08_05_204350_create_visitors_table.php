@@ -13,7 +13,7 @@ class CreateVisitorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('visitors', function (Blueprint $table) {
+        Schema::create('article_visitors', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('article_id')->unsigned()->nullable();
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('CASCADE');
@@ -29,6 +29,6 @@ class CreateVisitorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('visitors');
+        Schema::dropIfExists('article_visitors');
     }
 }

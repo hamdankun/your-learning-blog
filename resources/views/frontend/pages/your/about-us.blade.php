@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="parallax-container">
-        <div class="parallax"><img class="lazy" data-original="/storage/your-images/parallax/05.png"></div>
+        <div class="parallax"><img class="lazy" data-original="{{ env('BASE_PATH_STORAGE') }}/your-images/parallax/05.png"></div>
     </div>
     <div class="section white">
         <div class="row container">
@@ -31,7 +31,7 @@
         </div>
     </div>
     <div class="parallax-container">
-        <div class="parallax"><img class="lazy" data-original="/storage/your-images/parallax/02.png"></div>
+        <div class="parallax"><img class="lazy" data-original="{{ env('BASE_PATH_STORAGE') }}/your-images/parallax/02.png"></div>
     </div>
     <div class="section white">
         <div class="row container">
@@ -42,28 +42,28 @@
           <div class="col s4 m4">
               <div class="card">
                 <div class="card-image">
-                  <img class="lazy" data-original="/storage/your-images/icons/01.png">
+                  <img class="lazy" data-original="{{ env('BASE_PATH_STORAGE') }}/your-images/icons/01.png">
                 </div>
               </div>
           </div>
           <div class="col s4 m4">
               <div class="card">
                 <div class="card-image">
-                  <img class="lazy" data-original="/storage/your-images/icons/02.png">
+                  <img class="lazy" data-original="{{ env('BASE_PATH_STORAGE') }}/your-images/icons/02.png">
                 </div>
               </div>
           </div>
           <div class="col s4 m4">
               <div class="card">
                 <div class="card-image">
-                  <img class="lazy" data-original="/storage/your-images/icons/03.png">
+                  <img class="lazy" data-original="{{ env('BASE_PATH_STORAGE') }}/your-images/icons/03.png">
                 </div>
               </div>
           </div>
         </div>
     </div>
     <div class="parallax-container">
-        <div class="parallax"><img class="lazy" data-original="/storage/your-images/parallax/04.jpg"></div>
+        <div class="parallax"><img class="lazy" data-original="{{ env('BASE_PATH_STORAGE') }}/your-images/parallax/04.jpg"></div>
     </div>
     <div class="section white">
         <div class="row container">
@@ -76,8 +76,8 @@
 @endsection
 
 @section('scripts')
-    <script src="/js/jquery-lazyload/jquery.lazyload.min.js"></script>
-    <script src="/js/jquery-lazyload/jquery.scrollstop.min.js"></script>
+    <script src="/dist/js/jquery-lazyload/jquery.lazyload.min.js"></script>
+    <script src="/dist/js/jquery-lazyload/jquery.scrollstop.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
           _Image.lazy();

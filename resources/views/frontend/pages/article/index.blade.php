@@ -55,10 +55,10 @@
 @endsection
 
 @section('scripts')
-    <script src="/js/jquery-lazyload/jquery.lazyload.min.js"></script>
-    <script src="/js/jquery-lazyload/jquery.scrollstop.min.js"></script>
-    <script src="/js/materialize-pagination.min.js"></script>
-    <script src="/js/jquery.autocomplete.min.js"></script>
-    <script src="{{ mix('/js/article-factory.js') }}"></script>
-    <script src="{{ mix('/js/article-frontend.js') }}"></script>
+    <script src="{{ env('DIST_PATH') }}/js/jquery-lazyload/jquery.lazyload.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/js/jquery-lazyload/jquery.scrollstop.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/js/materialize-pagination.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/js/jquery.autocomplete.min.js"></script>
+    <script src="{{ env('DIST_PATH') . mix('/js/article-factory.js') }}"></script>
+    <script src="{{ env('DIST_PATH') . mix('/js/article-frontend.js') }}"></script>
 @endsection

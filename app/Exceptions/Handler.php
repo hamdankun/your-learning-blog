@@ -44,13 +44,28 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-
         if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
             return response()->view('errors.404', [], 404);
         }
 
         if ($request->ajax() || $request->wantsJson()) {
-            return response()->json(['errors' => $exception->getMessage()], $exception->getCode());
+            $statusCode = 500;
+
+            if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+                $errors = 'Method Not Allowed';
+                $statusCode = 405;
+            } else if ($exception instanceof \BadMethodCallException) {
+                $errors = 'Bad Method Call';
+                $statusCode = 500;                
+            } else if ($exception instanceof \Illuminate\Validation\ValidationException) {
+                $errors = $exception->validator->errors();
+                $statusCode = 422;
+            } else {
+                $errors = 'Internal Server Error';
+                $statusCode = 500;
+            }
+            
+            return response()->json(['errors' => $errors], $statusCode);
         }
 
         return parent::render($request, $exception);

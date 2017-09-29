@@ -143,11 +143,35 @@ if (!function_exists('is_active')) {
 }
 
 if (!function_exists('create_input_hidden_meta')) {
-
+    
+    /**
+     * Create hidden value meta
+     *
+     * @param string $attributeKey
+     * @param string $attributeValue
+     * @param string $prefix
+     * @return string
+     */
     function create_input_hidden_meta($attributeKey, $attributeValue, $prefix = '')
     {
         return '<input type="hidden" name="seo[attribute_key][]" class="attribute_key" value="' . $attributeKey . '">
         <input type="hidden" name="seo[attribute_value][]" class="attribute_value" value="' . $attributeValue . '">
         <input type="hidden" name="seo[prefix][]" class="prefix" value="' . $prefix . '">';
     }
+}
+
+if(!function_exists('create_input_hidden')) {
+
+    /**
+     * Create input hidden
+     *
+     * @param string $name
+     * @param string $value
+     * @return string
+     */
+    function create_input_hidden($name, $value)
+    {
+        return '<input type="hidden" name="' . $name . '" value="' . $value . '">';
+    }
+
 }

@@ -253,6 +253,22 @@
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
+                <li>
+                    <a href="#"><i class="fa fa-cogs fa-fw"></i> Settings<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{ route('admin.category.index') }}"><i class="fa fa-file-o fa-fw"></i> Pages<span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level">
+                                <li>
+                                    <a href="{{ route('admin.setting.seo.static.index') }}">SEO</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admin.setting.content-static-page') }}">Content</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

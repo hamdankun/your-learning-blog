@@ -1,13 +1,13 @@
 @extends('frontend.layouts.main')
 
 @section('styles')
-    <link rel="stylesheet" type="text/css" href="/css/plugins/prism.css">
+    <link rel="stylesheet" type="text/css" href="{{ env('DIST_PATH') }}/css/plugins/prism.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/plugins/materialize-social.css">
+    <link rel="stylesheet" type="text/css" href="{{ env('DIST_PATH') }}/css/plugins/materialize-social.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/js/jquery-bar-rating/dist/themes/fontawesome-stars-o.css">
+    <link rel="stylesheet" type="text/css" href="{{ env('DIST_PATH') }}/js/jquery-bar-rating/dist/themes/fontawesome-stars-o.css">
 @endsection
 
 @section('content')
@@ -213,9 +213,9 @@
 @endsection
 
 @section('scripts')
-    <script src="/js/prism.js"></script>
-    <script src="/js/jquery-lazyload/jquery.lazyload.min.js"></script>
-    <script src="/js/jquery-lazyload/jquery.scrollstop.min.js"></script>
-    <script src="/js/jquery-bar-rating/dist/jquery.barrating.min.js"></script>
-    <script src="/js/article-detail.js"></script>
+    <script src="{{ env('DIST_PATH') }}/js/prism.js"></script>
+    <script src="{{ env('DIST_PATH') }}/js/jquery-lazyload/jquery.lazyload.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/js/jquery-lazyload/jquery.scrollstop.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/js/jquery-bar-rating/dist/jquery.barrating.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/js/article-detail.js"></script>
 @endsection

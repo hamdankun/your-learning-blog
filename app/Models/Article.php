@@ -72,7 +72,7 @@ class Article extends Model implements AuditableContract
     /**
      * Visitor table name
      */
-    CONST T_VISITOR = 'visitors';
+    CONST T_VISITOR = 'article_visitors';
 
     /**
      * Set the label array to json
@@ -168,7 +168,7 @@ class Article extends Model implements AuditableContract
      */
     public function visitor()
     {
-        return $this->hasOne(Visitor::class, 'article_id');
+        return $this->hasOne(ArticleVisitor::class, 'article_id');
     }
 
     /**

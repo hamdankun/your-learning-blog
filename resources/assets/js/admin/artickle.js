@@ -114,11 +114,17 @@ _Dom.onClick('.append', function() {
    _nameFormClass = _dataType +'-base-form-meta';
    _baseForm = $('.' + _nameFormClass).clone();
    _baseForm.removeClass(_nameFormClass);
-   _baseForm.children('.invisible-area').find('input.attribute_value').remove();
-   _baseForm.children('.control-label').html(buildTextField());
+   _baseForm.children('.invisible-area')
+        .find('input.attribute_value')
+        .remove();
+   _baseForm.children('.control-label')
+        .html(buildTextField());
    _baseForm.children('.input-group')
         .children('textarea')
-        .attr('placeholder', 'Enter Content')
+        .attr('placeholder', 'Enter Content');
+   _baseForm.children('.invisible-area')
+        .find('input[name="seo[placeholder][]"]')
+        .val('Enter Content');
    _btn = _baseForm.children('.btn-area').children('button');
    _btn.removeClass('append btn-primary')
      .addClass('btn-danger remove')
@@ -182,10 +188,17 @@ _Dom.onInput('.title', function (e) {
     _twitterSeoName.attr('placeholder', vm.val());
 }, true);
 
-function paginatorListener(currentGalleryPaginator, lengthGalleryPaginator) {
-    console.log(currentGalleryPaginator);
-    console.log(lengthGalleryPaginator);
+_Dom.onInput('.dynamic-attribute-value', function() {
+    _this = $(this);
+    _val = _this.val();
+    _this.parent().parent()
+        .find('.invisible-area')
+        .find('input[name="seo[placeholder][]"]')
+        .val(_val);
+}, true);
 
+function paginatorListener(currentGalleryPaginator, lengthGalleryPaginator) {
+    
     var _prevPagination = $('.gallery-paginator[data-ref="prev"]');
     var _nextPagination = $('.gallery-paginator[data-ref="next"]');
 
@@ -203,7 +216,7 @@ function paginatorListener(currentGalleryPaginator, lengthGalleryPaginator) {
 }
 
 function buildTextField() {
-    return '<input type="text" name="seo[attribute_value][]" maxlength="50" placeholder="Enter Attribute" class="form-control">';
+    return '<input type="text" name="seo[attribute_value][]" maxlength="50" placeholder="Enter Attribute" class="form-control dynamic-attribute-value">';
 }
 
 function renderImages(images) {
@@ -221,7 +234,7 @@ function renderImages(images) {
         _imgGalleryContent += '<div class="row col-sm-12">';
         $.each(images, function (key, val) {
             _imgGalleryContent += '<div class="col-sm-2 col-xs-6 img-gallery">'
-                +'<img src="/storage/your-images/gallery/' + val.filename + '" alt="Article Image" class="img-responsive">'
+                +'<img src="'+ _resourceUrl + '/' + val.filename + '" alt="Article Image" class="img-responsive">'
                 +'</div>';
         });
         _imgGallery += '</div>';

@@ -71,8 +71,8 @@
 @endsection
 
 @section('scripts')
-    <script src="/js/jquery-lazyload/jquery.lazyload.min.js"></script>
-    <script src="/js/jquery-lazyload/jquery.scrollstop.min.js"></script>
-    <script src="{{ mix('/js/article-factory.js') }}"></script>
-    <script src="{{ mix('/js/home-frontend.js') }}"></script>
+    <script src="/dist/js/jquery-lazyload/jquery.lazyload.min.js"></script>
+    <script src="/dist/js/jquery-lazyload/jquery.scrollstop.min.js"></script>
+    <script src="{{ '/dist' . mix('/js/article-factory.js') }}"></script>
+    <script src="{{ '/dist' . mix('/js/home-frontend.js') }}"></script>
 @endsection

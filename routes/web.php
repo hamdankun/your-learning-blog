@@ -44,6 +44,14 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.' ,'prefix' => 'admin'], fu
             $router->post('upload-image-gallery', ['as' => 'gallery.store', 'uses' => 'GalleryController@store']);
             $router->get('image-gallery', ['as' => 'gallery.index', 'uses' => 'GalleryController@index']);
         });
+
+        $router->group(['prefix' => 'setting','as' => 'setting.'], function($router) {
+            $router->group(['prefix' => 'seo/static', 'as' => 'seo.static.'], function($router) {
+                $router->get('', ['as' => 'index', 'uses' => 'SeoStaticContentController@index']);
+                $router->post('save', ['as' => 'store', 'uses' => 'SeoStaticContentController@store']);
+            });
+            $router->get('/content-static-page', ['as' => 'content-static-page', 'uses' => 'SeoStaticContentController@index']);
+        });
     });
 
 

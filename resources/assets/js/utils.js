@@ -70,3 +70,54 @@ _Dom = (function($) {
         onInput: onInput
     }
 })(jQuery);
+
+
+_Http = (function() {
+  resolve = function(url, method, data, onSuccess, onError, dataType) {
+
+    _method = method;
+
+    if ($.inArray(method, ['PUT', 'DELETE']) >= 0) {
+      method = 'POST';
+    }
+
+
+    if (method === 'POST') {
+      data['_token'] = $('meta[name="csrf-token"]').attr('content');
+      data['_method'] = _method;
+    }
+
+    return $.ajax({
+      type: method,
+      url: url,
+      dataType: dataType === undefined ? 'json' : dataType,
+      data: data,
+      success: onSuccess,
+      error: onError
+    });
+  }
+
+  _get = function(url, parameters, onSuccess, onError, dataType) {
+    return resolve(url, 'GET', parameters, onSuccess, onError, dataType);
+  }
+
+  _post = function(url, data, onSuccess, onError, dataType) {
+    return resolve(url, 'POST', data, onSuccess, onError, dataType);
+  }
+
+  _put = function(url, data, onSuccess, onError, dataType) {
+    return resolve(url, 'PUT', data, onSuccess, onError, dataType);
+  }
+
+  _delete = function(url, parameters, onSuccess, onError, dataType) {
+    return resolve(url, 'DELETE', parameters, onSuccess, onError, dataType);
+  }
+
+  return {
+    resolve: resolve,
+    _get: _get,
+    _post: _post,
+    _put: _put,
+    _delete: _delete
+  }
+})();

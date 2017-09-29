@@ -22,6 +22,13 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoStatic whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoStatic whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoStatic aboutUs()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoStatic contactUs()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoStatic deleteUnUsedAttribute($type, $exclude)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoStatic getByType($type)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoStatic home()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoStatic privacyPolice()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoStatic siteMap()
  */
 class SeoStatic extends Model
 {
@@ -55,7 +62,7 @@ class SeoStatic extends Model
     /**
      * The name of about page
      */
-    const ABOUT = 'about';
+    const ABOUT = 'about-us';
 
 
     /**
@@ -77,7 +84,7 @@ class SeoStatic extends Model
      * @return \Illuminate\Database\Query\Builder
      */
     public function scopeHome($query) {
-        return $query->where('type', static::HOME);
+        return $query->where('type', static::HOME)->orderBy('attribute_key', 'asc');
     }
 
     /**
@@ -87,7 +94,7 @@ class SeoStatic extends Model
      * @return \Illuminate\Database\Query\Builder
      */
     public function scopeSiteMap($query) {
-        return $query->where('type', static::SITE_MAP);
+        return $query->where('type', static::SITE_MAP)->orderBy('attribute_key', 'asc');
     }
 
     /**
@@ -97,8 +104,8 @@ class SeoStatic extends Model
      * @return \Illuminate\Database\Query\Builder
      * @return void
      */
-    public function scopePrivacyPolice() {
-        return $query->where('type', static::PRIVACY_POLICE);
+    public function scopePrivacyPolice($query) {
+        return $query->where('type', static::PRIVACY_POLICE)->orderBy('attribute_key', 'asc');
     }
     
     /**
@@ -108,8 +115,8 @@ class SeoStatic extends Model
      * @return \Illuminate\Database\Query\Builder
      * @return void
      */
-    public function scopeContactUs() {
-        return $query->where('type', static::CONTACT_US);
+    public function scopeContactUs($query) {
+        return $query->where('type', static::CONTACT_US)->orderBy('attribute_key', 'asc');
     }
 
     /**
@@ -119,7 +126,11 @@ class SeoStatic extends Model
      * @return \Illuminate\Database\Query\Builder
      * @return void
      */
-    public function scopeAboutUs() {
-        return $query->where('type', static::ABOUT);
+    public function scopeAboutUs($query) {
+        return $query->where('type', static::ABOUT)->orderBy('attribute_key', 'asc');
     }
+
+    public function scopeDeleteUnUsedAttribute($query, $type, $exclude) {
+        return $query->where('type', $type)->whereNotIn('id', $exclude)->delete();
+    } 
 }

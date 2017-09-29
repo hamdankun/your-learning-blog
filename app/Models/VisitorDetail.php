@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\VisitorDetail
  *
  * @property int $id
- * @property int|null $visitor_per_day_id
+ * @property int $page
  * @property string $ip_address
- * @property string $page
  * @property string|null $browser
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
@@ -20,25 +20,50 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VisitorDetail whereIpAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VisitorDetail wherePage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VisitorDetail whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\VisitorDetail whereVisitorPerDayId($value)
  * @mixin \Eloquent
- * @property-read \App\Models\VisitorPerDay|null $perDay
  */
 class VisitorDetail extends Model
 {
     /**
-     * The attributes that are mass assignable.
+     * The fillable column
      *
      * @var array
      */
-    protected $fillable = ['visitor_per_day_id', 'ip_address', 'page', 'browser'];
+    protected $fillable = ['page', 'ip_address', 'browser', 'date'];
+
 
     /**
-     * Relation with visitor per day
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * Scope for get browser usage visitor
+     *
+     * @param \Illuminate\Database\Query\Builder $query
+     * @param string $scope
+     * @return \Illuminate\Database\Query\Builder
      */
-    public function perDay()
+    public function scopeBrowserUsage($query, $scope)
     {
-        return $this->belongsTo(VisitorPerDay::class, 'visitor_per_day_id');
+        $query->select(
+            $this->getTable() . '.browser as label',
+            \DB::raw('count(' . $this->getTable() . '.page) as value')
+        );
+ 
+        if ($scope === 'week') {
+            return $query->onWeek();
+        }    
+
+        return $query;
+    }
+
+    /**
+     * Scope for get popular article
+     *
+     * @param \Illuminate\Database\Query\Builder $query
+     * @param string $scope
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function scopeOnWeek($query)
+    {
+        return $query->whereDate('date', '>=', Carbon::now()->subDays(7)->toDateString())
+                ->whereDate('date', '<=', Carbon::now()->toDateString())
+                ->groupBy($this->getTable() . '.browser');
     }
 }

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Visitor;
 use Illuminate\Http\Request;
+use App\Models\VisitorDetail;
+use App\Models\ArticleVisitor;
 use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
@@ -15,6 +18,14 @@ class DashboardController extends Controller
     public function index()
     {
         $this->breadcrumb();
-        return view('admin.pages.dashboard');
+        $visitor = new \stdClass();
+        $visitor->today = Visitor::today()->sum('total');
+        $visitor->yesterday = Visitor::yesterday()->sum('total');
+        $visitor->prevMonth = Visitor::previousMonth()->sum('total');        
+        $visitor->allOfTime = Visitor::allOfTime()->sum('total');
+        $visitor->statisticChart = Visitor::fiveDayAgo()->get()->toJson();
+        $visitor->donutChart = VisitorDetail::browserUsage('week')->get()->toJson();        
+        $visitor->popularArticle = ArticleVisitor::popularArticle('week')->get();
+        return view('admin.pages.dashboard', compact('visitor'));
     }
 }

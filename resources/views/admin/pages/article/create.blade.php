@@ -1,8 +1,8 @@
 @extends('admin.layouts.main')
 
 @section('styles')
-    <link href="/js/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
-    <link href="/js/kartik-v-bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="{{ env('DIST_PATH') }}/js/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
+    <link href="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -45,17 +45,18 @@
 @section('js-var')
     var mode = 'create';
     var images = [];
+    var _resourceUrl = '{{ env('DIST_PATH') }}/storage/your-images/gallery'
 @endsection
 
 @section('scripts')
-    <script src="/js/tinymce/js/tinymce/tinymce.min.js"></script>
-    <script src="/js/selectize/dist/js/standalone/selectize.min.js"></script>
-    <script src="/js/kartik-v-bootstrap-fileinput/js/plugins/piexif.min.js" type="text/javascript"></script>
-    <script src="/js/kartik-v-bootstrap-fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
-    <script src="/js/kartik-v-bootstrap-fileinput/js/plugins/purify.min.js" type="text/javascript"></script>
-    <script src="/js/kartik-v-bootstrap-fileinput/js/fileinput.min.js"></script>
-    <script src="/js/kartik-v-bootstrap-fileinput/themes/fa/theme.js"></script>
-    <script src="/js/kartik-v-bootstrap-fileinput/js/locales/LANG.js"></script>
-    <script src="/dist/js/sb-admin-2.js"></script>
-    <script src="{{ mix('/js/artickle.js') }}"></script>
+    <script src="{{ env('DIST_PATH') }}/js/tinymce/js/tinymce/tinymce.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/js/selectize/dist/js/standalone/selectize.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/js/plugins/piexif.min.js" type="text/javascript"></script>
+    <script src="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
+    <script src="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/js/plugins/purify.min.js" type="text/javascript"></script>
+    <script src="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/js/fileinput.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/themes/fa/theme.js"></script>
+    <script src="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/js/locales/LANG.js"></script>
+    <script src="{{ env('DIST_PATH') }}/dist/js/sb-admin-2.js"></script>
+    <script src="{{ env('DIST_PATH') . mix('/js/artickle.js') }}"></script>
 @endsection

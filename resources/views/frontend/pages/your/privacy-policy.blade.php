@@ -42,8 +42,3 @@
         </div>
     </div>
 @endsection
-
-@section('scripts')
-    <script src="/js/jquery-lazyload/jquery.lazyload.min.js"></script>
-    <script src="/js/jquery-lazyload/jquery.scrollstop.min.js"></script>
-@endsection

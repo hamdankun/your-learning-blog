@@ -65,7 +65,7 @@ class ArticleController extends Controller
         $relatedArticle = $this->relatedArticle($article);
         $recentArticle = $this->recentArticle();
         $popularArticle = $this->popularArticle();
-        (new \App\Classes\AuditVisitor($article));
+        (new \App\Classes\AuditVisitorArticle($article));
         $labels = $this->label();
         return view(static::PATH_VIEW . 'show', compact('article', 'relatedArticle', 'recentArticle', 'labels', 'popularArticle'));
     }

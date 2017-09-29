@@ -40,7 +40,7 @@ $factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
         'description' => $faker->sentence(15),
         'label' => array(),
         'slug' => $faker->uuid,
-        'image' => $faker->image(storage_path('app/public/article-images/640x480'), 640, 480)
+        'image' => $faker->imageUrl(640, 480)
     ];
 });
 

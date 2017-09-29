@@ -17,8 +17,8 @@
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
-      <link type="text/css" rel="stylesheet" href="{{ mix('/css/custom.css') }}"/>
+      <link type="text/css" rel="stylesheet" href="/dist/materialize/css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="{{ '/dist' . mix('/css/custom.css') }}"/>
 
       @yield('styles')
     </head>
@@ -82,9 +82,9 @@
       </div>
       <!--Import jQuery before materialize.js-->
       <!-- jQuery -->
-      <script type="text/javascript" src="/vendor/jquery/jquery.min.js"></script>
-      <script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
-      <script type="text/javascript" src="{{ mix('/js/main-frontend.js') }}"></script>
+      <script type="text/javascript" src="/dist/vendor/jquery/jquery.min.js"></script>
+      <script type="text/javascript" src="/dist/materialize/js/materialize.min.js"></script>
+      <script type="text/javascript" src="{{ '/dist' . mix('/js/main-frontend.js') }}"></script>
       @yield('scripts')
     </body>
   </html>

@@ -1,0 +1,15 @@
+{
+  "/js/app.js": "/js/app.js",
+  "/js/utils.js": "/js/utils.js",
+  "/js/main.js": "/js/main.js",
+  "/js/main-frontend.js": "/js/main-frontend.js",
+  "/js/home-frontend.js": "/js/home-frontend.js",
+  "/js/article-frontend.js": "/js/article-frontend.js",
+  "/js/article-factory.js": "/js/article-factory.js",
+  "/js/article-detail.js": "/js/article-detail.js",
+  "/js/datatable-builder.js": "/js/datatable-builder.js",
+  "/js/seo-static.js": "/js/seo-static.js",
+  "/js/category.js": "/js/category.js",
+  "/js/artickle.js": "/js/artickle.js",
+  "/css/custom.css": "/css/custom.css"
+}

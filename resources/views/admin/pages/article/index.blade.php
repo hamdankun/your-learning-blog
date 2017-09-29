@@ -34,9 +34,9 @@
 @endsection
 
 @section('scripts')
-    <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="/vendor/datatables-responsive/dataTables.responsive.js"></script>
-    <script src="/dist/js/sb-admin-2.js"></script>
-    <script src="{{ mix('/js/artickle.js') }}"></script>
+    <script src="{{ env('DIST_PATH') }}/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="{{ env('DIST_PATH') }}/dist/js/sb-admin-2.js"></script>
+    <script src="{{ env('DIST_PATH') . mix('/js/artickle.js') }}"></script>
 @endsection

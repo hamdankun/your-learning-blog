@@ -10,16 +10,17 @@ const { mix } = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-mix.setPublicPath('public_html/');
-mix.js('resources/assets/js/app.js', 'public_html/js')
-   .styles('resources/assets/css/custom.css', 'public_html/css/custom.css')
-   .js('resources/assets/js/admin/category.js', 'public_html/js/category.js')
-   .js('resources/assets/js/admin/artickle.js', 'public_html/js/artickle.js')
-   .js('resources/assets/js/main.js', 'public_html/js/main.js')
-   .js('resources/assets/js/utils.js', 'public_html/js/utils.js')
-   .js('resources/assets/js/datatable-builder.js', 'public_html/js/datatable-builder.js')
-   .js('resources/assets/js/frontend/main-frontend.js', 'public_html/js/main-frontend.js')
-   .js('resources/assets/js/frontend/home.js', 'public_html/js/home-frontend.js')
-   .js('resources/assets/js/frontend/article.js', 'public_html/js/article-frontend.js')
-   .js('resources/assets/js/frontend/article-factory.js', 'public_html/js/article-factory.js')
-    .js('resources/assets/js/frontend/article-detail.js', 'public_html/js/article-detail.js');
+mix.setPublicPath('dist/');
+mix.js('resources/assets/js/app.js', 'dist/js')
+   .styles('resources/assets/css/custom.css', 'dist/css/custom.css')
+   .js('resources/assets/js/admin/category.js', 'dist/js/category.js')
+   .js('resources/assets/js/admin/artickle.js', 'dist/js/artickle.js')
+   .js('resources/assets/js/admin/seo-static.js', 'dist/js/seo-static.js')
+   .js('resources/assets/js/main.js', 'dist/js/main.js')
+   .js('resources/assets/js/utils.js', 'dist/js/utils.js')
+   .js('resources/assets/js/datatable-builder.js', 'dist/js/datatable-builder.js')
+   .js('resources/assets/js/frontend/main-frontend.js', 'dist/js/main-frontend.js')
+   .js('resources/assets/js/frontend/home.js', 'dist/js/home-frontend.js')
+   .js('resources/assets/js/frontend/article.js', 'dist/js/article-frontend.js')
+   .js('resources/assets/js/frontend/article-factory.js', 'dist/js/article-factory.js')
+   .js('resources/assets/js/frontend/article-detail.js', 'dist/js/article-detail.js');

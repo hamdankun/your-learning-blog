@@ -95,7 +95,7 @@ class ArticleController extends Controller
             $this->uploadImageIfExist($article, $request);
             $this->setNotification('success', trans('general.create.success', [static::REPLACING_NAME => 'Article']));
             $callback = $this->toRoute(static::PREFIX_ROUTE_NAME . 'index');
-            $this->setUpSEO($request->input('seo'), $article->id);
+            $this->saveSEO($request->input('seo'), $article->id);
             $this->callEvent($request);
             DB::commit();
         } catch (Exception $e) {
@@ -139,14 +139,16 @@ class ArticleController extends Controller
     public function findAndSendToView($id, $layout)
     {
         $article = [];
+        $seo = [];
 
         if ($layout === 'update') {
-            $article = $this->article->find($id);
+            $article = $this->article->findOrFail($id);
+            $seo = $article->SEO;
         }
 
         $categories = Category::pluck('name', 'id');
         $labels = \App\Models\Label::pluck('name');
-        return view(static::PATH_VIEW . $layout, compact('article', 'categories', 'labels'));
+        return view(static::PATH_VIEW . $layout, compact('article', 'categories', 'labels', 'seo'));
     }
 
     /**
@@ -159,14 +161,17 @@ class ArticleController extends Controller
     public function update(ArticleRequest $request, $id)
     {
         try {
+            DB::beginTransaction();
             $article = $this->article->find($id);
             $article->update($request->except('id'));
             $this->uploadImageIfExist($article, $request);
             $this->setNotification('success', trans('general.created.success', [static::REPLACING_NAME => static::MODULE_NAME]));
             $callback = $this->toRoute(static::PREFIX_ROUTE_NAME . 'index');
             $this->callEvent($request);
-            $this->setUpSEO($request->input('seo'), $article->id);
+            $this->saveSEO($request->input('seo'), $article->id, false);
+            DB::commit();
         } catch (Exception $e) {
+            DB::rollBack();
             $this->setNotification('error', $this->errorException($e));
             $callback = redirect()->back();
         }

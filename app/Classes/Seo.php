@@ -19,10 +19,12 @@ trait Seo
      * @param array $properties
      * @param integer $articleId
      */
-    public function setUpSEO($properties, $articleId)
+    public function saveSEO($properties, $articleId, $insertMode = true)
     {
-        $seoProperties = $this->moveToValue($properties, $articleId);
-        SEOArticle::insert($seoProperties);
+        $seoProperties = $this->moveToValue($properties, $articleId, $insertMode);
+        if (count($seoProperties) > 0) {
+            SEOArticle::insert($seoProperties);
+        }
     }
 
     /**
@@ -31,29 +33,57 @@ trait Seo
      * @param  id $articleId
      * @return array
      */
-    public function moveToValue($properties, $articleId)
+    public function moveToValue($properties, $articleId, $insertMode)
     {
         $contents = $properties['content'];
         $attributeKeys = $properties['attribute_key'];
         $attributeValues = $properties['attribute_value'];
         $prefixs = $properties['prefix'];
+        $categories = $properties['category'];
+        $placeholders = $properties['placeholder'];
+        $inputTypes = $properties['input_type'];
         $data = [];
+        $exclude = [];
         foreach ($attributeKeys as $key => $attributeKey) {
 
             if (!empty($attributeKeys) && !empty($attributeValues[$key]) && !empty($contents[$key])) {
-                $data[] = [
-                    'article_id' => $articleId,
-                    'type' => 'meta',
-                    'attribute_key' => $attributeKey,
-                    'attribute_value' => $attributeValues[$key],
-                    'content' => $contents[$key],
-                    'prefix' => $prefixs[$key],
-                    'created_at' => Carbon::now()->toDateTimeString(),
-                    'updated_at' => Carbon::now()->toDateTimeString(),
-                ];
+                if ($insertMode) {
+                    $data[] = [
+                        'article_id' => $articleId,
+                        'type' => 'meta',
+                        'attribute_key' => $attributeKey,
+                        'attribute_value' => $attributeValues[$key],
+                        'content' => $contents[$key],
+                        'prefix' => $prefixs[$key],
+                        'category' => $categories[$key],
+                        'input_type' => $inputTypes[$key],
+                        'placeholder' => $placeholders[$key],
+                        'created_at' => Carbon::now()->toDateTimeString(),
+                        'updated_at' => Carbon::now()->toDateTimeString(),
+                    ];
+                } else {
+                    $seo = SEOArticle::firstOrNew([
+                       'article_id' => $articleId, 
+                       'attribute_key' => $attributeKey,
+                       'attribute_value' => $attributeValues[$key],
+                       'prefix' => $prefixs[$key],
+                       'category' => $categories[$key],
+                    ]);
+                    $seo->type = 'meta';
+                    $seo->input_type = $inputTypes[$key];
+                    $seo->content = $contents[$key];
+                    $seo->placeholder = $placeholders[$key];
+                    $seo->save();
+                    $exclude[] = $seo->id;
+                }
             }
 
         }
+
+        if (!$insertMode) {
+            SEOArticle::where('article_id', $articleId)->whereNotIn('id', $exclude)->delete();
+        }
+
         return $data;
     }
 
@@ -72,7 +102,10 @@ trait Seo
         if ($properties) {
             SEOMeta::setTitle(ucwords($titlePage ? $titlePage : $page));
             foreach($properties as $key => $property) {
-                SEOMeta::addMeta($property->attribute_name, $property->attribute_content, $property->attribute_key);
+                if ($key == 3) {
+                    break;
+                }
+                SEOMeta::addMeta($property->attribute_name, $property->attribute_content, $property->attribute_key);                    
             }
         }
     }

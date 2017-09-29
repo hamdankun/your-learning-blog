@@ -13,30 +13,30 @@
     <title>{{ env('APP_NAME') }}</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ env('DIST_PATH') }}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="{{ env('DIST_PATH') }}/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="{{ env('DIST_PATH') }}/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="/vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="{{ env('DIST_PATH') }}/vendor/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ env('DIST_PATH') }}/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- Toash style -->
-    <link href="/css/plugins/toastr.min.css" rel="stylesheet">
+    <link href="{{ env('DIST_PATH') }}/css/plugins/toastr.min.css" rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <link href="/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="{{ env('DIST_PATH') }}/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+    <link href="{{ env('DIST_PATH') }}/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
-    <link href="{{ mix('/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ env('DIST_PATH') . mix('/css/custom.css') }}" rel="stylesheet">
 
 
     @yield('styles')
@@ -77,12 +77,12 @@
     </div>
 
     <!-- jQuery -->
-    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="/js/toastr.min.js"></script>
+    <script src="{{ env('DIST_PATH') }}/js/toastr.min.js"></script>
 
     @if(session()->has('notification.message'))
         <script>
@@ -100,10 +100,10 @@
     </script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="/vendor/metisMenu/metisMenu.min.js"></script>
-    <script src="{{ mix('/js/utils.js') }}"></script>
-    <script src="{{ mix('/js/main.js') }}"></script>
-    <script src="{{ mix('/js/datatable-builder.js') }}"></script>
+    <script src="{{ env('DIST_PATH') }}/vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="{{ env('DIST_PATH') . mix('/js/utils.js') }}"></script>
+    <script src="{{ env('DIST_PATH') . mix('/js/main.js') }}"></script>
+    <script src="{{ env('DIST_PATH') . mix('/js/datatable-builder.js') }}"></script>
     @yield('scripts')
 </body>
 

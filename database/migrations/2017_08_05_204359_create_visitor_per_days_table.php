@@ -13,10 +13,10 @@ class CreateVisitorPerDaysTable extends Migration
      */
     public function up()
     {
-        Schema::create('visitor_per_days', function (Blueprint $table) {
+        Schema::create('article_visitor_per_days', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('visitor_id')->unsigned()->nullable();
-            $table->foreign('visitor_id')->references('id')->on('visitors')->onDelete('CASCADE');
+            $table->integer('article_visitor_id')->unsigned()->nullable();
+            $table->foreign('article_visitor_id')->references('id')->on('article_visitors')->onDelete('CASCADE');
             $table->date('date')->nullable();
             $table->bigInteger('total')->nullable()->default(0)->index();
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateVisitorPerDaysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('visitor_per_days');
+        Schema::dropIfExists('article_visitor_per_days');
     }
 }

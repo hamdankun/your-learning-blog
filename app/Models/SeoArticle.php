@@ -31,6 +31,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoArticle whereAttributeValue($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoArticle whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoArticle wherePrefix($value)
+ * @property string|null $category
+ * @property string|null $input_type
+ * @property string|null $placeholder
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoArticle whereCategory($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoArticle whereInputType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SeoArticle wherePlaceholder($value)
  */
 class SeoArticle extends Model
 {
@@ -38,7 +44,7 @@ class SeoArticle extends Model
      * The fillable colums
      * @var array
      */
-    protected $fillable = ['article_id', 'type', 'attribute_key', 'attribute_value', 'content', 'prefix'];
+    protected $fillable = ['article_id', 'type', 'attribute_key', 'attribute_value', 'content', 'prefix', 'category', 'input_type', 'placeholder'];
 
     /**
      * Relation With Article

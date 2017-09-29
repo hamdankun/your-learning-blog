@@ -13,10 +13,10 @@ class CreateVisitorDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('visitor_details', function (Blueprint $table) {
+        Schema::create('article_visitor_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('visitor_per_day_id')->unsigned()->nullable();
-            $table->foreign('visitor_per_day_id')->references('id')->on('visitor_per_days')->onDelete('CASCADE');
+            $table->integer('article_visitor_per_day_id')->unsigned()->nullable();
+            $table->foreign('article_visitor_per_day_id')->references('id')->on('article_visitor_per_days')->onDelete('CASCADE');
             $table->ipAddress('ip_address');
             $table->string('page')->index();
             $table->string('browser', 100)->nullable()->index();
@@ -31,6 +31,6 @@ class CreateVisitorDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('visitor_details');
+        Schema::dropIfExists('article_visitor_details');
     }
 }

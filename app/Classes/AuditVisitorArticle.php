@@ -3,11 +3,11 @@ namespace App\Classes;
 
 use DB;
 use App\Models\Article;
-use App\Models\Visitor;
-use App\Models\VisitorPerDay;
-use App\Models\VisitorDetail;
+use App\Models\ArticleVisitor;
+use App\Models\ArticleVisitorPerDay;
+use App\Models\ArticleVisitorDetail;
 
-class AuditVisitor {
+class AuditVisitorArticle {
     
     /**
      * Article instance
@@ -61,7 +61,7 @@ class AuditVisitor {
      */
     public function toVisitor()
     {
-        $visitor = Visitor::firstOrNew(['article_id' => $this->article->id]);
+        $visitor = ArticleVisitor::firstOrNew(['article_id' => $this->article->id]);
         $visitor->total += 1;
         $visitor->save();
         return $visitor;
@@ -73,9 +73,12 @@ class AuditVisitor {
      * @param Visitor $visitor
      * @return void
      */
-    public function toVisitorPerDay(Visitor $visitor)
+    public function toVisitorPerDay(ArticleVisitor $visitor)
     {
-        $visitorPerDay = VisitorPerDay::firstOrNew(['visitor_id' => $visitor->id, 'date' => \Carbon\Carbon::now()->toDateString()]);
+        $visitorPerDay = ArticleVisitorPerDay::firstOrNew([
+            'article_visitor_id' => $visitor->id, 
+            'date' => \Carbon\Carbon::now()->toDateString()
+        ]);
         $visitorPerDay->total += 1;
         $visitorPerDay->save();
         return $visitorPerDay;
@@ -87,10 +90,10 @@ class AuditVisitor {
      * @param VisitorPerDay $visitorPerDay
      * @return void
      */
-    public function toVisitorDetail(VisitorPerDay $visitorPerDay)
+    public function toVisitorDetail(ArticleVisitorPerDay $visitorPerDay)
     {
-        VisitorDetail::create([
-            'visitor_per_day_id' => $visitorPerDay->id,
+        ArticleVisitorDetail::create([
+            'article_visitor_per_day_id' => $visitorPerDay->id,
             'ip_address' => $this->request->ip(),
             'page' => $this->request->fullUrl(),
             'browser' => (new \Jenssegers\Agent\Agent())->browser()
