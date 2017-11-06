@@ -39,7 +39,7 @@ _ArticleFactory = (function($) {
     }
 
     buildImgCard = function buildImgCard(article) {
-        var urlImg = _baseUrlImgPath + '/article-images/300x300/' + article.image;
+        var urlImg = process.env.MIX_BASE_PATH_STORAGE + '/article-images/300x300/' + article.image;
         return '<div class="card-image">'
             +'<img data-original="' + urlImg + '" class="lazy">'
                 +'<span class="card-title custom-orange-color custom-cart-title">'

@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('DEFAULT_LANG', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -181,8 +181,9 @@ return [
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Spatie\LaravelImageOptimizer\ImageOptimizerServiceProvider::class,
-        OwenIt\Auditing\AuditingServiceProvider::class,
+        // OwenIt\Auditing\AuditingServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
+        RenatoMarinho\LaravelPageSpeed\ServiceProvider::class
 
     ],
 

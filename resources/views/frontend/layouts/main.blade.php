@@ -14,6 +14,7 @@
       <meta name="geo.placename" content="bandung">
       <meta name="geo.region" content="west java">
 
+      <link rel="canonical" href="{{ url('/') }}" />
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
@@ -25,7 +26,7 @@
 
     <script>
         @yield('js-var')
-        var _baseUrlImgPath = '{{ env('BASE_PATH_STORAGE') }}';
+        var _baseUrlImgPath = '{{ config('your.base.path_storage') }}';
         var _baseUrl = '{{ url('/') }}';
     </script>
 
@@ -39,33 +40,33 @@
           <div class="row">
             <div class="col l5 s12">
               <h5 class="white-text">Blog Bio</h5>
-              <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
+              <p class="grey-text text-lighten-4">
+              {{ config('your.app.bio') }}
+              </p>
             </div>
             <div class="col l3 s12">
               <h5 class="white-text">Web Tools</h5>
               <ul>
-                <li><a class="white-text" href="#">Home</a></li>
-                <li><a class="white-text" href="#">Blog</a></li>
-                <li><a class="white-text" href="#">Privacy Policy</a></li>
-                <li><a class="white-text" href="#">Site Map</a></li>
-                <li><a class="white-text" href="#">Contact Us</a></li>
-                <li><a class="white-text" href="#">About Us</a></li>
+                <li><a class="white-text" href="{{ route('frontend.root') }}">Home</a></li>
+                <li><a class="white-text" href="{{ route('frontend.article.index', ['all']) }}">Article</a></li>
+                <li><a class="white-text" href="{{ route('frontend.your.privacy-policy') }}">Privacy Policy</a></li>
+                <li><a class="white-text" href="{{ route('frontend.your.site-map') }}">Site Map</a></li>
+                <li><a class="white-text" href="{{ route('frontend.your.contact-us') }}">Contact Us</a></li>
+                <li><a class="white-text" href="{{ route('frontend.your.about-us') }}">About Us</a></li>
               </ul>
             </div>
             <div class="col l4 s12">
               <h5 class="white-text">Newsletter</h5>
               <div class="row">
                 <div class="col s12 m12">
-                  <p class="grey-text text-lighten-4">Let's get more info with subscribe this blog via email</p>
+                  <p class="grey-text text-lighten-4">Ayo dapatkan info terbaru tentang programing melalui email anda</p>
                 </div>
                 <div class="input-field col s12 m8">
                   <input id="first_name2" type="text" class="validate">
-                  <label class="active" for="first_name2">Email Address</label>
+                  <label class="active" for="first_name2">Alamat Email</label>
                 </div>
                 <div class="input-field col s12 m3  padding-x-small">
-                  <button class="waves-effect waves-light btn custom-orange-color">Submit</button>
+                  <button class="waves-effect waves-light btn custom-orange-color">Kirim</button>
                 </div>
               </div>
             </div>

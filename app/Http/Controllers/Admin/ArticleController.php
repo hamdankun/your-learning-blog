@@ -73,7 +73,11 @@ class ArticleController extends Controller
      */
     public function getData()
     {
-        return Datatables::of($this->article->select('id', 'title', \DB::raw('\'action\' as action')))->make(true);
+        return Datatables::of(
+                    $this->article->select('id', 'title', \DB::raw('\'action\' as action'))
+                        ->with('visitor')
+                )
+                ->make(true);
     }
 
     /**

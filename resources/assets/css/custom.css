@@ -316,6 +316,10 @@ nav form {
     background-color: #f3f2f2;
 }
 
+.full-right {
+    float: right !important;
+}
+
 @media only screen and (max-width: 992px) {
   .pagination {
     width: 100%;

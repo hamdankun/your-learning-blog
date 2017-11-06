@@ -1,15 +1,15 @@
 {
-  "/js/app.js": "/js/app.js",
-  "/js/utils.js": "/js/utils.js",
-  "/js/main.js": "/js/main.js",
-  "/js/main-frontend.js": "/js/main-frontend.js",
-  "/js/home-frontend.js": "/js/home-frontend.js",
-  "/js/article-frontend.js": "/js/article-frontend.js",
-  "/js/article-factory.js": "/js/article-factory.js",
-  "/js/article-detail.js": "/js/article-detail.js",
-  "/js/datatable-builder.js": "/js/datatable-builder.js",
-  "/js/seo-static.js": "/js/seo-static.js",
-  "/js/category.js": "/js/category.js",
-  "/js/artickle.js": "/js/artickle.js",
-  "/css/custom.css": "/css/custom.css"
+  "/js/app.js": "/js/app.03819435d485541e9e5a.js",
+  "/js/utils.js": "/js/utils.0db0c7ea922e830db050.js",
+  "/js/main.js": "/js/main.c02da20c6481242fd257.js",
+  "/js/main-frontend.js": "/js/main-frontend.13224da35ab4f20fc7d9.js",
+  "/js/home-frontend.js": "/js/home-frontend.f9b3c4fe36c9fcde8528.js",
+  "/js/article-frontend.js": "/js/article-frontend.e79bd190472fdc51b30f.js",
+  "/js/article-factory.js": "/js/article-factory.41a4993c8295c49d5959.js",
+  "/js/article-detail.js": "/js/article-detail.b042a0214ef564c64eff.js",
+  "/js/datatable-builder.js": "/js/datatable-builder.4449f4c95ed2e38f88b0.js",
+  "/js/seo-static.js": "/js/seo-static.280461ec433692889a3a.js",
+  "/js/category.js": "/js/category.19d6542413147855e160.js",
+  "/js/artickle.js": "/js/artickle.fd16467abf1c76057c82.js",
+  "/css/custom.css": "/css/custom.b0ae9db408af30d2a24e2dd298629902.css"
 }

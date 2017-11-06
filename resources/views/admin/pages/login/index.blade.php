@@ -12,15 +12,15 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="{{ env('DIST_PATH') }}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ config('your.dist_path') }}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{{ env('DIST_PATH') }}/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="{{ config('your.dist_path') }}/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="{{ env('DIST_PATH') }}/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ config('your.dist_path') }}/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <link href="{{ env('DIST_PATH') . mix('/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ config('your.dist_path') . mix('/css/custom.css') }}" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,7 +37,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="logo-area">
-                    <img src="{{ env('DIST_PATH') }}/images/logo.png" class="img-responsive" alt="Your Learning Logo">
+                    <img src="{{ config('your.dist_path') }}/images/logo.png" class="img-responsive" alt="Your Learning Logo">
                 </div>
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
@@ -78,7 +78,7 @@
     </div>
 
     <!-- jQuery -->
-    <script src="{{ env('DIST_PATH') }}/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ config('your.dist_path') }}/vendor/jquery/jquery.min.js"></script>
 
     <script>
         $(document).ready(function() {

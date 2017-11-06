@@ -4,9 +4,9 @@
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <br><br>
-            <h1 class="header center custom-orange-text">Star For learning</h1>
+            <h1 class="header center custom-orange-text"> @lang('general.starter') </h1>
             <div class="row center">
-                <a href="{{ route('frontend.article.index', ['all']) }}" id="download-button" class="btn-large waves-effect waves-light custom-orange-color">Get Started</a>
+                <a href="{{ route('frontend.article.index', ['all']) }}" id="download-button" class="btn-large waves-effect waves-light custom-orange-color">@lang('general.get_started')</a>
             </div>
             <br><br>
 
@@ -21,8 +21,8 @@
                             <div class="col s6 m3">
                                 <div class="card">
                                     <div class="card-image">
-                                        <img data-original="{{ env('BASE_PATH_STORAGE') }}/article-images/300x300/{{ $article->image }}"
-                                        onerror="this.onerror=null;this.src='{{ env('BASE_PATH_STORAGE') }}/article-images/default.png'"
+                                        <img data-original="{{ config('your.base.path_storage') }}/article-images/300x300/{{ $article->image }}"
+                                        onerror="this.onerror=null;this.src='{{ config('your.base.path_storage') }}/article-images/default.png'"
                                         class="lazy">
                                         <span class="card-title custom-orange-color custom-cart-title">{{ build_label($article->label) }}</span>
                                     </div>

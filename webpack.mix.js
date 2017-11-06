@@ -1,5 +1,4 @@
 const { mix } = require('laravel-mix');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -23,4 +22,5 @@ mix.js('resources/assets/js/app.js', 'dist/js')
    .js('resources/assets/js/frontend/home.js', 'dist/js/home-frontend.js')
    .js('resources/assets/js/frontend/article.js', 'dist/js/article-frontend.js')
    .js('resources/assets/js/frontend/article-factory.js', 'dist/js/article-factory.js')
-   .js('resources/assets/js/frontend/article-detail.js', 'dist/js/article-detail.js');
+   .js('resources/assets/js/frontend/article-detail.js', 'dist/js/article-detail.js')
+   .version();

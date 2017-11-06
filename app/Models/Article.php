@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-use OwenIt\Auditing\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
-use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 /**
  * App\Models\Article
@@ -54,9 +52,9 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article sortBy($direction)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article withVisitor()
  */
-class Article extends Model implements AuditableContract
+class Article extends Model
 {
-    use Sluggable, Auditable;
+    use Sluggable;
 
     /**
      * The fillable columns model

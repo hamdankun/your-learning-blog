@@ -7,6 +7,9 @@ var AppModule = {
         var _columns = [
             { data: null, orderable: false, searchable: false, width: '5%' },
             { data: 'title', name: 'title' },
+            { data: 'visitor', name: 'visitor', orderable: false, searchable: false, render: function(visitor) {
+                return visitor ? visitor.total : 0;
+            } },
             { data: 'id', name: 'id', orderable: false, searchable: false, render: function(id) {
                 return _BtnDatatable.create(id);
             } },

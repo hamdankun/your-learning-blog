@@ -102,9 +102,6 @@ trait Seo
         if ($properties) {
             SEOMeta::setTitle(ucwords($titlePage ? $titlePage : $page));
             foreach($properties as $key => $property) {
-                if ($key == 3) {
-                    break;
-                }
                 SEOMeta::addMeta($property->attribute_name, $property->attribute_content, $property->attribute_key);                    
             }
         }

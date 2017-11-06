@@ -6,7 +6,7 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults'       => [
-            'title'        => 'Your Learning Blog', // set false to total remove
+            'title'        => 'Your Learning', // set false to total remove
             'description'  => false, // set false to total remove
             'separator'    => ' - ',
             'keywords'     => [],
@@ -43,7 +43,7 @@ return [
          */
         'defaults' => [
           //'card'        => 'summary',
-          //'site'        => '@LuizVinicius73',
+          'site'        => env('DEFAULT_SITE_TWITTER')
         ],
     ],
 ];

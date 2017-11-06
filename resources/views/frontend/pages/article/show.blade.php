@@ -1,13 +1,13 @@
 @extends('frontend.layouts.main')
 
 @section('styles')
-    <link rel="stylesheet" type="text/css" href="{{ env('DIST_PATH') }}/css/plugins/prism.css">
+    <link rel="stylesheet" type="text/css" href="{{ config('your.dist_path') }}/css/plugins/prism.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ env('DIST_PATH') }}/css/plugins/materialize-social.css">
+    <link rel="stylesheet" type="text/css" href="{{ config('your.dist_path') }}/css/plugins/materialize-social.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ env('DIST_PATH') }}/js/jquery-bar-rating/dist/themes/fontawesome-stars-o.css">
+    <link rel="stylesheet" type="text/css" href="{{ config('your.dist_path') }}/js/jquery-bar-rating/dist/themes/fontawesome-stars-o.css">
 @endsection
 
 @section('content')
@@ -19,7 +19,7 @@
                         <div class="nav-wrapper">
                             <div class="col s12 custom-breadcrumb">
                                 <a href="{{ route('frontend.root') }}" class="breadcrumb">Home</a>
-                                <a href="#!" class="breadcrumb">{{ $article->category->name }}</a>
+                                <a href="{{ route('frontend.article.index', [$article->category->slug]) }}" class="breadcrumb">{{ $article->category->name }}</a>
                                 <a href="#!" class="breadcrumb">{{ $article->title }}</a>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                 <div class="col s12 m8">
                     <div class="card">
                         <div class="card-image">
-                            <img data-original="{{ env('BASE_PATH_STORAGE') }}/article-images/640x480/{{ $article->image }}"
+                            <img data-original="{{ config('your.base.path_storage') }}/article-images/640x480/{{ $article->image }}"
                                  class="lazy">
                             <span class="card-title custom-orange-color custom-cart-title">
                                 <h5>{{ $article->title }}</h5>
@@ -49,7 +49,7 @@
                                     Tags
                                 </div>
                                 <div class="col s12 m11">
-                                    {!! build_label($article->label, true, '<div class="chip">:name</div>') !!}
+                                     {!! build_label($article->label, true, '<div class="chip">:name</div>') !!}
                                 </div>
                                 <div class="col s12 m12 margin-small">
                                     <div class="divider"></div>
@@ -110,8 +110,8 @@
                             <ul class="tabs">
                                 <li class="tab col s6"><a href="#recentArticle" class="active custom-orange-text">Recent
                                         Article</a></li>
-                                <li class="tab col s6"><a href="#popularArticle" class="custom-orange-text popular-article">Popular Article</a>
-                                </li>
+                                <!-- <li class="tab col s6"><a href="#popularArticle" class="custom-orange-text popular-article">Popular Article</a>
+                                </li> -->
                             </ul>
                         </div>
                         <div id="recentArticle" class="col s12">
@@ -128,7 +128,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div id="popularArticle" class="col s12 center">
+                        <!-- <div id="popularArticle" class="col s12 center">
                             <div class="preloader-wrapper active margin-top-medium spinner-popular-article">
                                 <div class="spinner-layer spinner-red-only">
                                     <div class="circle-clipper left">
@@ -140,22 +140,22 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col s12 m12">
                             <ul class="tabs">
                                 <li class="tab col s6"><a href="#test1" class="active custom-orange-text">Label</a></li>
                             </ul>
                         </div>
                         <div id="test1" class="col s12">
-                            <div class="collection">
-                                @foreach($labels as $key => $label)
+                            <div class="collection"> -->
+                                {{-- @foreach($labels as $key => $label)
                                     <a href="#!" class="collection-item custom-orange-text">{{ $label  }}</a>
-                                @endforeach
-                            </div>
+                                @endforeach --}}
+                            <!-- </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col s12 m12">
                             <ul class="tabs">
@@ -213,9 +213,9 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ env('DIST_PATH') }}/js/prism.js"></script>
-    <script src="{{ env('DIST_PATH') }}/js/jquery-lazyload/jquery.lazyload.min.js"></script>
-    <script src="{{ env('DIST_PATH') }}/js/jquery-lazyload/jquery.scrollstop.min.js"></script>
-    <script src="{{ env('DIST_PATH') }}/js/jquery-bar-rating/dist/jquery.barrating.min.js"></script>
-    <script src="{{ env('DIST_PATH') }}/js/article-detail.js"></script>
+    <script src="{{ config('your.dist_path') }}/js/prism.js"></script>
+    <script src="{{ config('your.dist_path') }}/js/jquery-lazyload/jquery.lazyload.min.js"></script>
+    <script src="{{ config('your.dist_path') }}/js/jquery-lazyload/jquery.scrollstop.min.js"></script>
+    <script src="{{ config('your.dist_path') }}/js/jquery-bar-rating/dist/jquery.barrating.min.js"></script>
+    <script src="{{ config('your.dist_path') }}/js/article-detail.js"></script>
 @endsection

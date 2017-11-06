@@ -15,7 +15,7 @@ class CreateTableGeneralVisitors extends Migration
     {
         Schema::create('visitors', function (Blueprint $table) {
             $table->increments('id');
-            $table->datetime('date')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->index();
+            $table->date('date')->nullable()->index();
             $table->bigInteger('total')->nullable()->default(0)->index();
             $table->timestamps();
         });

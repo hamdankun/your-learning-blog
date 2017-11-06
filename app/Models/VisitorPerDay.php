@@ -28,5 +28,5 @@ class VisitorPerDay extends Model
      *
      * @var array
      */
-    protected $fillable = ['date', 'page', 'total', 'browser'];
+    protected $fillable = ['date', 'page', 'total'];
 }

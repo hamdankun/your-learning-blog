@@ -48,6 +48,11 @@ class ArticleController extends Controller
         $q = request()->get('q');
         $sortBy = request()->get('sortby');
         $this->buildSEOArticleIndex();
+
+        if (!$q) {
+            $this->audit();
+        }
+
         return view(static::PATH_VIEW . 'index', compact('articles', 'q', 'sortBy'));
     }
 
@@ -65,8 +70,8 @@ class ArticleController extends Controller
         $relatedArticle = $this->relatedArticle($article);
         $recentArticle = $this->recentArticle();
         $popularArticle = $this->popularArticle();
-        (new \App\Classes\AuditVisitorArticle($article));
         $labels = $this->label();
+        $this->audit($article);
         return view(static::PATH_VIEW . 'show', compact('article', 'relatedArticle', 'recentArticle', 'labels', 'popularArticle'));
     }
 
@@ -77,7 +82,7 @@ class ArticleController extends Controller
     public function popularArticle()
     {
         return $this->toCache(function() {
-            return $this->article->popular()->limit(env('POPULAR_ARTICLE_LIMIT'))->get();
+            return $this->article->popular()->limit(config('your.popular_article_limit'))->get();
         }, 5, 'popular-article');
     }
 
@@ -144,7 +149,7 @@ class ArticleController extends Controller
         return $this->toCache(function () use ($slug) {
             return $this->article->getByCategory($slug)
                 ->findSimiliar(request()->get('q'))
-                ->paginate(env('FRONT_ARTICLE_PAGINATE'));
+                ->paginate(config('your.front_article_paginate'));
         });
     }
 
@@ -184,7 +189,7 @@ class ArticleController extends Controller
             $sortByColumn = $this->defineSortBy();
             $articles = $articles->sortBy($sortByColumn);
             $articles = $this->toCache(function () use ($articles) {
-                return $articles->paginate(env('FRONT_ARTICLE_PAGINATE'));
+                return $articles->paginate(config('your.front_article_paginate'));
             });
 
             return $this->jsonResponse([
@@ -196,6 +201,11 @@ class ArticleController extends Controller
         throw new \Symfony\Component\HttpKernel\Exception\HttpException(400, 'Invalid Request Exception', null, array(), 400);
     }
 
+    /**
+     * List sort by article
+     *
+     * @return void
+     */
     private function defineSortBy()
     {
         $querySort = request()->get('sortby');
@@ -240,14 +250,20 @@ class ArticleController extends Controller
                 ->withCategory()
                 ->findSimiliar(request()->get('q'))
                 ->orderBy('articles.id', 'desc')
-                ->paginate(env('FRONT_ARTICLE_PAGINATE'));
+                ->paginate(config('your.front_article_paginate'));
         }, 5);
     }
 
+    /**
+     * Build seo article index
+     *
+     * @return void
+     */
     public function buildSEOArticleIndex()
     {
         \SEOMeta::setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
         \SEOMeta::addKeyword(['lorem ipsum', 'all', 'in', 'one']);
+        \SEOMeta::addMeta('name', 'Ngulikers Programing - Your Learning', 'title');
         \OpenGraph::setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
         \OpenGraph::setTitle('All Article');
         \OpenGraph::setUrl(request()->fullUrl());
@@ -257,6 +273,21 @@ class ArticleController extends Controller
         \OpenGraph::addImage(url('/') . '/images/logo.png');
         \Twitter::setTitle('All Article');
         \Twitter::setSite('@yourlearning');
+    }
 
+    /**
+     * Audit visitor and save to seo table
+     *
+     * @param Article $article
+     * @return void
+     */
+    private function audit(Article $article = null)
+    {
+
+        if ($article) {
+            (new \App\Classes\AuditVisitorArticle($article));
+        }
+
+        (new \App\Classes\AuditVisitor());
     }
 }

@@ -1,9 +1,9 @@
 @extends('admin.layouts.main')
 
 @section('styles')
-    <link href="{{ env('DIST_PATH') }}/js/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
-    <link href="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="{{ env('DIST_PATH') }}/css/plugins/prism.css">
+    <link href="{{ config('your.dist_path') }}/js/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet">
+    <link href="{{ config('your.dist_path') }}/js/kartik-v-bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ config('your.dist_path') }}/css/plugins/prism.css">
 @endsection
 
 @section('content')
@@ -50,22 +50,22 @@
     var mode = 'update';
     var images = [];
     @if ($article->image)
-      var basePathImage = '{{ env('BASE_IMG_UPLOAD_PATH') }}';
+      var basePathImage = '{{ config('your.base.img_upload_path') }}';
       var image = basePathImage+'/'+'{{ $article->image }}';
       images.push(image);
     @endif
 @endsection
 
 @section('scripts')
-    <script src="{{ env('DIST_PATH') }}/js/tinymce/js/tinymce/tinymce.min.js"></script>
-    <script src="{{ env('DIST_PATH') }}/js/selectize/dist/js/standalone/selectize.min.js"></script>
-    <script src="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/js/plugins/piexif.min.js" type="text/javascript"></script>
-    <script src="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
-    <script src="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/js/plugins/purify.min.js" type="text/javascript"></script>
-    <script src="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/js/fileinput.min.js"></script>
-    <script src="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/themes/fa/theme.js"></script>
-    <script src="{{ env('DIST_PATH') }}/js/kartik-v-bootstrap-fileinput/js/locales/LANG.js"></script>
-    <script src="{{ env('DIST_PATH') }}/js/prism.js"></script>
-    <script src="{{ env('DIST_PATH') }}/dist/js/sb-admin-2.js"></script>
-    <script src="{{ env('DIST_PATH') . mix('/js/artickle.js') }}"></script>
+    <script src="{{ config('your.dist_path') }}/js/tinymce/js/tinymce/tinymce.min.js"></script>
+    <script src="{{ config('your.dist_path') }}/js/selectize/dist/js/standalone/selectize.min.js"></script>
+    <script src="{{ config('your.dist_path') }}/js/kartik-v-bootstrap-fileinput/js/plugins/piexif.min.js" type="text/javascript"></script>
+    <script src="{{ config('your.dist_path') }}/js/kartik-v-bootstrap-fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
+    <script src="{{ config('your.dist_path') }}/js/kartik-v-bootstrap-fileinput/js/plugins/purify.min.js" type="text/javascript"></script>
+    <script src="{{ config('your.dist_path') }}/js/kartik-v-bootstrap-fileinput/js/fileinput.min.js"></script>
+    <script src="{{ config('your.dist_path') }}/js/kartik-v-bootstrap-fileinput/themes/fa/theme.js"></script>
+    <script src="{{ config('your.dist_path') }}/js/kartik-v-bootstrap-fileinput/js/locales/LANG.js"></script>
+    <script src="{{ config('your.dist_path') }}/js/prism.js"></script>
+    <script src="{{ config('your.dist_path') }}/dist/js/sb-admin-2.js"></script>
+    <script src="{{ config('your.dist_path') . mix('/js/artickle.js') }}"></script>
 @endsection

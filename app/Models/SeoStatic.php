@@ -74,7 +74,7 @@ class SeoStatic extends Model
      */
     public function scopeGetByType($query, $type)
     {
-        return $query->where('type', $type);
+        return $query->where('type', $type)->orderBy('attribute_key');
     }
     
     /**

@@ -247,8 +247,8 @@ class Controller extends BaseController
         }
 
         SEOMeta::addMeta('image', $relatedUrl, 'itemprop');
-        Twitter::setSite(env('DEFAULT_SITE_TWITTER'));
-        SEOMeta::addMeta('twitter:creator', env('DEFAULT_SITE_TWITTER'), 'name');
+        Twitter::setSite(config('your.default_site_twitter'));
+        SEOMeta::addMeta('twitter:creator', config('your.default_site_twitter'), 'name');
         Twitter::setImage($relatedUrl);
         OpenGraph::addProperty('locale', 'en-us');
         OpenGraph::addProperty('locale:alternate', ['en-us']);

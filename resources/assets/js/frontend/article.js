@@ -1,7 +1,5 @@
 _elm.ready(function () {
-
     _Image.lazy();
-
     $('#pagination').materializePagination({
         align: 'center',
         lastPage: _paginator.lastPage,
@@ -67,5 +65,6 @@ function getArticle(requestedPage, query, sortBy) {
     }, function (error) {
         _Loader.hide();
     });
+    
 }
 

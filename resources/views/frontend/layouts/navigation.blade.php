@@ -7,7 +7,7 @@
 <div class="{{ $navbarFixed }}">
     <nav class="light-red lighten-1 custom-nav {{ isset($current_route) && $current_route !== 'frontend.root' ? 'nav-extended' : '' }}" role="navigation">
         <div class="nav-wrapper container">
-        <a id="logo-container" href="{{ route('frontend.root') }}" class="brand-logo">{{ env('APP_NAME') }}</a>
+        <a id="logo-container" href="{{ route('frontend.root') }}" class="brand-logo">{{ config('your.app.name') }}</a>
             <ul class="right hide-on-med-and-down">
                 <li class="{{ is_active($current_route, 'frontend.root') }}"><a href="{{ route('frontend.root') }}">Home</a></li>
                 <li class="{{ is_active($current_route, ['frontend.article.index', 'frontend.article.show']) }}"><a href="{{ route('frontend.article.index', ['all']) }}">Article</a></li>

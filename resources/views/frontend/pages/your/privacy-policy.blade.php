@@ -18,23 +18,52 @@
             <div class="col s12 m12">
                 <div class="card">
                     <div class="card-content">
+                        <h5>Kebijakan Privasi untuk <b>{{ config('your.app.name') }}</b></h5>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Privasi Anda sebagai pengunjung {{ config('your.app.name') }} adalah hal yang sangat penting bagi kami.
+                        </p> <br />
+
+                        <p>
+                          Di {{ config('your.app.name') }} kami menganggap bahwa privasi dari informasi pribadi Anda adalah hal yang penting. 
+                          Dan inilah keterangan mengenai informasi apa saja yang kami terima dan kami kumpulkan pada saat Anda mengunjungi {{ config('your.app.name') }} 
+                          dan bagaimana kami menyimpan serta menjaga informasi tersebut.
+                          Kami tegaskan bahwa kami tidak akan pernah memberikan informasi tersebut kepada pihak ketiga.      
                         </p>
+                        <br />
+                        <h5>Tentang file log</h5>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Seperti kebanyakan situs lain, kami mengumpulkan dan menggunakan data yang terdapat pada file log. 
+                            Informasi yang terdapat pada file log termasuk alamat IP (Internet Protocol) Anda, ISP (Internet Service Provider), 
+                            browser yang Anda gunakan, waktu pada saat Anda berkunjung dan halaman mana saja yang Anda buka selama berkunjung
+                            di {{ config('your.app.name') }}.
                         </p>
+                        <br />
+                        <h5>Tentang cookies</h5>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Situs kami menggunakan cookies untuk menaruh informasi, 
+                            seperti informasi preferensi pribadi Anda pada saat mengunjungi situs kami. 
+                            Ini juga mungkin termasuk untuk menampilkan jendela pop up untuk kunjungan pertama Anda, 
+                            atau juga untuk menyimpan informasi login Anda di situs kami.
                         </p>
+                        <br />
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            {{ config('your.app.name') }} juga menggunakan iklan dari pihak ketiga untuk mendukung situs kami. 
+                            Beberapa penayang iklan ini mungkin menggunakan cookies ketika menampilkan iklan di situs kami, 
+                            yang juga mengirimkan kepada pemasang iklan (seperti Google melalui program Adsense) 
+                            informasi seperti alamat IP (Internet Protocol) Anda, 
+                            ISP (Internet Servide Provider), browser internet yang Anda gunakan dan sebagainya.
                         </p>
+                        <br />
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Hal ini biasanya digunakan untuk tujuan penargetan iklan berdasarkan lokasi 
+                            (seperti menampilkan iklan properti di Jakarta, misalnya) atau menampilkan iklan yang sesuai berdasarkan situs-situs yang telah Anda 
+                            kunjungi (seperti menampilkan iklan gadget bagi Anda yang kerap mengunjungi situs-situs gadget, misalnya).
                         </p>
+                        <br />
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Anda dapat memilih untuk men-disable cookies melalui setelan pada browser Anda, atau melalui 
+                            setting pada program semacam Norton Internet Security atau yang lainnya. Namun demikian, 
+                            hal ini dapat mempengaruhi pengalaman Anda dalam berinteraksi dengan situs kami sebagaimana juga dengan situs lainnya.
                         </p>
                     </div>
                 </div>

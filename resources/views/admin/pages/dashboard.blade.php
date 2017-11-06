@@ -27,8 +27,8 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ env('DIST_PATH') }}/vendor/raphael/raphael.min.js"></script>
-    <script src="{{ env('DIST_PATH') }}/vendor/morrisjs/morris.min.js"></script>
-    <script src="{{ env('DIST_PATH') }}/data/morris-data.js"></script>
-    <script src="{{ env('DIST_PATH') }}/dist/js/sb-admin-2.js"></script>
+    <script src="{{ config('your.dist_path') }}/vendor/raphael/raphael.min.js"></script>
+    <script src="{{ config('your.dist_path') }}/vendor/morrisjs/morris.min.js"></script>
+    <script src="{{ config('your.dist_path') }}/data/morris-data.js"></script>
+    <script src="{{ config('your.dist_path') }}/dist/js/sb-admin-2.js"></script>
 @endsection

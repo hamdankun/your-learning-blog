@@ -41,7 +41,8 @@ class YourController extends Controller
     public function index()
     {
         $articles = $this->articleController->getAndStoreToCache();
-        $this->buildSeoStaticPage('home');
+        $this->buildSeoStaticPage('home', 'Ngulikers Programing');
+        $this->audit();
         return view(static::PATH_VIEW . 'index', compact('articles'));
     }
 
@@ -53,6 +54,7 @@ class YourController extends Controller
     {
         $this->activeCategory('about-us');
         $this->buildSeoStaticPage('about-us');
+        $this->audit();
         return view(static::PATH_VIEW . 'about-us');
     }
 
@@ -64,6 +66,7 @@ class YourController extends Controller
     public function siteMap()
     {
         $this->buildSeoStaticPage('site-map', 'Site Map');
+        $this->audit();
         return view(static::PATH_VIEW . 'site-map');
     }
 
@@ -74,13 +77,36 @@ class YourController extends Controller
      */
     public function privacyPolicy()
     {
-        $this->buildSeoStaticPage('privacy-police', 'Privacy Policy');        
+        $this->buildSeoStaticPage('privacy-police', 'Privacy Policy');
+        $this->audit();        
         return view(static::PATH_VIEW . 'privacy-policy');
     }
 
+    /**
+     * Display contact us page
+     *
+     * @return void
+     */
     public function contactUs()
     {
-        $this->buildSeoStaticPage('contact-us', 'Contact Us');        
+        $this->buildSeoStaticPage('contact-us', 'Contact Us');
+        $this->audit();        
         return view(static::PATH_VIEW . 'contact-us');
+    }
+
+    public function postContactUs()
+    {
+        $this->setNotification('success', 'Pesan Berhasil Dikirim, Terima Kasih');
+        return redirect()->back();
+    }   
+
+    /**
+     * Audit visitor
+     *
+     * @return void
+     */
+    private function audit()
+    {
+        (new \App\Classes\AuditVisitor());        
     }
 }

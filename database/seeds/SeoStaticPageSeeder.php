@@ -36,43 +36,43 @@ class SeoStaticPageSeeder extends Seeder
                     'attribute_name' => $property['name'],
                     'attribute_content' => $content
                 ]);
-                
+
             }
         }
     }
 
-    public function pages() 
+    public function pages()
     {
         return [
             [
                 'type' => 'home',
                 'title' => 'Home',
-                'url_page' => env('APP_URL_DOMAIN')
+                'url_page' => config('your.app.url_domain')
             ],
             [
                 'type' => 'site-map',
                 'title' => 'Site Map',
-                'url_page' => env('APP_URL_DOMAIN') . '/site-map'
+                'url_page' => config('your.app.url_domain') . '/site-map'
             ],
             [
                 'type' => 'privacy-police',
                 'title' => 'Privacy Police',
-                'url_page' => env('APP_URL_DOMAIN') . '/privacy-police'
+                'url_page' => config('your.app.url_domain') . '/privacy-police'
             ],
             [
                 'type' => 'about-us',
                 'title' => 'About Us',
-                'url_page' => env('APP_URL_DOMAIN') . '/about-us'
+                'url_page' => config('your.app.url_domain') . '/about-us'
             ],
             [
                 'type' => 'contact-us',
                 'title' => 'Contact Us',
-                'url_page' => env('APP_URL_DOMAIN') . '/contact-us'
+                'url_page' => config('your.app.url_domain') . '/contact-us'
             ],
             [
                 'type' => 'privacy-police',
                 'title' => 'Privac Police',
-                'url_page' => env('APP_URL_DOMAIN') . '/about-us'
+                'url_page' => config('your.app.url_domain') . '/about-us'
             ],
         ];
     }
@@ -118,7 +118,7 @@ class SeoStaticPageSeeder extends Seeder
             [
                 'key' => 'name',
                 'name' => 'twitter:description',
-                'content' => 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt'                
+                'content' => 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt'
             ],
             [
                 'key' => 'name',
@@ -128,7 +128,7 @@ class SeoStaticPageSeeder extends Seeder
             [
                 'key' => 'name',
                 'name' => 'twitter:image:src',
-                'content' => env('APP_URL_DOMAIN') . '/images/logo.png',
+                'content' => config('your.app.url_domain') . '/images/logo.png',
             ],
             [
                 'key' => 'property',
@@ -148,7 +148,7 @@ class SeoStaticPageSeeder extends Seeder
             [
                 'key' => 'property',
                 'name' => 'og:image',
-                'content' => env('APP_URL_DOMAIN') . '/images/logo.png',
+                'content' => config('your.app.url_domain') . '/images/logo.png',
             ],
             [
                 'key' => 'property',

@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="mb-10 seo-static-form-btn-area">
-                <button class="btn btn-primary right save-seo" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>                
+                <button class="btn btn-primary right save-seo" disabled><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
             </div>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -26,19 +26,19 @@
             <form class="form-horizontal form-seo-static">
                 <div class="tab-content">
                     <div id="home" class="tab-pane active">
-                        @include('admin.pages.settings.seo-static-content.tab-content.home') 
+                        @include('admin.pages.settings.seo-static-content.tab-content.home')
                     </div>
-                    <div id="sitemap" class="tab-pane">                        
-                        @include('admin.pages.settings.seo-static-content.tab-content.site-map') 
+                    <div id="sitemap" class="tab-pane">
+                        @include('admin.pages.settings.seo-static-content.tab-content.site-map')
                     </div>
-                    <div id="privacy-police" class="tab-pane">                        
-                        @include('admin.pages.settings.seo-static-content.tab-content.privacy-police') 
+                    <div id="privacy-police" class="tab-pane">
+                        @include('admin.pages.settings.seo-static-content.tab-content.privacy-police')
                     </div>
-                    <div id="contact-us" class="tab-pane">                    
-                        @include('admin.pages.settings.seo-static-content.tab-content.contact-us') 
+                    <div id="contact-us" class="tab-pane">
+                        @include('admin.pages.settings.seo-static-content.tab-content.contact-us')
                     </div>
-                    <div id="about-us" class="tab-pane">                    
-                        @include('admin.pages.settings.seo-static-content.tab-content.about-us') 
+                    <div id="about-us" class="tab-pane">
+                        @include('admin.pages.settings.seo-static-content.tab-content.about-us')
                     </div>
                 </div>
             </form>
@@ -52,5 +52,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ env('DIST_PATH') . mix('/js/seo-static.js') }}"></script>
+    <script src="{{ config('your.dist_path') . mix('/js/seo-static.js') }}"></script>
 @endsection

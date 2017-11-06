@@ -19,29 +19,30 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="row">
-                            <form class="col s12">
+                            <form class="col s12" method="POST" action="{{ route('frontend.your.contact-us-post') }}">
                                 <div class="row">
+                                    {{ csrf_field() }}
                                     <div class="input-field col s12">
-                                        <input id="first_name" type="text">
-                                        <label for="first_name">Name</label>
+                                        <input id="name" autocomplete="off" type="text" name="name" required>
+                                        <label for="name">Nama</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                    <input type="text">
+                                    <input type="text" autocomplete="off" name="email" required>
                                     <label for="disabled">Email</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <textarea class="materialize-textarea"></textarea>
-                                        <label for="password">Message</label>
+                                        <textarea name="message" autocomplete="off" class="materialize-textarea" required></textarea>
+                                        <label for="password">Pesan</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <a class="waves-effect waves-light btn">Button</a>
-                                        <a class="waves-effect waves-light btn red">Reset</a>
+                                        <button type="submit" class="waves-effect waves-light btn">Kirim</button>
+                                        <button type="reset" class="waves-effect waves-light btn red">Ulangi</button>
                                     </div>
                                 </div>
                             </form>
@@ -51,4 +52,12 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        @if(session()->has('notification.type'))
+            Materialize.toast('{{ session()->get('notification.message') }}', 5000);
+        @endif                
+    </script>
 @endsection

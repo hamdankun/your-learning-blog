@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+        <a class="navbar-brand" href="index.html">YL Admin</a>
     </div>
     <!-- /.navbar-header -->
 
@@ -262,9 +262,9 @@
                                 <li>
                                     <a href="{{ route('admin.setting.seo.static.index') }}">SEO</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="{{ route('admin.setting.content-static-page') }}">Content</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </li>
                     </ul>

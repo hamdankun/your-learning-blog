@@ -7,7 +7,7 @@ _elm.ready(function() {
         var _spinner = $('.spinner-layer');
         vm.hide();
         _spinner.show();
-        _Http._get(_baseUrl+'/ajax/frontend/article', {page: nextPage}, function(response) {
+        _Http._get('/ajax/frontend/article', {page: nextPage}, function(response) {
             if (response.status === 'success') {
                 _spinner.hide();
                 _ArticleFactory.renderToHtml(response.data.data);

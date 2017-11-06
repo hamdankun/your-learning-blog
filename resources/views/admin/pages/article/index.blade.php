@@ -15,6 +15,7 @@
                     <tr>
                         <th>No</th>
                         <th>Title</th>
+                        <th>Count Visitor</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -34,9 +35,9 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ env('DIST_PATH') }}/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="{{ env('DIST_PATH') }}/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="{{ env('DIST_PATH') }}/vendor/datatables-responsive/dataTables.responsive.js"></script>
-    <script src="{{ env('DIST_PATH') }}/dist/js/sb-admin-2.js"></script>
-    <script src="{{ env('DIST_PATH') . mix('/js/artickle.js') }}"></script>
+    <script src="{{ config('your.dist_path') }}/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="{{ config('your.dist_path') }}/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="{{ config('your.dist_path') }}/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="{{ config('your.dist_path') }}/dist/js/sb-admin-2.js"></script>
+    <script src="{{ config('your.dist_path') . mix('/js/artickle.js') }}"></script>
 @endsection

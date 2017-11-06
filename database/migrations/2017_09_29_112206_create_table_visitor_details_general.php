@@ -15,7 +15,7 @@ class CreateTableVisitorDetailsGeneral extends Migration
     {
         Schema::create('visitor_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->datetime('date')->nullable()->default(DB::raw('CURRENT_TIMESTAMP'))->index();            
+            $table->date('date')->nullable()->index();            
             $table->string('page')->index();
             $table->ipAddress('ip_address');
             $table->string('browser', 100)->nullable()->index();

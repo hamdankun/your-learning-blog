@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(ArticleSeeder::class);
         // $this->call(SeoPropertySeeder::class);
-        $this->call(SeoStaticPageSeeder::class);
-        $this->call(ArticleVisitorSeeder::class);
+        // $this->call(SeoStaticPageSeeder::class);
+        // $this->call(ArticleVisitorSeeder::class);
     }
 }

@@ -22,5 +22,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ env('DIST_PATH') }}/dist/js/sb-admin-2.js"></script>
+    <script src="{{ config('your.dist_path') }}/dist/js/sb-admin-2.js"></script>
 @endsection

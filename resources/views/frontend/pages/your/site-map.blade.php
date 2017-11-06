@@ -23,7 +23,7 @@
                                 <div class="collapsible-header active"><i class="material-icons">home</i>Home</div>
                                 <div class="collapsible-body">
                                     <span>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                                        Halaman Home adalah halaman yang menampilkan article terbaru atau terpopuler, semua orang yang mengunjungin home page akan bisa melihat article terbaru dan bisa memilih article mana yang akan mereka baca di halaman home page yang tersedia dihalaman.
                                     </span>
                                 </div>
                             </li>
@@ -31,7 +31,7 @@
                                 <div class="collapsible-header"><i class="material-icons">format_list_bulleted</i>Article</div>
                                 <div class="collapsible-body">
                                     <span>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                                        Halaman Article adalah halaman yang menampilan article bersama category yang tersedia pada blog, user bisa memilih article nya berdasarkan category yang tersedia dihalaman article tersebut, lalu user bisa mencari article yang mereka inginkan dengan menggunakan fitur pencarian yang ada di halaman itu.
                                     </span>
                                 </div>
                             </li>
@@ -39,7 +39,7 @@
                                 <div class="collapsible-header"><i class="material-icons">map</i>Site Map</div>
                                 <div class="collapsible-body">
                                     <span>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                                        Halaman Site Map adalah halaman yang berisi peta situs atau halaman yang tersedia didalama website blog, user bisa mengetahui apa saja halaman yang tersedia di blog atau website dengan mengunjungi halaman site map.
                                     </span>
                                 </div>
                             </li>
@@ -47,7 +47,7 @@
                                 <div class="collapsible-header"><i class="material-icons">warning</i>Privacy Police</div>
                                 <div class="collapsible-body">
                                     <span>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                                        Halaman Pricacy Police berisi tentang syarat dan ketentuan website atau disclamer yang berlaku pada website atau blog tersebut.
                                     </span>
                                 </div>
                             </li>
@@ -55,7 +55,7 @@
                                 <div class="collapsible-header"><i class="material-icons">contact_mail</i>Contact Us</div>
                                 <div class="collapsible-body">
                                     <span>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                                        Halaman Contact Us adalah halaman yang bisa di gunakan user untuk mengirim pesan-pesan baik pesan suggesti, kritikan atau saran untuk pembuat article atau website, user bisa mengisi email, name dan message lalu mengirimkannya ke admin pemilik website atau author.
                                     </span>
                                 </div>
                             </li>
@@ -63,7 +63,7 @@
                                 <div class="collapsible-header"><i class="material-icons">face</i>Abous Us</div>
                                 <div class="collapsible-body">
                                     <span>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                                        Halaman About Us berisi tentang website atau blog your learning, tentang apa saja yang bisa dilakukan di your learning, hal apa saya yang bisa didapat dari website your learning.
                                     </span>
                                 </div>
                             </li>
